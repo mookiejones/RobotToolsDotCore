@@ -8,12 +8,9 @@ name:  Wpf Continuous Integration
 # Trigger on every master branch push and pull request
 on:
   push:
-    branches:
-      - master
-      - 'maintenence/*'
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - master
+    branches: [ "main" ]
 
 jobs:
 
@@ -21,7 +18,7 @@ jobs:
 
     strategy:
       matrix:
-        targetplatform: [x86, x64]
+        targetplatform: [Debug, Release]
 
     runs-on: windows-latest
 
