@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -8,7 +8,7 @@ using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Utils;
 
 using RobotTools.Command;
-using RobotTools.Controls.Editor;
+using RobotTools.UI.Editor;
 
 namespace RobotTools.ViewModels
 {

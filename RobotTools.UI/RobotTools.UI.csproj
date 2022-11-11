@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Editor\SyntaxHighlighting\ABBHighlight.xshd" />
+    <None Remove="Editor\SyntaxHighlighting\FANUCHighlight.xshd" />
+    <None Remove="Editor\SyntaxHighlighting\KAWASAKIHighlight.xshd" />
+    <None Remove="Editor\SyntaxHighlighting\KukaHighlight.xshd" />
+    <None Remove="Editor\SyntaxHighlighting\NONEHighlight.xshd" />
+    <None Remove="Editor\SyntaxHighlighting\RobotbaseHighlight.xshd" />
+    <None Remove="Editor\SyntaxHighlighting\VBAHighlight.xshd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Editor\SyntaxHighlighting\ABBHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\SyntaxHighlighting\FANUCHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\SyntaxHighlighting\KAWASAKIHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\SyntaxHighlighting\KukaHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\SyntaxHighlighting\NONEHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\SyntaxHighlighting\RobotbaseHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\SyntaxHighlighting\VBAHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RobotTools.Core\RobotTools.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Editor\Snippets\SnippetTooltip.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Editor\Snippets\SnippetToolTip.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>
