@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotTools", "RobotTools\RobotTools.csproj", "{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotTools.Core", "RobotTools.Core\RobotTools.Core.csproj", "{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

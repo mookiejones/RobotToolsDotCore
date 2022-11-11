@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Controls\Editor\SyntaxHighlighting\ABBHighlight.xshd" />
+    <None Remove="Controls\Editor\SyntaxHighlighting\FANUCHighlight.xshd" />
+    <None Remove="Controls\Editor\SyntaxHighlighting\KAWASAKIHighlight.xshd" />
+    <None Remove="Controls\Editor\SyntaxHighlighting\KukaHighlight.xshd" />
+    <None Remove="Controls\Editor\SyntaxHighlighting\NONEHighlight.xshd" />
+    <None Remove="Controls\Editor\SyntaxHighlighting\RobotbaseHighlight.xshd" />
+    <None Remove="Controls\Editor\SyntaxHighlighting\VBAHighlight.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\Editor\SyntaxHighlighting\ABBHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor\SyntaxHighlighting\FANUCHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor\SyntaxHighlighting\KAWASAKIHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor\SyntaxHighlighting\KukaHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor\SyntaxHighlighting\NONEHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor\SyntaxHighlighting\RobotbaseHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Editor\SyntaxHighlighting\VBAHighlight.xshd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RobotTools.Core\RobotTools.Core.csproj" />
+  </ItemGroup>
+</Project>
