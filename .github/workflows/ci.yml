@@ -28,11 +28,11 @@ jobs:
     env:
       App_Packages_Directory: AppPackages
       SigningCertificate: GitHubActionsDemo.pfx
-      Solution_Path: MyWpfApp.sln
-      Test_Project_Path: MyWpfApp.Tests\MyWpfApp.Tests.csproj
-      Wpf_Project_Path: MyWpfApp\MyWpfApp.csproj
-      Wap_Project_Directory: MyWpfApp.Package
-      Wap_Project_Name: MyWpfApp.Package.wapproj
+      Solution_Path: RobotTools.sln
+      Test_Project_Path: RobotTools.Tests\RobotTools.Tests.csproj
+      Wpf_Project_Path: RobotTools\RobotTools.csproj
+      Wap_Project_Directory: RobotTools.Package
+      Wap_Project_Name: RobotTools.Package.wapproj
       Actions_Allow_Unsecure_Commands: true # Allows AddPAth and SetEnv commands
 
     steps:
