@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using RobotTools.ViewModels;
+
 namespace RobotTools
 {
     /// <summary>
@@ -20,9 +22,11 @@ namespace RobotTools
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            this.DataContext = Workspace.This;
         }
     }
 }

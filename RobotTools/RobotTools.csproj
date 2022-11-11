@@ -39,8 +39,36 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.70.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RobotTools.Core\RobotTools.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\App\DocTab\Lock-icon.png" />
+    <Resource Include="Images\App\Edit_Copy32.png" />
+    <Resource Include="Images\App\Edit_Cut32.png" />
+    <Resource Include="Images\App\Edit_Delete32.png" />
+    <Resource Include="Images\App\Edit_Find16.ico" />
+    <Resource Include="Images\App\Edit_Find32.png" />
+    <Resource Include="Images\App\Edit_Find_Replace32.png" />
+    <Resource Include="Images\App\Edit_Paste32.png" />
+    <Resource Include="Images\App\Edit_Redo32.png" />
+    <Resource Include="Images\App\Edit_Undo32.png" />
+    <Resource Include="Images\App\File_New32.png" />
+    <Resource Include="Images\App\File_Open32.png" />
+    <Resource Include="Images\App\File_Save16.png" />
+    <Resource Include="Images\App\File_Save32.png" />
+    <Resource Include="Images\App\File_Save64.png" />
+    <Resource Include="Images\App\File_Save_All32.png" />
+    <Resource Include="Images\App\Help_About32.png" />
+    <Resource Include="Images\App\Help_Hint32.png" />
+    <Resource Include="Images\App\ShowEnter32.png" />
+    <Resource Include="Images\App\ShowLineNumbers32.png" />
+    <Resource Include="Images\App\ShowSpaces32.png" />
+    <Resource Include="Images\App\ShowTab32.png" />
+    <Resource Include="Images\App\ShowWordWrap32.png" />
+     <Resource Include="Images\document.png" />
+    <Resource Include="Images\property-blue.png" />
   </ItemGroup>
 </Project>

@@ -50,6 +50,7 @@ namespace RobotTools.Controls.Editor
             get { return "Options.xml";}//Path.Combine(Global.StartupPath, "Options.xml"); }
         }
 
+
         public static EditorOptions Instance
         {
             get { return _instance ?? (_instance = ReadXml()); }
@@ -315,7 +316,7 @@ namespace RobotTools.Controls.Editor
 
         private void WriteXml()
         {
-          
+
             var xmlSerializer = new XmlSerializer(typeof(EditorOptions));
             TextWriter textWriter = new StreamWriter(OptionsPath);
             xmlSerializer.Serialize(textWriter, this);

@@ -16,7 +16,7 @@ namespace RobotTools.Controls.Editor
                 }
                 else
                 {
-                    var opt = Options.EnableHyperlinks;
+                    var opt = TextOptions.EnableHyperlinks;
                     SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(".src");
                 }
             }

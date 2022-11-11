@@ -108,15 +108,15 @@ namespace RobotTools.Controls.Editor
             RaisePropertyChanged(nameof(Text));
         }
         #endregion
-        private TextEditorOptions _options;
+        private TextEditorOptions _textOptions;
 
         [Category(CATEGORY)]
         [Description("Text Editor Options")]
-        public new TextEditorOptions Options
+        public new TextEditorOptions TextOptions
         {
             get
             {
-                return _options ?? (_options = new EditorOptions());
+                return _textOptions ?? (_textOptions = new EditorOptions());
             }
             set
             {
@@ -256,7 +256,7 @@ namespace RobotTools.Controls.Editor
         private void UpdateLineTransformers()
         {
             TextArea.TextView.BackgroundRenderers.Clear();
-             
+
 
             TextArea.TextView.BackgroundRenderers.Add(new BackgroundRenderer(Document.GetLineByOffset(CaretOffset)));
 
