@@ -48,7 +48,7 @@ namespace RobotTools.ViewModels
             get
             {
                 if (_tools == null)
-                    _tools = new ToolViewModel[] { FileStats };
+                    _tools = new ToolViewModel[] { FileStats, RecentFiles };
                 return _tools;
             }
         }

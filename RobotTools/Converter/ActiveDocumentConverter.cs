@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Windows.Data;
 
 using RobotTools.ViewModels;
 
 namespace RobotTools.Converter
 {
-  class ActiveDocumentConverter : IValueConverter
+    class ActiveDocumentConverter : IValueConverter
   {
     public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {

@@ -154,6 +154,7 @@
                 <pane:PanesTemplateSelector
             FileViewTemplate="{StaticResource FileViewTemplate}"
             FileStatsViewTemplate="{StaticResource FileStatsViewTemplate}"
+                    RecentFilesViewTemplate="{StaticResource RecentFilesViewTemplate}"
             />
 
 

@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:editor="clr-namespace:RobotTools.UI.Editor;assembly=RobotTools.UI"
+                    xmlns:view="clr-namespace:RobotTools.View"
+                    xmlns:cmd="clr-namespace:RobotTools"
+                    xmlns:converters="clr-namespace:RobotTools.Converter"
                     >
 
     <DataTemplate x:Key="FileViewTemplate">
@@ -58,5 +61,143 @@
         </StackPanel>
     </DataTemplate>
 
-    
+
+    <DataTemplate x:Key="RecentFilesViewTemplate">
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="{x:Type view:FileHyperlink}">
+                    <Setter Property="SnapsToDevicePixels" Value="True"/>
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Copy Url to Clipboard"
+                                      Command="{x:Static view:FileHyperlink.CopyUri}"
+                                      CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                                      Margin="3" />
+
+                                <MenuItem DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                                      Command="cmd:AppCommand.LoadFile"                            
+                                      CommandParameter="{Binding NavigateUri}"
+                                      Margin="3" />
+
+                                <MenuItem Header="Open with Windows Application..."
+                                      Command="{x:Static view:FileHyperlink.NavigateToUri}"
+                                      CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                                      Margin="3" />
+
+                                <MenuItem Header="Open containing folder"
+                                      Command="{x:Static view:FileHyperlink.OpenContainingFolder}"
+                                      CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                                      Margin="3" />
+                                <Separator />
+
+                                <MenuItem Header="Remove"
+                                      Command="cmd:AppCommand.RemoveMruEntry"
+                                      CommandParameter="{Binding}"
+                                      CommandTarget="{Binding PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
+                                      Margin="3" />
+
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type view:FileHyperlink}">
+                                <TextBlock ToolTip="{Binding ElementName=PART_Hyperlink, Path=NavigateUri}" HorizontalAlignment="Stretch">
+                                    <TextBlock.InputBindings>
+                                        <KeyBinding Key="C" Modifiers="Ctrl" Command="{x:Static view:FileHyperlink.CopyUri}"
+                                                                   CommandParameter="{Binding ElementName=PART_Hyperlink, Path=NavigateUri}"/>
+                                    </TextBlock.InputBindings>
+                            <Hyperlink Name="PART_Hyperlink"
+                                       NavigateUri="{Binding Path=NavigateUri, RelativeSource={RelativeSource FindAncestor, AncestorType=view:FileHyperlink, AncestorLevel=1}}"
+                                       Command="cmd:AppCommand.LoadFile"
+                                       CommandParameter="{Binding Path=NavigateUri, RelativeSource={RelativeSource FindAncestor, AncestorType=view:FileHyperlink, AncestorLevel=1}}"
+                                       >
+                              <Hyperlink.Style>
+                                <!-- Change resource to show underline on mouseover only -->
+                                <Style TargetType="{x:Type Hyperlink}">
+                                  <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                      <Setter Property="TextDecorations" Value="Underline" />
+                                     
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                      <Setter Property="Foreground" Value="Gray" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="true">
+                                      <Setter Property="Cursor" Value="Hand" />
+                                    </Trigger>
+                                  </Style.Triggers>
+                                  <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+                                
+                                </Style>
+                              </Hyperlink.Style>
+                              <!-- Moved link to event handler RequestNavigate="Hyperlink_RequestNavigate" to code behind -->
+                              <!-- TextBlock Text="{Binding Path=Text, RelativeSource={RelativeSource FindAncestor, AncestorType=view:FileHyperlink, AncestorLevel=1}}" / -->
+                              <view:PathTrimmingTextBlock Path="{Binding Text, RelativeSource={RelativeSource FindAncestor, AncestorType=view:FileHyperlink, AncestorLevel=1}}" />
+                          </Hyperlink>
+                                </TextBlock>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <view:PinableListView Margin="0"
+                              AllowDrop="False"
+                              SelectionMode="Single"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              SnapsToDevicePixels="True"
+                              HorizontalContentAlignment="Stretch"
+                              BorderThickness="0"
+                              ItemsSource="{Binding MruList.ListOfMRUEntries}"
+                              view:ListViewColumns.Stretch="true"
+                              Background="Transparent"
+                              Grid.Row="1">
+                <view:PinableListView.View>
+                    <GridView>
+                        <GridView.ColumnHeaderContainerStyle>
+                            <!-- To hide the header of a ListView you can modify the Visibility property of the ColumnHeaderContainer by overriding the style. -->
+                            <Style>
+                                <Setter Property="FrameworkElement.Visibility" Value="Collapsed"/>
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
+                        <GridViewColumn Width="32">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <!-- Pin/Unpin column -->
+                                        <view:PinnableCheckbox Command="cmd:AppCommand.PinUnpin"
+                                             CommandParameter="{Binding}"
+                                             IsChecked="{Binding IsPinned, Mode=OneWay}">
+                                            <CheckBox.Visibility>
+                                                <MultiBinding Converter="{converters:BoolOrToVisibilityConverter}">
+                                                    <Binding Path="IsMouseOverListViewItem" RelativeSource="{RelativeSource AncestorType={x:Type view:PinableListViewItem}}" />
+                                                    <Binding Path="IsChecked" RelativeSource="{RelativeSource Self}" />
+                                                </MultiBinding>
+                                            </CheckBox.Visibility>
+                                        </view:PinnableCheckbox>
+                                    </Grid>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <view:FileHyperlink Text="{Binding PathFileName, Mode=OneWay}"
+                                          NavigateUri="{Binding PathFileName, Mode=OneWay}"
+                                          HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </view:PinableListView.View>
+            </view:PinableListView>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

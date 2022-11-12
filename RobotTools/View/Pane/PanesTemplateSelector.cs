@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 using AvalonDock.Layout;
@@ -21,6 +21,12 @@ namespace RobotTools.View.Pane
             set;
         }
 
+        public DataTemplate RecentFilesViewTemplate
+        {
+            get;
+            set;
+        }
+
         public DataTemplate FileStatsViewTemplate
         {
             get;
@@ -37,6 +43,8 @@ namespace RobotTools.View.Pane
             if (item is FileStatsViewModel)
                 return FileStatsViewTemplate;
 
+            if(item is RecentFilesViewModel)
+                 return RecentFilesViewTemplate;
             return base.SelectTemplate(item, container);
         }
     }
