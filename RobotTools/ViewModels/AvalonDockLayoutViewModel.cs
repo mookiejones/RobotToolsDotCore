@@ -36,20 +36,20 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        if (this.mLoadLayoutCommand == null)
+        if (mLoadLayoutCommand == null)
         {
-          this.mLoadLayoutCommand = new RelayCommand((p) =>
+          mLoadLayoutCommand = new RelayCommand((p) =>
           {
             DockingManager docManager = p as DockingManager;
 
             if (docManager == null)
               return;
 
-            this.LoadDockingManagerLayout(docManager);
+            LoadDockingManagerLayout(docManager);
           });
         }
 
-        return this.mLoadLayoutCommand;
+        return mLoadLayoutCommand;
       }
     }
 
@@ -68,20 +68,20 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        if (this.mSaveLayoutCommand == null)
+        if (mSaveLayoutCommand == null)
         {
-          this.mSaveLayoutCommand = new RelayCommand((p) =>
+          mSaveLayoutCommand = new RelayCommand((p) =>
           {
             string xmlLayout = p as string;
 
             if (xmlLayout == null)
               return;
 
-            this.SaveDockingManagerLayout(xmlLayout);
+            SaveDockingManagerLayout(xmlLayout);
           });
         }
 
-        return this.mSaveLayoutCommand;
+        return mSaveLayoutCommand;
       }
     }
     #endregion command properties

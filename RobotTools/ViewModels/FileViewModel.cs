@@ -45,32 +45,32 @@ namespace RobotTools.ViewModels
         if (_filePath != value)
         {
           _filePath = value;
-          RaisePropertyChanged("FilePath");
-          RaisePropertyChanged("FileName");
-          RaisePropertyChanged("Title");
+          OnPropertyChanged("FilePath");
+          OnPropertyChanged("FileName");
+          OnPropertyChanged("Title");
 
-          if (File.Exists(this._filePath))
+          if (File.Exists(_filePath))
           {
-            this._document = new TextDocument();
-            this.HighlightDef = HighlightingManager.Instance.GetDefinition("XML");
-            this._isDirty = false;
-            this.IsReadOnly = false;
-            this.ShowLineNumbers = false;
-            this.WordWrap = false;
+            _document = new TextDocument();
+            HighlightDef = HighlightingManager.Instance.GetDefinition("XML");
+            _isDirty = false;
+            IsReadOnly = false;
+            ShowLineNumbers = false;
+            WordWrap = false;
 
             // Check file attributes and set to read-only if file attributes indicate that
-            if ((System.IO.File.GetAttributes(this._filePath) & FileAttributes.ReadOnly) != 0)
+            if ((System.IO.File.GetAttributes(_filePath) & FileAttributes.ReadOnly) != 0)
             {
-              this.IsReadOnly = true;
-              this.IsReadOnlyReason = "This file cannot be edit because another process is currently writting to it.\n" +
+              IsReadOnly = true;
+              IsReadOnlyReason = "This file cannot be edit because another process is currently writting to it.\n" +
                                       "Change the file access permissions or save the file in a different location if you want to edit it.";
             }
 
-            using (FileStream fs = new FileStream(this._filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
               using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
               {
-                this._document = new TextDocument(reader.ReadToEnd());
+                _document = new TextDocument(reader.ReadToEnd());
               }
             }
 
@@ -99,13 +99,13 @@ namespace RobotTools.ViewModels
     private TextDocument _document = null;
     public TextDocument Document
     {
-      get { return this._document; }
+      get { return _document; }
       set
       {
-        if (this._document != value)
+        if (_document != value)
         {
-          this._document = value;
-          RaisePropertyChanged("Document");
+          _document = value;
+                    OnPropertyChanged("Document");
           IsDirty = true;
         }
       }
@@ -118,13 +118,13 @@ namespace RobotTools.ViewModels
     private IHighlightingDefinition _highlightdef = null;
     public IHighlightingDefinition HighlightDef
     {
-      get { return this._highlightdef; }
+      get { return _highlightdef; }
       set
       {
-        if (this._highlightdef != value)
+        if (_highlightdef != value)
         {
-          this._highlightdef = value;
-          RaisePropertyChanged("HighlightDef");
+          _highlightdef = value;
+          OnPropertyChanged("HighlightDef");
           IsDirty = true;
         }
       }
@@ -140,7 +140,7 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return System.IO.Path.GetFileName(this.FilePath) + (this.IsDirty == true ? "*" : string.Empty);
+        return System.IO.Path.GetFileName(FilePath) + (IsDirty == true ? "*" : string.Empty);
       }
 
       set
@@ -161,9 +161,9 @@ namespace RobotTools.ViewModels
         if (_isDirty != value)
         {
           _isDirty = value;
-          RaisePropertyChanged("IsDirty");
-          RaisePropertyChanged("Title");
-          RaisePropertyChanged("FileName");
+          OnPropertyChanged("IsDirty");
+          OnPropertyChanged("Title");
+                    OnPropertyChanged("FileName");
         }
       }
     }
@@ -176,15 +176,15 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return this.mIsReadOnly;
+        return mIsReadOnly;
       }
 
       protected set
       {
-        if (this.mIsReadOnly != value)
+        if (mIsReadOnly != value)
         {
-          this.mIsReadOnly = value;
-          this.RaisePropertyChanged("IsReadOnly");
+          mIsReadOnly = value;
+                    OnPropertyChanged("IsReadOnly");
         }
       }
     }
@@ -194,15 +194,15 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return this.mIsReadOnlyReason;
+        return mIsReadOnlyReason;
       }
 
       protected set
       {
-        if (this.mIsReadOnlyReason != value)
+        if (mIsReadOnlyReason != value)
         {
-          this.mIsReadOnlyReason = value;
-          this.RaisePropertyChanged("IsReadOnlyReason");
+          mIsReadOnlyReason = value;
+                    OnPropertyChanged("IsReadOnlyReason");
         }
       }
     }
@@ -215,15 +215,15 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return this.mWordWrap;
+        return mWordWrap;
       }
 
       set
       {
-        if (this.mWordWrap != value)
+        if (mWordWrap != value)
         {
-          this.mWordWrap = value;
-          this.RaisePropertyChanged("WordWrap");
+          mWordWrap = value;
+                    OnPropertyChanged("WordWrap");
         }
       }
     }
@@ -236,15 +236,15 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return this.mShowLineNumbers;
+        return mShowLineNumbers;
       }
 
       set
       {
-        if (this.mShowLineNumbers != value)
+        if (mShowLineNumbers != value)
         {
-          this.mShowLineNumbers = value;
-          this.RaisePropertyChanged("ShowLineNumbers");
+          mShowLineNumbers = value;
+                    OnPropertyChanged("ShowLineNumbers");
         }
       }
     }
@@ -262,15 +262,15 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return this.mTextOptions;
+        return mTextOptions;
       }
 
       set
       {
-        if (this.mTextOptions != value)
+        if (mTextOptions != value)
         {
-          this.mTextOptions = value;
-          this.RaisePropertyChanged("TextOptions");
+          mTextOptions = value;
+                    OnPropertyChanged("TextOptions");
         }
       }
     }

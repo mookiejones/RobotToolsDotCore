@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+    <ResourceDictionary.MergedDictionaries>
+
+     
+        <ResourceDictionary Source="pack://application:,,,/RobotTools;component/Themes/Controls.FileTemplates.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/RobotTools;component/Themes/Controls.DockingManagerTemplates.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="WindowStyle" TargetType="mah:MetroWindow"  >
+        <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+        <Setter Property="FontFamily" Value="{wpf:MaterialDesignFont}" />
+        <Setter Property="TextElement.FontSize" Value="13" />
+        <Setter Property="TextElement.FontWeight" Value="Regular" />
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource MaterialDesignBody}" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto" />
+        <Setter Property="WindowState" Value="Maximized"/>
+        <Setter Property="AllowDrop" Value="True"/>
+    </Style>
+</ResourceDictionary>

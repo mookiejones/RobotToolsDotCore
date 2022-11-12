@@ -1,9 +1,12 @@
-using System;
+﻿using System;
+using System.Linq.Expressions;
 using System.Windows.Media;
+
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace RobotTools.ViewModels
 {
-    class PaneViewModel : Base.ViewModelBase
+    class PaneViewModel : ObservableRecipient
   {
     public PaneViewModel()
     { }
@@ -17,11 +20,7 @@ namespace RobotTools.ViewModels
       get { return _title; }
       set
       {
-        if (_title != value)
-        {
-          _title = value;
-          RaisePropertyChanged("Title");
-        }
+                SetProperty(ref _title, value);
       }
     }
 
@@ -41,11 +40,7 @@ namespace RobotTools.ViewModels
       get { return _contentId; }
       set
       {
-        if (_contentId != value)
-        {
-          _contentId = value;
-          RaisePropertyChanged("ContentId");
-        }
+                SetProperty(ref _contentId, value);
       }
     }
 
@@ -59,12 +54,8 @@ namespace RobotTools.ViewModels
       get { return _isSelected; }
       set
       {
-        if (_isSelected != value)
-        {
-          _isSelected = value;
-          RaisePropertyChanged("IsSelected");
-        }
-      }
+                SetProperty(ref _isSelected, value);
+            }
     }
 
     #endregion
@@ -79,14 +70,36 @@ namespace RobotTools.ViewModels
       {
         if (_isActive != value)
         {
-          _isActive = value;
-          RaisePropertyChanged("IsActive");
-        }
+                    SetProperty(ref _isActive, value);
+                }
       }
     }
 
-    #endregion
+        #endregion
+        /// <summary>
+        /// Tell bound controls (via WPF binding) to refresh their display.
+        /// 
+        /// Sample call: this.NotifyPropertyChanged(() => this.IsSelected);
+        /// where 'this' is derived from <seealso cref="BaseViewModel"/>
+        /// and IsSelected is a property.
+        /// </summary>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="property"></param>
+        public void NotifyPropertyChanged<TProperty>(Expression<Func<TProperty>> property)
+        {
+            var lambda = (LambdaExpression)property;
+            MemberExpression memberExpression;
 
+            if (lambda.Body is UnaryExpression)
+            {
+                var unaryExpression = (UnaryExpression)lambda.Body;
+                memberExpression = (MemberExpression)unaryExpression.Operand;
+            }
+            else
+                memberExpression = (MemberExpression)lambda.Body;
 
-  }
+            OnPropertyChanged(memberExpression.Member.Name);
+        }
+
+    }
 }

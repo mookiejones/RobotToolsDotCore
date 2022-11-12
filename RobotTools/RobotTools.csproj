@@ -5,14 +5,23 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Controls\**" />
-    <EmbeddedResource Remove="Controls\**" />
-    <None Remove="Controls\**" />
-    <Page Remove="Controls\**" />
+    <None Remove="Controls\MRU\images\NoPin16.png" />
+    <None Remove="Controls\MRU\images\Pinned16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\MRU\images\NoPin16.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Controls\MRU\images\Pinned16.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
     <PackageReference Include="Dirkster.AvalonDock" Version="4.70.3" />
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RobotTools.Core\RobotTools.Core.csproj" />
@@ -44,8 +53,5 @@
     <Resource Include="Images\App\ShowWordWrap32.png" />
      <Resource Include="Images\document.png" />
     <Resource Include="Images\property-blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Theme\" />
   </ItemGroup>
 </Project>

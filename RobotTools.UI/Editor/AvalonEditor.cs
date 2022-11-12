@@ -1,4 +1,4 @@
-using ICSharpCode.AvalonEdit;
+﻿using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
 using RobotTools.UI.Editor.Bracket;
 using System;
@@ -183,7 +183,7 @@ namespace RobotTools.UI.Editor
             TextArea.TextEntered += TextEntered;
 
             TextArea.Caret.PositionChanged += CaretPositionChanged;
-            DataContext = this;
+
         }
 
         private void TextEntered(object sender, TextCompositionEventArgs e)

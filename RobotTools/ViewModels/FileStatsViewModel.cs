@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -14,7 +14,7 @@ namespace RobotTools.ViewModels
 
       BitmapImage bi = new BitmapImage();
       bi.BeginInit();
-      bi.UriSource = new Uri("pack://application:,,/Images/property-blue.png");
+      bi.UriSource = new Uri("pack://application:,,,/RobotTools;component/Images/property-blue.png");
       bi.EndInit();
       IconSource = bi;
     }
@@ -49,7 +49,7 @@ namespace RobotTools.ViewModels
         if (_fileSize != value)
         {
           _fileSize = value;
-          RaisePropertyChanged("FileSize");
+                    OnPropertyChanged("FileSize");
         }
       }
     }
@@ -67,7 +67,7 @@ namespace RobotTools.ViewModels
         if (_lastModified != value)
         {
           _lastModified = value;
-          RaisePropertyChanged("LastModified");
+                    OnPropertyChanged("LastModified");
         }
       }
     }

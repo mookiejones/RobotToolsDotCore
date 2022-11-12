@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+
+    <DataTemplate x:Key="DocumentHeaderTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+            <!-- Show IsReadOnly Icon in document tab if that properties' present and true -->
+            <Image Source="pack://application:,,,/RobotTools;component/Images/App/DocTab/Lock-icon.png"
+                   Margin="3,0,0,0"
+                   VerticalAlignment="Center">
+                <Image.Visibility>
+                    <PriorityBinding FallbackValue="Collapsed" >
+                        <Binding Path="Content.IsReadOnly" Mode="OneWay" Converter="{StaticResource BoolToVisibilityConverter}" />
+                    </PriorityBinding>
+                </Image.Visibility>
+                <Image.ToolTip>
+                    <PriorityBinding FallbackValue="">
+                        <Binding Path="Content.IsReadOnlyReason" Mode="OneWay" />
+                    </PriorityBinding>
+                </Image.ToolTip>
+            </Image>
+        </StackPanel>
+    </DataTemplate>
+
+    <Style TargetType="{x:Type LayoutAnchorableItem}" x:Key="ToolStyle">
+        <Setter Property="Title" Value="{Binding Model.Title}"/>
+        <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
+        <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>
+        <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
+        <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
+        <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
+    </Style>
+
+    <Style TargetType="{x:Type LayoutItem}" x:Key="FileStyle">
+        <Setter Property="Title" Value="{Binding Model.Title}"/>
+        <Setter Property="ToolTip" Value="{Binding Model.FilePath}"/>
+        <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
+        <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
+        <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
+    </Style>
+</ResourceDictionary>

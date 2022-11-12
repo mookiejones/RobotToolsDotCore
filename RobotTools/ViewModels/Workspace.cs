@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -17,7 +17,7 @@ namespace RobotTools.ViewModels
 {
     class Workspace : Base.ViewModelBase
   {
-    protected Workspace()
+    public Workspace()
     {
 
     }
@@ -170,10 +170,10 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        if (this.mAVLayout == null)
-          this.mAVLayout = new AvalonDockLayoutViewModel();
+        if (mAVLayout == null)
+          mAVLayout = new AvalonDockLayoutViewModel();
 
-        return this.mAVLayout;
+        return mAVLayout;
       }
     }
 
@@ -257,19 +257,19 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        if (this._toggleEditorOptionCommand == null)
+        if (_toggleEditorOptionCommand == null)
         {
-          this._toggleEditorOptionCommand = new RelayCommand((p) => OnToggleEditorOption(p),
+          _toggleEditorOptionCommand = new RelayCommand((p) => OnToggleEditorOption(p),
                                                              (p) => CanToggleEditorOption(p));
         }
 
-        return this._toggleEditorOptionCommand;
+        return _toggleEditorOptionCommand;
       }
     }
 
     private bool CanToggleEditorOption(object parameter)
     {
-      if (this.ActiveDocument != null)
+      if (ActiveDocument != null)
         return true;
 
       return false;
@@ -277,7 +277,7 @@ namespace RobotTools.ViewModels
 
     private void OnToggleEditorOption(object parameter)
     {
-      FileViewModel f = this.ActiveDocument;
+      FileViewModel f = ActiveDocument;
 
       if (parameter == null)
         return;

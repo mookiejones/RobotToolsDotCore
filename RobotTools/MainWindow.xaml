@@ -1,4 +1,5 @@
-﻿<Window x:Class="RobotTools.MainWindow"
+﻿<mah:MetroWindow  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                  x:Class="RobotTools.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,11 +9,29 @@
         xmlns:conv="clr-namespace:RobotTools.Converter"
         xmlns:pane="clr-namespace:RobotTools.View.Pane"
         xmlns:vm="clr-namespace:RobotTools.ViewModels"
-        xmlns:editor="clr-namespace:RobotTools.UI.Editor;assembly=RobotTools.UI"
-        Title="MainWindow" Height="450" Width="800">
+         d:DesignHeight="450"
+         d:DesignWidth="800"
+        FontFamily="{DynamicResource MahApps.Fonts.Family.Window.Title}"
+                      GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                      Style="{StaticResource WindowStyle}"
+                      WindowTransitionsEnabled="False"
+                   SnapsToDevicePixels="True"
+      d:DataContext="{d:DesignInstance Type=vm:Workspace,IsDesignTimeCreatable=True}"
+                
+                  >
+    <mah:MetroWindow.Title>
+        <Binding Mode="OneWay" StringFormat="miRobotEditor:\= \{0\}"   Path="ActiveDocument.Title"/>
+    </mah:MetroWindow.Title>
+    <!--
+ Closing="WindowClosing"
+                  
+                 Loaded="WindowLoaded"
+              
+                 Drop="DropFiles"
+    -->
      <Window.Resources>
     <conv:ActiveDocumentConverter x:Key="ActiveDocumentConverter"/>
-    <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+     
   </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -30,7 +49,18 @@
         <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}"/>
         <Separator/>
         <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}"/>
-      </MenuItem>
+                <Separator/>
+                <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}" Grid.Row="0" Header="Recent Files"
+                          Visibility="{Binding Path=RecentFiles.MruList.ListOfMRUEntries, Mode=OneWay, Converter={conv:ZeroToVisibilityConverter}}">
+                    <MenuItem.ItemContainerStyle>
+                        <Style TargetType="MenuItem">
+                            <Setter Property="Header" Value="{Binding DisplayPathFileName, Mode=OneWay}" />
+                            <Setter Property="Command" Value="{Binding OpenCommand}" />
+                            <Setter Property="CommandParameter" Value="{Binding PathFileName, Mode=OneWay}" />
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
+                </MenuItem>
+            </MenuItem>
       <MenuItem Header="_Tools">
         <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
       </MenuItem>
@@ -43,29 +73,29 @@
 
         <Button Command="Copy" SnapsToDevicePixels="True"
                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="/RobotTools;component/Images/App/Edit_Copy32.png" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Copy32.png" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Cut" SnapsToDevicePixels="True"
                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="/RobotTools;component/Images/App/Edit_Cut32.png" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Cut32.png" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Paste" SnapsToDevicePixels="True"
                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="/RobotTools;component/Images/App/Edit_Paste32.png" Height="32" SnapsToDevicePixels="True" />
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Paste32.png" Height="32" SnapsToDevicePixels="True" />
         </Button>
         <Button Command="Delete" SnapsToDevicePixels="True"
                 ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="/RobotTools;component/Images/App/Edit_Delete32.png" Height="32"/>
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Delete32.png" Height="32"/>
         </Button>
         <Separator Margin="3"/>
 
         <Button Command="Undo" SnapsToDevicePixels="True"
               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="/RobotTools;component/Images/App/Edit_Undo32.png" Height="32"/>
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Undo32.png" Height="32"/>
         </Button>
         <Button Command="Redo" SnapsToDevicePixels="True"
               ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="/RobotTools;component/Images/App/Edit_Redo32.png" Height="32"/>
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Redo32.png" Height="32"/>
         </Button>
 
         <Separator Margin="3" />
@@ -75,33 +105,33 @@
                       CommandParameter="{x:Static vm:ToggleEditorOption.WordWrap}"
                       ToolTip="Click this button to switch word wrap on or off"
                       >
-          <Image Source="/RobotTools;component/Images/App/ShowWordWrap32.png" Height="32"/>
-        </ToggleButton>
+                    <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowWordWrap32.png" Height="32"/>
+                </ToggleButton>
 
         <ToggleButton IsChecked="{Binding ActiveDocument.ShowLineNumbers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.ShowLineNumber}"
                       ToolTip="Click this button to switch display of line numbers on or off">
-          <Image Source="/RobotTools;component/Images/App/ShowLineNumbers32.png" Height="32"/>
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowLineNumbers32.png" Height="32"/>
         </ToggleButton>
 
         <ToggleButton IsChecked="{Binding ActiveDocument.TextOptions.ShowEndOfLine, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
               Command="{Binding ToggleEditorOptionCommand}"
               CommandParameter="{x:Static vm:ToggleEditorOption.ShowEndOfLine}"
               ToolTip="Highlighted end of line in text (toggle on/off)">
-          <Image Source="/RobotTools;component/Images/App/ShowEnter32.png" Height="32"/>
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowEnter32.png" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveDocument.TextOptions.ShowSpaces, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
               Command="{Binding ToggleEditorOptionCommand}"
               CommandParameter="{x:Static vm:ToggleEditorOption.ShowSpaces}"
               ToolTip="Highlight spaces characters in text (toggle on/off)">
-          <Image Source="/RobotTools;component/Images/App/ShowSpaces32.png" Height="32"/>
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowSpaces32.png" Height="32"/>
         </ToggleButton>
         <ToggleButton IsChecked="{Binding ActiveDocument.TextOptions.ShowTabs, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
               Command="{Binding ToggleEditorOptionCommand}"
               CommandParameter="{x:Static vm:ToggleEditorOption.ShowTabs}"
               ToolTip="Highlight tab characters in text (toggle on/off)">
-          <Image Source="/RobotTools;component/Images/App/ShowTab32.png" Height="32"/>
+          <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowTab32.png" Height="32"/>
         </ToggleButton>
       </ToolBar>
 
@@ -114,117 +144,28 @@
 
                                  AVBehav:AvalonDockLayoutSerializer.LoadLayoutCommand="{Binding ADLayout.LoadLayoutCommand}"
                                  AVBehav:AvalonDockLayoutSerializer.SaveLayoutCommand="{Binding ADLayout.SaveLayoutCommand}"
-
+                                 DocumentHeaderTemplate="{StaticResource DocumentHeaderTemplate}"
                                  Grid.Row="2">
-      <DockingManager.DocumentHeaderTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-            <!-- Show IsReadOnly Icon in document tab if that properties' present and true -->
-            <Image Source="/RobotTools;component/Images/App/DocTab/Lock-icon.png"
-                   Margin="3,0,0,0"
-                   VerticalAlignment="Center">
-              <Image.Visibility>
-                <PriorityBinding FallbackValue="Collapsed" >
-                  <Binding Path="Content.IsReadOnly" Mode="OneWay" Converter="{StaticResource BoolToVisibilityConverter}" />
-                </PriorityBinding>
-              </Image.Visibility>
-              <Image.ToolTip>
-                <PriorityBinding FallbackValue="">
-                  <Binding Path="Content.IsReadOnlyReason" Mode="OneWay" />
-                </PriorityBinding>
-              </Image.ToolTip>
-            </Image>
-          </StackPanel>
-        </DataTemplate>
-      </DockingManager.DocumentHeaderTemplate>
+      
       <!-- DockingManager.Theme>
                 <AeroTheme/>
             </DockingManager.Theme -->
       <DockingManager.LayoutItemTemplateSelector>
-        <pane:PanesTemplateSelector>
-          <pane:PanesTemplateSelector.FileViewTemplate>
-            <DataTemplate>
-              <editor:AvalonEditor Document="{Binding Document, UpdateSourceTrigger=PropertyChanged}"
-                                      SyntaxHighlighting="{Binding HighlightDef}"
-                                      IsReadOnly="{Binding IsReadOnly}"
-									  IsModified="{Binding Path=IsDirty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      WordWrap="{Binding Path=WordWrap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      ShowLineNumbers="{Binding Path=ShowLineNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Options="{Binding TextOptions}"
-                                      >
-                <editor:AvalonEditor.ContextMenu>
-                  <ContextMenu>
-                    <MenuItem Command="Cut" Header="Cut">
-                      <MenuItem.Icon>
-                        <Image Source="/RobotTools;component/Images/App/Edit_Cut32.png" Height="16"/>
-                      </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="Copy" Header="Copy">
-                      <MenuItem.Icon>
-                        <Image Source="/RobotTools;component/Images/App/Edit_Copy32.png" Height="16"/>
-                      </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="Paste" Header="Paste">
-                      <MenuItem.Icon>
-                        <Image Source="/RobotTools;component/Images/App/Edit_Paste32.png" Height="16"/>
-                      </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="Delete" Header="Delete">
-                      <MenuItem.Icon>
-                        <Image Source="/RobotTools;component/Images/App/Edit_Delete32.png" Height="16"/>
-                      </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="Undo" Header="Undo">
-                      <MenuItem.Icon>
-                        <Image Source="/RobotTools;component/Images/App/Edit_Undo32.png" Height="16"/>
-                      </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Command="Redo" Header="Redo">
-                      <MenuItem.Icon>
-                        <Image Source="/RobotTools;component/Images/App/Edit_Redo32.png" Height="16"/>
-                      </MenuItem.Icon>
-                    </MenuItem>
-                  </ContextMenu>
-                </editor:AvalonEditor.ContextMenu>
-              </editor:AvalonEditor>
-            </DataTemplate>
-          </pane:PanesTemplateSelector.FileViewTemplate>
-          <pane:PanesTemplateSelector.FileStatsViewTemplate>
-            <DataTemplate>
-              <StackPanel Orientation="Vertical">
-                <TextBlock Text="{Binding FileSize}"/>
-                <TextBlock Text="{Binding LastModified}"/>
-                <TextBox Text="test"/>
-              </StackPanel>
-            </DataTemplate>
-          </pane:PanesTemplateSelector.FileStatsViewTemplate>
-        </pane:PanesTemplateSelector>
-      </DockingManager.LayoutItemTemplateSelector>
+                <pane:PanesTemplateSelector
+            FileViewTemplate="{StaticResource FileViewTemplate}"
+            FileStatsViewTemplate="{StaticResource FileStatsViewTemplate}"
+            />
+
+
+
+            </DockingManager.LayoutItemTemplateSelector>
 
       <DockingManager.LayoutItemContainerStyleSelector>
-        <pane:PanesStyleSelector>
-          <pane:PanesStyleSelector.ToolStyle>
-            <Style TargetType="{x:Type LayoutAnchorableItem}">
-              <Setter Property="Title" Value="{Binding Model.Title}"/>
-              <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
-              <Setter Property="Visibility" Value="{Binding Model.IsVisible, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter={x:Static Visibility.Hidden}}"/>
-              <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
-              <Setter Property="IsSelected" Value="{Binding Model.IsSelected, Mode=TwoWay}"/>
-              <Setter Property="IsActive" Value="{Binding Model.IsActive, Mode=TwoWay}"/>
-            </Style>
-          </pane:PanesStyleSelector.ToolStyle>
-          <pane:PanesStyleSelector.FileStyle>
-            <Style TargetType="{x:Type LayoutItem}">
-              <Setter Property="Title" Value="{Binding Model.Title}"/>
-              <Setter Property="ToolTip" Value="{Binding Model.FilePath}"/>
-              <Setter Property="CloseCommand" Value="{Binding Model.CloseCommand}"/>
-              <Setter Property="IconSource" Value="{Binding Model.IconSource}"/>
-              <Setter Property="ContentId" Value="{Binding Model.ContentId}"/>
-            </Style>
-          </pane:PanesStyleSelector.FileStyle>
-        </pane:PanesStyleSelector>
-      </DockingManager.LayoutItemContainerStyleSelector>
+                <pane:PanesStyleSelector
+                ToolStyle="{StaticResource ToolStyle}"
+                FileStyle="{StaticResource FileStyle}"
+            />
+            </DockingManager.LayoutItemContainerStyleSelector>
       <DockingManager.LayoutUpdateStrategy>
         <pane:LayoutInitializer/>
       </DockingManager.LayoutUpdateStrategy>
@@ -238,4 +179,4 @@
       </LayoutRoot>
     </DockingManager>
   </Grid>
-</Window>
+</mah:MetroWindow>

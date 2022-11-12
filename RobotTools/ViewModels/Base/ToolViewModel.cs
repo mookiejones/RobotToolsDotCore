@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace RobotTools.ViewModels.Base
 {
@@ -28,7 +28,7 @@ namespace RobotTools.ViewModels.Base
                 if (_isVisible != value)
                 {
                     _isVisible = value;
-                    RaisePropertyChanged("IsVisible");
+                    OnPropertyChanged("IsVisible");
                 }
             }
         }
