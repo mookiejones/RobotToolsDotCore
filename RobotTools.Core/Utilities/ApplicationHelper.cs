@@ -11,38 +11,25 @@ namespace RobotTools.Core.Utilities
         private static Version _executingAssemblyVersion;
         private static DateTime? _compileDate;
 
+        
 
 
-        private static string RootDirectory
-        {
-            get { return Path.GetDirectoryName(ExecutingAssembly.Location); }
-        }
-
+        private static string RootDirectory=>Path.GetDirectoryName(ExecutingAssembly.Location); 
         /// <summary>
         ///     Gets the executing assembly.
         /// </summary>
         /// <value>The executing assembly.</value>
-        private static Assembly ExecutingAssembly
-        {
-            get { return _executingAssembly ?? (_executingAssembly = Assembly.GetExecutingAssembly()); }
-        }
+        private static Assembly ExecutingAssembly=>_executingAssembly ?? (_executingAssembly = Assembly.GetExecutingAssembly()); 
 
         /// <summary>
         ///     Gets the executing assembly version.
         /// </summary>
         /// <value>The executing assembly version.</value>
-        private static Version ExecutingAssemblyVersion
-        {
-            get
-            {
-                return _executingAssemblyVersion ?? (_executingAssemblyVersion = ExecutingAssembly.GetName().Version);
-            }
-        }
+        private static Version ExecutingAssemblyVersion=> _executingAssemblyVersion ?? (_executingAssemblyVersion = ExecutingAssembly.GetName().Version);
 
-        public static string Major
-        {
-            get { return ExecutingAssemblyVersion.Major.ToString(CultureInfo.InvariantCulture); }
-        }
+        public static string Major =>    
+         ExecutingAssemblyVersion.Major.ToString(CultureInfo.InvariantCulture); 
+        
 
         public static string Minor
         {

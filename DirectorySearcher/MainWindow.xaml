@@ -1,0 +1,45 @@
+﻿<mah:MetroWindow
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    x:Class="DirectorySearcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DirectorySearcher"
+        mc:Ignorable="d"
+        local:DropFilesBehaviorExtension.IsEnabled ="True"
+    AllowDrop="True"
+        Title="MainWindow" Height="450" Width="800"
+d:DataContext="{d:DesignInstance Type=local:WorkspaceViewModel,IsDesignTimeCreatable=True}"
+    >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="DataGrid">
+                <DataGrid ItemsSource="{Binding Files}"
+                    CanUserAddRows="False"
+                          AutoGenerateColumns="True"
+                          >
+                <!--    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Version" Binding="{Binding Version}"/>
+                        <DataGridTextColumn Header="Supported KRC" Binding="{Binding SupportedKRCVersion}"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Filename" Binding="{Binding Filename}"/>
+                    </DataGrid.Columns>-->
+                </DataGrid>
+                            </TabItem>
+            <TabItem Header="Results">
+                <ScrollViewer>
+                    
+                <TextBlock Text="{Binding ResultData}"/>
+                </ScrollViewer>
+            </TabItem>
+                
+        </TabControl>
+        <Button Grid.Row="1" Content="Create" Command="{Binding CopyFileCommand}" CommandParameter="C:\\Temp\\Options"/>
+    </Grid>
+</mah:MetroWindow>

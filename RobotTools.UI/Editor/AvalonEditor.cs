@@ -120,7 +120,7 @@ namespace RobotTools.UI.Editor
             }
             set
             {
-                base.Options = value;
+                Options = value;
             }
         }
 

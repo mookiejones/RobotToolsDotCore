@@ -59,7 +59,7 @@ namespace RobotTools.ViewModels
             WordWrap = false;
 
             // Check file attributes and set to read-only if file attributes indicate that
-            if ((System.IO.File.GetAttributes(_filePath) & FileAttributes.ReadOnly) != 0)
+            if ((File.GetAttributes(_filePath) & FileAttributes.ReadOnly) != 0)
             {
               IsReadOnly = true;
               IsReadOnlyReason = "This file cannot be edit because another process is currently writting to it.\n" +
@@ -89,7 +89,7 @@ namespace RobotTools.ViewModels
         if (FilePath == null)
           return "Noname" + (IsDirty ? "*" : "");
 
-        return System.IO.Path.GetFileName(FilePath) + (IsDirty ? "*" : "");
+        return Path.GetFileName(FilePath) + (IsDirty ? "*" : "");
       }
     }
     #endregion FileName
@@ -140,7 +140,7 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return System.IO.Path.GetFileName(FilePath) + (IsDirty == true ? "*" : string.Empty);
+        return Path.GetFileName(FilePath) + (IsDirty == true ? "*" : string.Empty);
       }
 
       set

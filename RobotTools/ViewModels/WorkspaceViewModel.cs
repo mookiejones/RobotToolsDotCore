@@ -15,6 +15,7 @@ using ICSharpCode.AvalonEdit.Document;
 using Microsoft.Win32;
 
 using RobotTools.Controls.MRU;
+using RobotTools.Core.Utilities;
 using RobotTools.ViewModels.Base;
 
 namespace RobotTools.ViewModels
@@ -202,12 +203,12 @@ namespace RobotTools.ViewModels
             get
             {
                 string dirPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                                 System.IO.Path.DirectorySeparatorChar + Workspace.Company;
+                                                 Path.DirectorySeparatorChar + ApplicationHelper.Company;
 
                 try
                 {
-                    if (System.IO.Directory.Exists(dirPath) == false)
-                        System.IO.Directory.CreateDirectory(dirPath);
+                    if (Directory.Exists(dirPath) == false)
+                        Directory.CreateDirectory(dirPath);
                 }
                 catch
                 {

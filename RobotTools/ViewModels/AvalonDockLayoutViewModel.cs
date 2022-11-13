@@ -96,9 +96,9 @@ namespace RobotTools.ViewModels
     /// <param name="docManager"></param>
     private void LoadDockingManagerLayout(DockingManager docManager)
     {
-      string layoutFileName = System.IO.Path.Combine(Workspace.DirAppData, Workspace.LayoutFileName);
+      string layoutFileName = Path.Combine(Workspace.DirAppData, Workspace.LayoutFileName);
 
-      if (System.IO.File.Exists(layoutFileName) == false)
+      if (File.Exists(layoutFileName) == false)
         return;
 
       var layoutSerializer = new XmlLayoutSerializer(docManager);
@@ -113,7 +113,7 @@ namespace RobotTools.ViewModels
           return;
         }
 
-        AvalonDockLayoutViewModel.ReloadContentOnStartUp(args);
+          ReloadContentOnStartUp(args);
       };
 
       layoutSerializer.Deserialize(layoutFileName);
@@ -134,7 +134,7 @@ namespace RobotTools.ViewModels
         args.Content = Workspace.This.FileStats;
       else
       {
-        args.Content = AvalonDockLayoutViewModel.ReloadDocument(args.Model.ContentId);
+        args.Content = ReloadDocument(args.Model.ContentId);
 
         if (args.Content == null)
           args.Cancel = true;
@@ -175,7 +175,7 @@ namespace RobotTools.ViewModels
       if (xmlLayout == null)
         return;
 
-      string fileName = System.IO.Path.Combine(Workspace.DirAppData, Workspace.LayoutFileName);
+      string fileName = Path.Combine(Workspace.DirAppData, Workspace.LayoutFileName);
 
       File.WriteAllText(fileName, xmlLayout);
     }

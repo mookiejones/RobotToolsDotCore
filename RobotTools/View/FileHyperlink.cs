@@ -30,16 +30,16 @@ namespace RobotTools.View
             DefaultStyleKeyProperty.OverrideMetadata(typeof(FileHyperlink),
                       new FrameworkPropertyMetadata(typeof(FileHyperlink)));
 
-            FileHyperlink.mCopyUri = new RoutedCommand("CopyUri", typeof(FileHyperlink));
+            mCopyUri = new RoutedCommand("CopyUri", typeof(FileHyperlink));
 
             CommandManager.RegisterClassCommandBinding(typeof(FileHyperlink), new CommandBinding(mCopyUri, CopyHyperlinkUri));
             CommandManager.RegisterClassInputBinding(typeof(FileHyperlink), new InputBinding(mCopyUri, new KeyGesture(Key.C, ModifierKeys.Control, "Ctrl-C")));
 
-            FileHyperlink.mNavigateToUri = new RoutedCommand("NavigateToUri", typeof(FileHyperlink));
+            mNavigateToUri = new RoutedCommand("NavigateToUri", typeof(FileHyperlink));
             CommandManager.RegisterClassCommandBinding(typeof(FileHyperlink), new CommandBinding(mNavigateToUri, Hyperlink_CommandNavigateTo));
             ////CommandManager.RegisterClassInputBinding(typeof(FileHyperlink), new InputBinding(mCopyUri, new KeyGesture(Key.C, ModifierKeys.Control, "Ctrl-C")));
 
-            FileHyperlink.mOpenContainingFolder = new RoutedCommand("OpenContainingFolder", typeof(FileHyperlink));
+            mOpenContainingFolder = new RoutedCommand("OpenContainingFolder", typeof(FileHyperlink));
             CommandManager.RegisterClassCommandBinding(typeof(FileHyperlink), new CommandBinding(mOpenContainingFolder, Hyperlink_OpenContainingFolder));
         }
 
@@ -54,7 +54,7 @@ namespace RobotTools.View
         {
             get
             {
-                return FileHyperlink.mCopyUri;
+                return mCopyUri;
             }
         }
 
@@ -62,7 +62,7 @@ namespace RobotTools.View
         {
             get
             {
-                return FileHyperlink.mNavigateToUri;
+                return mNavigateToUri;
             }
         }
 
@@ -70,7 +70,7 @@ namespace RobotTools.View
         {
             get
             {
-                return FileHyperlink.mOpenContainingFolder;
+                return mOpenContainingFolder;
             }
         }
 
@@ -80,14 +80,14 @@ namespace RobotTools.View
         /// </summary>
         public string NavigateUri
         {
-            get { return (string)GetValue(FileHyperlink.NavigateUriProperty); }
-            set { SetValue(FileHyperlink.NavigateUriProperty, value); }
+            get { return (string)GetValue(NavigateUriProperty); }
+            set { SetValue(NavigateUriProperty, value); }
         }
 
         public string Text
         {
-            get { return (string)GetValue(FileHyperlink.TextProperty); }
-            set { SetValue(FileHyperlink.TextProperty, value); }
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
         #endregion
 
@@ -169,7 +169,7 @@ namespace RobotTools.View
 
             try
             {
-                System.Windows.Clipboard.SetText(whLink.NavigateUri);
+                Clipboard.SetText(whLink.NavigateUri);
             }
             catch
             {
@@ -213,7 +213,7 @@ namespace RobotTools.View
                     // combine the arguments together it doesn't matter if there is a space after ','
                     string argument = @"/select, " + sFileName;
 
-                    System.Diagnostics.Process.Start("explorer.exe", argument);
+                    Process.Start("explorer.exe", argument);
                     return true;
                 }
                 else
@@ -228,7 +228,7 @@ namespace RobotTools.View
                         // combine the arguments together it doesn't matter if there is a space after ','
                         string argument = @"/select, " + sParentDir;
 
-                        System.Diagnostics.Process.Start("explorer.exe", argument);
+                        Process.Start("explorer.exe", argument);
 
                         return true;
                     }

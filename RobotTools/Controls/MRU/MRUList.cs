@@ -34,7 +34,7 @@ namespace RobotTools.Controls.MRU
 
         #region AddRemoveEntries
         internal bool AddEntry(MRUEntry emp,
-                               MRUList.Spot addInSpot = MRUList.Spot.Last)
+                               MRUList.Spot addInSpot = Spot.Last)
         {
             if (emp == null)
                 return false;

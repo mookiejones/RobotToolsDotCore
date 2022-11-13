@@ -43,7 +43,7 @@ namespace RobotTools.View.Behavior
         DependencyProperty.RegisterAttached("LoadLayoutCommand",
         typeof(ICommand),
         typeof(AvalonDockLayoutSerializer),
-        new PropertyMetadata(null, AvalonDockLayoutSerializer.OnLoadLayoutCommandChanged));
+        new PropertyMetadata(null, OnLoadLayoutCommandChanged));
 
     /// <summary>
     /// Backing store for SaveLayoutCommand dependency property
@@ -52,7 +52,7 @@ namespace RobotTools.View.Behavior
         DependencyProperty.RegisterAttached("SaveLayoutCommand",
         typeof(ICommand),
         typeof(AvalonDockLayoutSerializer),
-        new PropertyMetadata(null, AvalonDockLayoutSerializer.OnSaveLayoutCommandChanged));
+        new PropertyMetadata(null, OnSaveLayoutCommandChanged));
     #endregion fields
 
     #region methods
@@ -110,7 +110,7 @@ namespace RobotTools.View.Behavior
       if (frameworkElement == null)
         return;
 
-      ICommand loadLayoutCommand = AvalonDockLayoutSerializer.GetLoadLayoutCommand(frameworkElement);
+      ICommand loadLayoutCommand = GetLoadLayoutCommand(frameworkElement);
 
       // There may not be a command bound to this after all
       if (loadLayoutCommand == null)
@@ -184,7 +184,7 @@ namespace RobotTools.View.Behavior
       if (frameworkElement == null)
         return;
 
-      ICommand SaveLayoutCommand = AvalonDockLayoutSerializer.GetSaveLayoutCommand(frameworkElement);
+      ICommand SaveLayoutCommand = GetSaveLayoutCommand(frameworkElement);
 
       // There may not be a command bound to this after all
       if (SaveLayoutCommand == null)

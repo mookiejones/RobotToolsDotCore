@@ -1,4 +1,6 @@
-﻿namespace RobotTools.Core.Utilities
+﻿using System.Text.RegularExpressions;
+
+namespace RobotTools.Core.Utilities
 {
     public static class StringHelper
     {
@@ -11,6 +13,15 @@
         public static string FormatWith(this string s, params object[] args)
         {
             return string.Format(s, args);
+        }
+
+        public static string Match(this string s,string pattern)
+        {
+            var regex = Regex.Match(s, pattern, RegexOptions.IgnoreCase);
+                if (regex.Success)
+                    return regex.Groups[1].Value;
+            
+            return null;
         }
     }
 }

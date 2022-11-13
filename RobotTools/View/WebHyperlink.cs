@@ -29,12 +29,12 @@ namespace RobotTools.View
             DefaultStyleKeyProperty.OverrideMetadata(typeof(WebHyperlink),
                       new FrameworkPropertyMetadata(typeof(WebHyperlink)));
 
-            WebHyperlink.mCopyUri = new RoutedCommand("CopyUri", typeof(WebHyperlink));
+            mCopyUri = new RoutedCommand("CopyUri", typeof(WebHyperlink));
 
             CommandManager.RegisterClassCommandBinding(typeof(WebHyperlink), new CommandBinding(mCopyUri, CopyHyperlinkUri));
             CommandManager.RegisterClassInputBinding(typeof(WebHyperlink), new InputBinding(mCopyUri, new KeyGesture(Key.C, ModifierKeys.Control, "Ctrl-C")));
 
-            WebHyperlink.mNavigateToUri = new RoutedCommand("NavigateToUri", typeof(WebHyperlink));
+            mNavigateToUri = new RoutedCommand("NavigateToUri", typeof(WebHyperlink));
             CommandManager.RegisterClassCommandBinding(typeof(WebHyperlink), new CommandBinding(mNavigateToUri, Hyperlink_CommandNavigateTo));
             ////CommandManager.RegisterClassInputBinding(typeof(WebHyperlink), new InputBinding(mCopyUri, new KeyGesture(Key.C, ModifierKeys.Control, "Ctrl-C")));
         }
@@ -50,7 +50,7 @@ namespace RobotTools.View
         {
             get
             {
-                return WebHyperlink.mCopyUri;
+                return mCopyUri;
             }
         }
 
@@ -58,7 +58,7 @@ namespace RobotTools.View
         {
             get
             {
-                return WebHyperlink.mNavigateToUri;
+                return mNavigateToUri;
             }
         }
 
@@ -68,14 +68,14 @@ namespace RobotTools.View
         /// </summary>
         public System.Uri NavigateUri
         {
-            get { return (System.Uri)GetValue(WebHyperlink.NavigateUriProperty); }
-            set { SetValue(WebHyperlink.NavigateUriProperty, value); }
+            get { return (System.Uri)GetValue(NavigateUriProperty); }
+            set { SetValue(NavigateUriProperty, value); }
         }
 
         public string Text
         {
-            get { return (string)GetValue(WebHyperlink.TextProperty); }
-            set { SetValue(WebHyperlink.TextProperty, value); }
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
         }
         #endregion
 
@@ -142,11 +142,11 @@ namespace RobotTools.View
 
             try
             {
-                System.Windows.Clipboard.SetText(whLink.NavigateUri.AbsoluteUri);
+                Clipboard.SetText(whLink.NavigateUri.AbsoluteUri);
             }
             catch
             {
-                System.Windows.Clipboard.SetText(whLink.NavigateUri.OriginalString);
+                Clipboard.SetText(whLink.NavigateUri.OriginalString);
             }
         }
 
