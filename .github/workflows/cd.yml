@@ -43,8 +43,8 @@ jobs:
           - channel: Dev
             ChannelName: Dev
             Configuration: Debug
-            DistributionUrl: https://microsoft.github.io/github-actions-for-desktop-apps-distribution-dev
-            MsixPackageId: MyWPFApp.DevOpsDemo.Dev
+            DistributionUrl: https://mookiejones.github.io/RobotToolsDotCore
+            MsixPackageId: RobotTools.DevOpsDemo.Dev
             MsixPublisherId: CN=GitHubActionsDemo
             MsixPackageDisplayName: MyWPFApp (Dev)
 
@@ -52,8 +52,8 @@ jobs:
           - channel: Prod_Sideload
             Configuration: Release
             ChannelName: Prod_Sideload
-            DistributionUrl: https://microsoft.github.io/github-actions-for-desktop-apps-distribution-prod
-            MsixPackageId: MyWPFApp.DevOpsDemo.ProdSideload
+            DistributionUrl:  https://mookiejones.github.io/RobotToolsDotCore
+            MsixPackageId: RobotTools.DevOpsDemo.ProdSideload
             MsixPublisherId: CN=GitHubActionsDemo
             MsixPackageDisplayName: MyWPFApp (ProdSideload)
 
@@ -62,7 +62,7 @@ jobs:
             Configuration: Release
             ChannelName: Prod_Store
             DistributionUrl:
-            MsixPackageId: MyWPFApp.DevOpsDemo.ProdStore
+            MsixPackageId: RobotTools.DevOpsDemo.ProdStore
             MsixPublisherId: CN=GitHubActionsDemo
             MsixPackageDisplayName: MyWPFApp (ProdStore)
 
@@ -72,16 +72,16 @@ jobs:
       App_Packages_Archive: AppPackages.zip
       App_Packages_Directory: AppPackages
       SigningCertificate: GitHubActionsDemo.pfx
-      Solution_Path: MyWpfApp.sln
-      Test_Project_Path: MyWpfApp.Tests\MyWpfApp.Tests.csproj
-      Wpf_Project_Path: MyWpfApp\MyWpfApp.csproj
-      Wap_Project_Directory: MyWpfApp.Package
-      Wap_Project_Name: MyWpfApp.Package.wapproj
-      Actions_Allow_Unsecure_Commands: true # Allows AddPAth and SetEnv commands
+       Solution_Path: RobotTools.sln
+      Test_Project_Path: RobotTools.Tests\RobotTools.Tests.csproj
+      Wpf_Project_Path: RobotTools\RobotTools.csproj
+      Wap_Project_Directory: RobotTools.Package
+      Wap_Project_Name: RobotTools.Package.wapproj
+     Actions_Allow_Unsecure_Commands: true # Allows AddPAth and SetEnv commands
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
 
