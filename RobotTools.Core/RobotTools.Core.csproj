@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Configurations>Debug;Release;LocalMachine</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LocalMachine|AnyCPU'">
+    <DefineConstants>TRACE;LOCAL_MACHINE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

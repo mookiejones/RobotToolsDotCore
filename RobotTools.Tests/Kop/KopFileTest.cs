@@ -5,10 +5,10 @@ using System.Linq;
 using NUnit.Framework;
 
 using RobotTools.Core.Kop;
+#if LOCAL_MACHINE
 
 namespace RobotTools.Tests.Kop
 {
-
     [TestFixture]
     public class KopFileTest
     {
@@ -18,9 +18,9 @@ namespace RobotTools.Tests.Kop
         [Test]
         public void TestFile()
         {
-  //          var visionText = new KopFile(VisionTechPath);
+            var visionText = new KopFile(VisionTechPath);
 
-//            var copFile = new KopFile(KopFilePath);
+            var copFile = new KopFile(KopFilePath);
 Assert.IsTrue(true);
         }
 
@@ -31,10 +31,10 @@ Assert.IsTrue(true);
         public void TestDirectory()
         {
 
-            // var files = Directory.EnumerateFiles(DIRECTORY, "*.kop", SearchOption.AllDirectories);
+             var files = Directory.EnumerateFiles(DIRECTORY, "*.kop", SearchOption.AllDirectories);
 
-            // var kopFiles = files.Select(CreateKopFile)
-            //     .ToList();
+             var kopFiles = files.Select(CreateKopFile)
+                 .ToList();
 Assert.IsTrue(true);
         }
 
@@ -46,3 +46,4 @@ Assert.IsTrue(true);
         }
     }
 }
+#endif

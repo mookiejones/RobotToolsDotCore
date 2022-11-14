@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 using RobotTools.Core.Kop;
 using RobotTools.Core.Utilities;
-
+#if LOCAL_MACHINE
 namespace RobotTools.Tests.Kop
 {
     [TestFixture]
@@ -29,3 +29,4 @@ namespace RobotTools.Tests.Kop
         }
     }
 }
+#endif

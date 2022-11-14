@@ -14,23 +14,32 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		LocalMachine|Any CPU = LocalMachine|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Release|Any CPU.Build.0 = Release|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
