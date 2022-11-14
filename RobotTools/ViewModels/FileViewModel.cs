@@ -3,6 +3,8 @@ using System.Text;
 using System.Windows.Input;
 using System.Windows.Media;
 
+using CommunityToolkit.Mvvm.DependencyInjection;
+
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Utils;
@@ -14,6 +16,9 @@ namespace RobotTools.ViewModels
 {
     class FileViewModel : PaneViewModel
   {
+
+        private WorkspaceViewModel Workspace => Ioc.Default.GetRequiredService<WorkspaceViewModel>();
+
     #region fields
     static ImageSourceConverter ISC = new ImageSourceConverter();
     #endregion fields
@@ -298,7 +303,7 @@ namespace RobotTools.ViewModels
 
     private void OnSave(object parameter)
     {
-      Workspace.This.Save(this, false);
+            Workspace.Save(this, false);
     }
 
     #endregion
@@ -325,7 +330,7 @@ namespace RobotTools.ViewModels
 
     private void OnSaveAs(object parameter)
     {
-      Workspace.This.Save(this, true);
+            Workspace.Save(this, true);
     }
 
     #endregion
@@ -352,7 +357,7 @@ namespace RobotTools.ViewModels
 
     private void OnClose()
     {
-      Workspace.This.Close(this);
+            Workspace.Close(this);
     }
     #endregion
   }

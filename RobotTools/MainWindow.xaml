@@ -16,6 +16,8 @@
                       Style="{StaticResource WindowStyle}"
                       WindowTransitionsEnabled="False"
                    SnapsToDevicePixels="True"
+                   xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                 Dialog:DialogParticipation.Register="{Binding}"
       d:DataContext="{d:DesignInstance Type=vm:Workspace,IsDesignTimeCreatable=True}"
                 
                   >
@@ -63,7 +65,9 @@
             </MenuItem>
       <MenuItem Header="_Tools">
         <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-      </MenuItem>
+                <Separator/>
+                <MenuItem Header="Directory Searcher" Command="{Binding ShowDirectorySearcherCommand,Mode=OneWay}"/>
+            </MenuItem>
     </Menu>
     <!--AnchorablesSource="{Binding Tools}" DocumentsSource="{Binding Files}"-->
 

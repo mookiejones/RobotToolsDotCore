@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Text;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 using RobotTools.Core.Kop;
 
-namespace DirectorySearcher
+namespace RobotTools.UI.DirectorySearcher
 {
-    class WorkspaceViewModel:ObservableObject,IFilesDropped
+    class DirectorySearcherViewModel:ObservableValidator
     {
-        private KopFiles _kopFiles = new KopFiles();
+        private  KopFiles _kopFiles = new KopFiles();
         public KopFiles Files
         {
             get => _kopFiles;
@@ -20,7 +17,7 @@ namespace DirectorySearcher
         }
 
         private RelayCommand<string> _copyFileCommand;
-        public RelayCommand<string> CopyFileCommand => _copyFileCommand ??(_copyFileCommand= new RelayCommand<string>(ExecuteCopyFiles, CanCopyFiles));
+        public RelayCommand<string> CopyFileCommand => _copyFileCommand ?? (_copyFileCommand = new RelayCommand<string>(ExecuteCopyFiles, CanCopyFiles));
 
         private bool CanCopyFiles(string arg)
         {
@@ -43,7 +40,7 @@ namespace DirectorySearcher
         {
             var files = new KopFiles(path);
             Files = files;
-            
+
 
             var sb = new StringBuilder();
             foreach (var file in files)
@@ -58,7 +55,7 @@ namespace DirectorySearcher
             foreach (var file in files)
                 GetFiles(file);
 
-            
+
         }
     }
 }

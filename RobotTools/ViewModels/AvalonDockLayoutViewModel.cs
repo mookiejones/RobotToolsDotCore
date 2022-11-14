@@ -1,8 +1,10 @@
-using System.IO;
+﻿using System.IO;
 using System.Windows.Input;
 
 using AvalonDock;
 using AvalonDock.Layout.Serialization;
+
+using CommunityToolkit.Mvvm.DependencyInjection;
 
 using RobotTools.Command;
 
@@ -96,7 +98,7 @@ namespace RobotTools.ViewModels
     /// <param name="docManager"></param>
     private void LoadDockingManagerLayout(DockingManager docManager)
     {
-      string layoutFileName = Path.Combine(Workspace.DirAppData, Workspace.LayoutFileName);
+      string layoutFileName = Path.Combine(WorkspaceViewModel.DirAppData, WorkspaceViewModel.LayoutFileName);
 
       if (File.Exists(layoutFileName) == false)
         return;
@@ -130,15 +132,18 @@ namespace RobotTools.ViewModels
         return;
       }
 
-      if (args.Model.ContentId == FileStatsViewModel.ToolContentId)
-        args.Content = Workspace.This.FileStats;
-      else
-      {
-        args.Content = ReloadDocument(args.Model.ContentId);
+            if (args.Model.ContentId == FileStatsViewModel.ToolContentId)
+            {
+                var viewModel = Ioc.Default.GetRequiredService<WorkspaceViewModel>();
+                args.Content = viewModel.FileStats;
+            }
+            else
+            {
+                args.Content = ReloadDocument(args.Model.ContentId);
 
-        if (args.Content == null)
-          args.Cancel = true;
-      }
+                if (args.Content == null)
+                    args.Cancel = true;
+            }
     }
 
     private static object ReloadDocument(string path)
@@ -158,8 +163,9 @@ namespace RobotTools.ViewModels
             break;
 ***/
           default:
-            // Re-create text document
-            ret = Workspace.This.Open(path);
+                        // Re-create text document
+                        var viewModel = Ioc.Default.GetRequiredService<WorkspaceViewModel>();
+            ret = viewModel.Open(path);
             break;
         }
       }
@@ -175,7 +181,7 @@ namespace RobotTools.ViewModels
       if (xmlLayout == null)
         return;
 
-      string fileName = Path.Combine(Workspace.DirAppData, Workspace.LayoutFileName);
+      string fileName = Path.Combine(WorkspaceViewModel.DirAppData, WorkspaceViewModel.LayoutFileName);
 
       File.WriteAllText(fileName, xmlLayout);
     }

@@ -11,10 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotTools.Tests", "RobotTo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotTools.UI", "RobotTools.UI\RobotTools.UI.csproj", "{24DEC126-CDE8-4921-B040-98101711BFD1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{95CA36D7-C015-41CC-A362-FC4376ED88DD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DirectorySearcher", "DirectorySearcher\DirectorySearcher.csproj", "{56B4F902-05BC-45C2-8285-BAC27512644C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,16 +33,9 @@ Global
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56B4F902-05BC-45C2-8285-BAC27512644C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56B4F902-05BC-45C2-8285-BAC27512644C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56B4F902-05BC-45C2-8285-BAC27512644C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56B4F902-05BC-45C2-8285-BAC27512644C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{56B4F902-05BC-45C2-8285-BAC27512644C} = {95CA36D7-C015-41CC-A362-FC4376ED88DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {315E819E-B439-4534-91A6-F194F1686AB2}

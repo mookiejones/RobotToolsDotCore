@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Windows;
 
-namespace DirectorySearcher
+namespace RobotTools.UI.DirectorySearcher
 {
     public class DropFilesBehaviorExtension
     {

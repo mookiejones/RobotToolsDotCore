@@ -12,6 +12,8 @@ using CommunityToolkit.Mvvm.Input;
 
 using ICSharpCode.AvalonEdit.Document;
 
+using MahApps.Metro.Controls.Dialogs;
+
 using Microsoft.Win32;
 
 using RobotTools.Controls.MRU;
@@ -20,8 +22,10 @@ using RobotTools.ViewModels.Base;
 
 namespace RobotTools.ViewModels
 {
-    class WorkspaceViewModel: ObservableValidator
+    partial class WorkspaceViewModel: ObservableValidator
     {
+
+        private IDialogCoordinator _dialogCoordinator;
 
         #region Properties
         #region Files
@@ -70,80 +74,6 @@ namespace RobotTools.ViewModels
         }
         #endregion
 
-        #endregion
-
-        #region Commands
-        #region OpenCommand
-        RelayCommand _openCommand = null;
-        public ICommand OpenCommand
-        {
-            get
-            {
-                if (_openCommand == null)
-                {
-                    _openCommand = new RelayCommand(OnOpen,CanOpen);
-                }
-
-                return _openCommand;
-            }
-        }
-
-        private bool CanOpen( )
-        {
-            return true;
-        }
-
-        private void OnOpen( )
-        {
-            var dlg = new OpenFileDialog();
-            if (dlg.ShowDialog().GetValueOrDefault())
-            {
-                var fileViewModel = Open(dlg.FileName);
-                ActiveDocument = fileViewModel;
-            }
-        }
-
-        public FileViewModel Open(string filepath)
-        {
-            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
-            if (fileViewModel != null)
-                return fileViewModel;
-
-            fileViewModel = new FileViewModel(filepath);
-            _files.Add(fileViewModel);
-            RecentFiles.AddNewEntryIntoMRU(filepath);
-            return fileViewModel;
-        }
-
-        #endregion
-
-        #region NewCommand
-        RelayCommand _newCommand = null;
-        public ICommand NewCommand
-        {
-            get
-            {
-                if (_newCommand == null)
-                {
-                    _newCommand = new RelayCommand( OnNew,CanNew);
-                }
-
-                return _newCommand;
-            }
-        }
-
-        private bool CanNew( )
-        {
-            return true;
-        }
-
-        private void OnNew( )
-        {
-            _files.Add(new FileViewModel() { Document = new TextDocument() });
-            ActiveDocument = _files.Last();
-        }
-
-        #endregion
 
         #region ActiveDocument
 
@@ -258,6 +188,82 @@ namespace RobotTools.ViewModels
         }
         #endregion close save file handling methods
 
+
+        #endregion
+
+        #region Commands
+        #region OpenCommand
+        RelayCommand _openCommand = null;
+        public ICommand OpenCommand
+        {
+            get
+            {
+                if (_openCommand == null)
+                {
+                    _openCommand = new RelayCommand(OnOpen,CanOpen);
+                }
+
+                return _openCommand;
+            }
+        }
+
+        private bool CanOpen( )
+        {
+            return true;
+        }
+
+        private void OnOpen( )
+        {
+            var dlg = new OpenFileDialog();
+            if (dlg.ShowDialog().GetValueOrDefault())
+            {
+                var fileViewModel = Open(dlg.FileName);
+                ActiveDocument = fileViewModel;
+            }
+        }
+
+        public FileViewModel Open(string filepath)
+        {
+            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
+            if (fileViewModel != null)
+                return fileViewModel;
+
+            fileViewModel = new FileViewModel(filepath);
+            _files.Add(fileViewModel);
+            RecentFiles.AddNewEntryIntoMRU(filepath);
+            return fileViewModel;
+        }
+
+        #endregion
+
+        #region NewCommand
+        RelayCommand _newCommand = null;
+        public ICommand NewCommand
+        {
+            get
+            {
+                if (_newCommand == null)
+                {
+                    _newCommand = new RelayCommand( OnNew,CanNew);
+                }
+
+                return _newCommand;
+            }
+        }
+
+        private bool CanNew( )
+        {
+            return true;
+        }
+
+        private void OnNew( )
+        {
+            _files.Add(new FileViewModel() { Document = new TextDocument() });
+            ActiveDocument = _files.Last();
+        }
+
+        #endregion
+
         #region ToggleEditorOptionCommand
         RelayCommand<object> _toggleEditorOptionCommand = null;
         public ICommand ToggleEditorOptionCommand
@@ -323,7 +329,11 @@ namespace RobotTools.ViewModels
             }
         }
         #endregion ToggleEditorOptionCommand
+
+
+
         #endregion
+
 
 
         #region Recent File List Pin Unpin Commands
@@ -441,6 +451,11 @@ namespace RobotTools.ViewModels
            
         }
 
+        public WorkspaceViewModel()
+        {
+         
+            _dialogCoordinator = DialogCoordinator.Instance;
+        }
 
     }
 }
