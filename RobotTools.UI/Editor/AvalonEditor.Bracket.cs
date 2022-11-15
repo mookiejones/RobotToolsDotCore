@@ -1,6 +1,5 @@
 ﻿using RobotTools.UI.Editor.Bracket;
 using System;
-using System;
 
 
 namespace RobotTools.UI.Editor

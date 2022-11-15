@@ -35,6 +35,13 @@ namespace RobotTools.Core.Utilities
                 }
             }
         }
+        public static void Serialize<T>(this T value,string filePath)
+        {
+            var serializer = GetValue(typeof(T));
+            using (var writer = new StreamWriter(filePath))
+                serializer.Serialize(writer, value);
+        }
+ 
         /// <summary>
         ///   Serialize object to stream by <see cref = "XmlSerializer" />
         /// </summary>

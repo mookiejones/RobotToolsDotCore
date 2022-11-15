@@ -112,7 +112,7 @@ namespace RobotTools.UI.Editor
 
         [Category(CATEGORY)]
         [Description("Text Editor Options")]
-        public new TextEditorOptions TextOptions
+        public new TextEditorOptions Options
         {
             get
             {

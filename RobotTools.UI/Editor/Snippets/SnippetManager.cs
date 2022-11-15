@@ -142,7 +142,7 @@ namespace RobotTools.UI.Editor.Snippets
                     }
                 }
             }
-            catch (Exception ex2)
+            catch (Exception )
             {
 
 

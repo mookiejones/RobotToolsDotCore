@@ -4,12 +4,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Utils;
 
-using RobotTools.Command;
 using RobotTools.UI.Editor;
 
 namespace RobotTools.ViewModels
@@ -50,9 +50,9 @@ namespace RobotTools.ViewModels
         if (_filePath != value)
         {
           _filePath = value;
-          OnPropertyChanged("FilePath");
-          OnPropertyChanged("FileName");
-          OnPropertyChanged("Title");
+          OnPropertyChanged(nameof(FilePath));
+          OnPropertyChanged(nameof(FileName));
+          OnPropertyChanged(nameof(Title));
 
           if (File.Exists(_filePath))
           {
@@ -71,18 +71,23 @@ namespace RobotTools.ViewModels
                                       "Change the file access permissions or save the file in a different location if you want to edit it.";
             }
 
-            using (FileStream fs = new FileStream(_filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-              using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
-              {
-                _document = new TextDocument(reader.ReadToEnd());
-              }
-            }
+            _document=GetTextDocument(_filePath);
+
 
             ContentId = _filePath;
           }
         }
       }
+    }
+    private TextDocument GetTextDocument(string filePath)
+    {
+ using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+              using (StreamReader reader = FileReader.OpenStream(fs, Encoding.UTF8))
+              {
+                return new TextDocument(reader.ReadToEnd());
+              }
+            }
     }
     #endregion
 
@@ -110,7 +115,7 @@ namespace RobotTools.ViewModels
         if (_document != value)
         {
           _document = value;
-                    OnPropertyChanged("Document");
+                    OnPropertyChanged(nameof(Document));
           IsDirty = true;
         }
       }
@@ -129,7 +134,7 @@ namespace RobotTools.ViewModels
         if (_highlightdef != value)
         {
           _highlightdef = value;
-          OnPropertyChanged("HighlightDef");
+          OnPropertyChanged(nameof(HighlightDef));
           IsDirty = true;
         }
       }
@@ -145,12 +150,13 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return Path.GetFileName(FilePath) + (IsDirty == true ? "*" : string.Empty);
+        return string.IsNullOrEmpty(FilePath)?FileName:(Path.GetFileName(FilePath)  + (IsDirty == true ? "*" : string.Empty));
       }
 
       set
       {
         base.Title = value;
+        OnPropertyChanged(nameof(Title));
       }
     }
     #endregion
@@ -166,9 +172,9 @@ namespace RobotTools.ViewModels
         if (_isDirty != value)
         {
           _isDirty = value;
-          OnPropertyChanged("IsDirty");
-          OnPropertyChanged("Title");
-                    OnPropertyChanged("FileName");
+          OnPropertyChanged(nameof(IsDirty));
+          OnPropertyChanged(nameof(Title));
+                    OnPropertyChanged(nameof(FileName));
         }
       }
     }
@@ -189,7 +195,7 @@ namespace RobotTools.ViewModels
         if (mIsReadOnly != value)
         {
           mIsReadOnly = value;
-                    OnPropertyChanged("IsReadOnly");
+                    OnPropertyChanged(nameof(IsReadOnly));
         }
       }
     }
@@ -207,7 +213,7 @@ namespace RobotTools.ViewModels
         if (mIsReadOnlyReason != value)
         {
           mIsReadOnlyReason = value;
-                    OnPropertyChanged("IsReadOnlyReason");
+                    OnPropertyChanged(nameof(IsReadOnlyReason));
         }
       }
     }
@@ -228,7 +234,7 @@ namespace RobotTools.ViewModels
         if (mWordWrap != value)
         {
           mWordWrap = value;
-                    OnPropertyChanged("WordWrap");
+                    OnPropertyChanged(nameof(WordWrap));
         }
       }
     }
@@ -249,7 +255,7 @@ namespace RobotTools.ViewModels
         if (mShowLineNumbers != value)
         {
           mShowLineNumbers = value;
-                    OnPropertyChanged("ShowLineNumbers");
+                    OnPropertyChanged(nameof(ShowLineNumbers));
         }
       }
     }
@@ -267,41 +273,41 @@ namespace RobotTools.ViewModels
     {
       get
       {
-        return mTextOptions;
+        return EditorOptions.Instance;
       }
 
       set
       {
-        if (mTextOptions != value)
+        if (EditorOptions.Instance != value)
         {
-          mTextOptions = value;
-                    OnPropertyChanged("TextOptions");
+          EditorOptions.Instance = value;
+                    OnPropertyChanged(nameof(TextOptions));
         }
       }
     }
     #endregion EditorOptions
 
     #region SaveCommand
-    RelayCommand _saveCommand = null;
+    RelayCommand<FileViewModel> _saveCommand = null;
     public ICommand SaveCommand
     {
       get
       {
         if (_saveCommand == null)
         {
-          _saveCommand = new RelayCommand((p) => OnSave(p), (p) => CanSave(p));
+          _saveCommand = new RelayCommand<FileViewModel>(OnSave, CanSave);
         }
 
         return _saveCommand;
       }
     }
 
-    private bool CanSave(object parameter)
+    private bool CanSave(FileViewModel parameter)
     {
-      return IsDirty;
+      return parameter !=null && IsDirty;
     }
 
-    private void OnSave(object parameter)
+    private void OnSave(FileViewModel parameter)
     {
             Workspace.Save(this, false);
     }
@@ -309,26 +315,26 @@ namespace RobotTools.ViewModels
     #endregion
 
     #region SaveAsCommand
-    RelayCommand _saveAsCommand = null;
+    RelayCommand<FileViewModel> _saveAsCommand = null;
     public ICommand SaveAsCommand
     {
       get
       {
         if (_saveAsCommand == null)
         {
-          _saveAsCommand = new RelayCommand((p) => OnSaveAs(p), (p) => CanSaveAs(p));
+          _saveAsCommand = new RelayCommand<FileViewModel>(OnSaveAs,CanSaveAs);
         }
 
         return _saveAsCommand;
       }
     }
 
-    private bool CanSaveAs(object parameter)
+    private bool CanSaveAs(FileViewModel parameter)
     {
-      return IsDirty;
+      return parameter !=null && IsDirty;
     }
 
-    private void OnSaveAs(object parameter)
+    private void OnSaveAs(FileViewModel parameter)
     {
             Workspace.Save(this, true);
     }
@@ -343,7 +349,7 @@ namespace RobotTools.ViewModels
       {
         if (_closeCommand == null)
         {
-          _closeCommand = new RelayCommand((p) => OnClose(), (p) => CanClose());
+          _closeCommand = new RelayCommand(OnClose, CanClose);
         }
 
         return _closeCommand;

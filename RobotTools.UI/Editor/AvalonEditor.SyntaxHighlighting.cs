@@ -16,11 +16,11 @@ namespace RobotTools.UI.Editor
                 }
                 else
                 {
-                    var opt = TextOptions.EnableHyperlinks;
+                    var opt = Options.EnableHyperlinks;
                     SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(".src");
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             }

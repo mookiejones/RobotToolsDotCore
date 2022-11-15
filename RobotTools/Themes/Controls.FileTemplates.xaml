@@ -76,7 +76,7 @@
                                       Margin="3" />
 
                                 <MenuItem DataContext="{Binding PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}}"
-                                      Command="cmd:AppCommand.LoadFile"                            
+                                      Command="cmd:AppCommand.LoadFile"
                                       CommandParameter="{Binding NavigateUri}"
                                       Margin="3" />
 
@@ -119,7 +119,7 @@
                                   <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="true">
                                       <Setter Property="TextDecorations" Value="Underline" />
-                                     
+
                                     </Trigger>
                                     <Trigger Property="IsEnabled" Value="false">
                                       <Setter Property="Foreground" Value="Gray" />
@@ -129,7 +129,7 @@
                                     </Trigger>
                                   </Style.Triggers>
                                   <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
-                                
+
                                 </Style>
                               </Hyperlink.Style>
                               <!-- Moved link to event handler RequestNavigate="Hyperlink_RequestNavigate" to code behind -->

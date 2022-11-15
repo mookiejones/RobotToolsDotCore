@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EditorOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <HighlightCurrentLine>true</HighlightCurrentLine>
+  <HighlightCurrentLine>false</HighlightCurrentLine>
   <SelectedTextBackground>
     <A>255</A>
     <R>70</R>

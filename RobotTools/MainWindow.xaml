@@ -16,26 +16,43 @@
                       Style="{StaticResource WindowStyle}"
                       WindowTransitionsEnabled="False"
                    SnapsToDevicePixels="True"
-                   xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-                 Dialog:DialogParticipation.Register="{Binding}"
-      d:DataContext="{d:DesignInstance Type=vm:Workspace,IsDesignTimeCreatable=True}"
-                
+                   xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro" xmlns:view="clr-namespace:RobotTools.View"
+                  Dialog:DialogParticipation.Register="{Binding}"
+      d:DataContext="{d:DesignInstance Type=vm:WorkspaceViewModel,IsDesignTimeCreatable=True}"
+                Title="Robot Tools"
                   >
-    <mah:MetroWindow.Title>
-        <Binding Mode="OneWay" StringFormat="miRobotEditor:\= \{0\}"   Path="ActiveDocument.Title"/>
-    </mah:MetroWindow.Title>
+    <!--<mah:MetroWindow.Title>
+        <Binding Mode="OneWay" StringFormat="RobotTools:\= \{0\}"   Path="ActiveDocument.Title"/>
+    </mah:MetroWindow.Title>-->
     <!--
  Closing="WindowClosing"
-                  
+
                  Loaded="WindowLoaded"
-              
+
                  Drop="DropFiles"
     -->
-     <Window.Resources>
+    <mah:MetroWindow.Resources>
     <conv:ActiveDocumentConverter x:Key="ActiveDocumentConverter"/>
-     
-  </Window.Resources>
-  <Grid>
+
+  </mah:MetroWindow.Resources>
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <ToggleButton Content="Settings" x:Name="Settings"/>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout IsOpen="{Binding ElementName=Settings,Path=IsChecked}" Position="Right" Header="Options">
+                <view:OptionsView/>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+      <mah:MetroWindow.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding ActiveDocument.SaveCommand}" CommandParameter="{Binding ActiveDocument}" />
+        <KeyBinding Key="C" Modifiers="Control" Command="{Binding ActiveDocument.CloseCommand}" CommandParameter="{Binding ActiveDocument}" />
+    </mah:MetroWindow.InputBindings>
+    <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
@@ -44,13 +61,15 @@
 
     <Menu Grid.Row="0">
       <MenuItem Header="_File">
-        <MenuItem Header="New" Command="{Binding NewCommand}"/>
-        <MenuItem Header="Open" Command="{Binding OpenCommand}"/>
+        <MenuItem Header="New" Command="{Binding NewCommand}" InputGestureText="Ctrl+N"/>
+        <MenuItem Header="Open" Command="{Binding OpenCommand}" InputGestureText="CTRL+O"/>
         <Separator/>
-        <MenuItem Header="Save" Command="{Binding ActiveDocument.SaveCommand}"/>
-        <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}"/>
+        <MenuItem Header="Save" Command="{Binding ActiveDocument.SaveCommand}" CommandParameter="{Binding ActiveDocument}"
+          InputGestureText="Ctrl+S"
+        />
+        <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}" CommandParameter="{Binding ActiveDocument}"/>
         <Separator/>
-        <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}"/>
+        <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}" CommandParameter="{Binding ActiveDocument}"/>
                 <Separator/>
                 <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}" Grid.Row="0" Header="Recent Files"
                           Visibility="{Binding Path=RecentFiles.MruList.ListOfMRUEntries, Mode=OneWay, Converter={conv:ZeroToVisibilityConverter}}">
@@ -150,7 +169,7 @@
                                  AVBehav:AvalonDockLayoutSerializer.SaveLayoutCommand="{Binding ADLayout.SaveLayoutCommand}"
                                  DocumentHeaderTemplate="{StaticResource DocumentHeaderTemplate}"
                                  Grid.Row="2">
-      
+
       <!-- DockingManager.Theme>
                 <AeroTheme/>
             </DockingManager.Theme -->

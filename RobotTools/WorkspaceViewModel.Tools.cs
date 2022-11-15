@@ -31,7 +31,7 @@ namespace RobotTools.ViewModels
 
             window.Content = control;
 
-
+            window.Owner = App.Current.MainWindow;
             window.ShowDialog();
 
 

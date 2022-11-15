@@ -76,7 +76,7 @@ No dependencies
 
         public string Contact { get; private set; }
 
-        public DateTime CreateDate     { get;private set; }
+        public DateTime CreateDate { get; private set; }
 
         public DateTime ModifiedDate { get; private set; }
         public DateTime Date { get; private set; }

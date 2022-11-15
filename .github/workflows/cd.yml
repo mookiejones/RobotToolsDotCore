@@ -46,7 +46,7 @@ jobs:
             DistributionUrl: https://mookiejones.github.io/RobotToolsDotCore
             MsixPackageId: RobotTools.DevOpsDemo.Dev
             MsixPublisherId: CN=GitHubActionsDemo
-            MsixPackageDisplayName: MyWPFApp (Dev)
+            MsixPackageDisplayName: RobotTools (Dev)
 
           # includes the following variables for the matrix leg matching Prod_Sideload
           - channel: Prod_Sideload
@@ -55,7 +55,7 @@ jobs:
             DistributionUrl:  https://mookiejones.github.io/RobotToolsDotCore
             MsixPackageId: RobotTools.DevOpsDemo.ProdSideload
             MsixPublisherId: CN=GitHubActionsDemo
-            MsixPackageDisplayName: MyWPFApp (ProdSideload)
+            MsixPackageDisplayName: RobotTools (ProdSideload)
 
           # includes the following variables for the matrix leg matching Prod_Store
           - channel: Prod_Store
@@ -64,7 +64,7 @@ jobs:
             DistributionUrl:
             MsixPackageId: RobotTools.DevOpsDemo.ProdStore
             MsixPublisherId: CN=GitHubActionsDemo
-            MsixPackageDisplayName: MyWPFApp (ProdStore)
+            MsixPackageDisplayName: RobotTools (ProdStore)
 
     runs-on: windows-latest
 

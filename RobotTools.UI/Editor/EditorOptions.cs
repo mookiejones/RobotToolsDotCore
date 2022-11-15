@@ -8,6 +8,9 @@ using System.Xml.Serialization;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+
+using RobotTools.Core.Utilities;
+
 namespace RobotTools.UI.Editor
 {
     [Localizable(false)]
@@ -45,9 +48,18 @@ namespace RobotTools.UI.Editor
             RegisterSyntaxHighlighting();
         }
 
+        private static string GetOptionsPath()
+        {
+            var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData, Environment.SpecialFolderOption.Create);
+            var directory = Path.Combine(appDataPath, "RobotTools");
+            Directory.CreateDirectory(directory);
+            var result = Path.Combine(directory, "Options.xml");
+            return result; //Path.Combine(Global.StartupPath, "Options.xml"); }
+        }
+        private static string _optionsPath;
         private static string OptionsPath
         {
-            get { return "Options.xml";}//Path.Combine(Global.StartupPath, "Options.xml"); }
+            get => _optionsPath ?? (_optionsPath = GetOptionsPath()); 
         }
 
 
@@ -63,7 +75,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 base.ShowSpaces = value;
-                OnPropertyChanged("ShowSpaces");
+                OnPropertyChanged(nameof(ShowSpaces));
             }
         }
 
@@ -73,7 +85,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _selectedTextBackground = value;
-                OnPropertyChanged("SelectedTextBackground");
+                OnPropertyChanged(nameof(SelectedTextBackground));
             }
         }
 
@@ -83,7 +95,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _backgroundColor = value;
-                OnPropertyChanged("BackgroundColor");
+                OnPropertyChanged(nameof(BackgroundColor));
             }
         }
 
@@ -93,7 +105,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _fontColor = value;
-                OnPropertyChanged("FontColor");
+                OnPropertyChanged(nameof(FontColor));
             }
         }
 
@@ -103,7 +115,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _selectedFontColor = value;
-                OnPropertyChanged("SelectedFontColor");
+                OnPropertyChanged(nameof(SelectedFontColor));
             }
         }
 
@@ -113,7 +125,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _selectedBorderColor = value;
-                OnPropertyChanged("SelectedBorderColor");
+                OnPropertyChanged(nameof(SelectedBorderColor));
             }
         }
 
@@ -123,7 +135,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _allowScrollingBelowDocument = value;
-                OnPropertyChanged("AllowScrollingBelowDocument");
+                OnPropertyChanged(nameof(AllowScrollingBelowDocument));
             }
         }
 
@@ -133,7 +145,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _lineNumbersFontColor = value;
-                OnPropertyChanged("LineNumbersFontColor");
+                OnPropertyChanged(nameof(LineNumbersFontColor));
             }
         }
 
@@ -143,7 +155,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _borderColor = value;
-                OnPropertyChanged("BorderColor");
+                OnPropertyChanged(nameof(BorderColor));
             }
         }
 
@@ -153,7 +165,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _lineNumbersForeground = value;
-                OnPropertyChanged("LineNumbersForeground");
+                OnPropertyChanged(nameof(LineNumbersForeground));
             }
         }
 
@@ -163,7 +175,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _selectedTextBorderColor = value;
-                OnPropertyChanged("SelectedTextBorderColor");
+                OnPropertyChanged(nameof(SelectedTextBorderColor));
             }
         }
 
@@ -173,7 +185,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _selectedBorderThickness = value;
-                OnPropertyChanged("SelectedBorderThickness");
+                OnPropertyChanged(nameof(SelectedBorderThickness));
             }
         }
 
@@ -183,7 +195,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _borderThickness = value;
-                OnPropertyChanged("BorderThickness");
+                OnPropertyChanged(nameof(BorderThickness));
             }
         }
 
@@ -193,7 +205,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _selectedlinecolor = value;
-                OnPropertyChanged("HighlightedLineColor");
+                OnPropertyChanged(nameof(HighlightedLineColor));
             }
         }
 
@@ -203,7 +215,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _foldToolTipBackgroundColor = value;
-                OnPropertyChanged("FoldToolTipBackgroundColor");
+                OnPropertyChanged(nameof(FoldToolTipBackgroundColor));
             }
         }
 
@@ -213,7 +225,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _foldToolTipBackgroundBorderColor = value;
-                OnPropertyChanged("FoldToolTipBackgroundBorderColor");
+                OnPropertyChanged(nameof(FoldToolTipBackgroundBorderColor));
             }
         }
 
@@ -223,7 +235,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _foldToolTipBorderThickness = value;
-                OnPropertyChanged("FoldToolTipBorderThickness");
+                OnPropertyChanged(nameof(FoldToolTipBorderThickness));
             }
         }
 
@@ -233,7 +245,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _wrapWords = value;
-                OnPropertyChanged("WrapWords");
+                OnPropertyChanged(nameof(WrapWords));
             }
         }
 
@@ -243,8 +255,8 @@ namespace RobotTools.UI.Editor
             set
             {
                 _timestampFormat = value;
-                OnPropertyChanged("TimestampFormat");
-                OnPropertyChanged("TimestampSample");
+                OnPropertyChanged(nameof(TimestampFormat));
+                OnPropertyChanged(nameof(TimestampSample));
             }
         }
 
@@ -266,7 +278,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _enableFolding = value;
-                OnPropertyChanged("EnableFolding");
+                OnPropertyChanged(nameof(EnableFolding));
             }
         }
 
@@ -279,7 +291,7 @@ namespace RobotTools.UI.Editor
                 if (_mouseWheelZoom != value)
                 {
                     _mouseWheelZoom = value;
-                    OnPropertyChanged("MouseWheelZoom");
+                    OnPropertyChanged(nameof(MouseWheelZoom));
                 }
             }
         }
@@ -290,7 +302,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _enableAnimations = value;
-                OnPropertyChanged("EnableAnimations");
+                OnPropertyChanged(nameof(EnableAnimations));
             }
         }
 
@@ -300,7 +312,7 @@ namespace RobotTools.UI.Editor
             set
             {
                 _showlinenumbers = value;
-                OnPropertyChanged("ShowLineNumbers");
+                OnPropertyChanged(nameof(ShowLineNumbers));
             }
         }
 
@@ -316,38 +328,32 @@ namespace RobotTools.UI.Editor
 
         private void WriteXml()
         {
+            this.Serialize(OptionsPath);
 
-            var xmlSerializer = new XmlSerializer(typeof(EditorOptions));
-            TextWriter textWriter = new StreamWriter(OptionsPath);
-            xmlSerializer.Serialize(textWriter, this);
-            textWriter.Close();
+          
         }
 
         private static EditorOptions ReadXml()
         {
-            var editorOptions = new EditorOptions();
+             
             EditorOptions result;
             if (!File.Exists(OptionsPath))
             {
-                result = editorOptions;
+                result =  CreateOptions(); 
             }
             else
             {
-                var xmlSerializer = new XmlSerializer(typeof(EditorOptions));
-                var fileStream = new FileStream(OptionsPath, FileMode.Open);
-                try
-                {
-                    editorOptions = (EditorOptions)xmlSerializer.Deserialize(fileStream);
-                }
-                catch
-                {
-                }
-                finally
-                {
-                    fileStream.Close();
-                }
-                result = editorOptions;
+                var text = File.ReadAllText(OptionsPath);
+                result=text.FromXml<EditorOptions>();
+               
+               
             }
+            return result;
+        }
+        private static EditorOptions CreateOptions()
+        {
+            var result = new EditorOptions();
+            result.Serialize(OptionsPath);
             return result;
         }
 

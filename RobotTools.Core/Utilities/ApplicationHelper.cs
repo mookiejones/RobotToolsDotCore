@@ -11,15 +11,15 @@ namespace RobotTools.Core.Utilities
         private static Version _executingAssemblyVersion;
         private static DateTime? _compileDate;
 
-        
 
 
-        private static string RootDirectory=>Path.GetDirectoryName(ExecutingAssembly.Location); 
+
+        private static string RootDirectory=>Path.GetDirectoryName(ExecutingAssembly.Location);
         /// <summary>
         ///     Gets the executing assembly.
         /// </summary>
         /// <value>The executing assembly.</value>
-        private static Assembly ExecutingAssembly=>_executingAssembly ?? (_executingAssembly = Assembly.GetExecutingAssembly()); 
+        private static Assembly ExecutingAssembly=>_executingAssembly ?? (_executingAssembly = Assembly.GetExecutingAssembly());
 
         /// <summary>
         ///     Gets the executing assembly version.
@@ -27,9 +27,9 @@ namespace RobotTools.Core.Utilities
         /// <value>The executing assembly version.</value>
         private static Version ExecutingAssemblyVersion=> _executingAssemblyVersion ?? (_executingAssemblyVersion = ExecutingAssembly.GetName().Version);
 
-        public static string Major =>    
-         ExecutingAssemblyVersion.Major.ToString(CultureInfo.InvariantCulture); 
-        
+        public static string Major =>
+         ExecutingAssemblyVersion.Major.ToString(CultureInfo.InvariantCulture);
+
 
         public static string Minor
         {
@@ -140,7 +140,7 @@ namespace RobotTools.Core.Utilities
             var dt =
                 new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(BitConverter.ToInt32(b,
                     BitConverter.ToInt32(b, peHeaderOffset) + linkerTimestampOffset));
-            return dt.AddHours(TimeZone.CurrentTimeZone.GetUtcOffset(dt).Hours);
+            return dt.AddHours(TimeZoneInfo.Local.GetUtcOffset(dt).Hours);
         }
     }
 }

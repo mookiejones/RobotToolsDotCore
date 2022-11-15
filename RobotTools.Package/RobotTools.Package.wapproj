@@ -35,8 +35,8 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>0536b61a-90cf-428d-b4f8-cf011b3a0830</ProjectGuid>
-    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.20348.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <!-- True/false. Sign the output packages. Default is true. -->
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
@@ -55,7 +55,7 @@
     <!-- App installer file base url -->
     <AppInstallerUri>https://microsoft.github.io/github-actions-for-desktop-apps-distribution-local</AppInstallerUri>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <EntryPointProjectUniqueName>..\MyWPFApp\MyWPFApp.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\RobotTools\RobotTools.csproj</EntryPointProjectUniqueName>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
@@ -90,7 +90,7 @@
     <Content Include="Package.appinstaller" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MyWPFApp\MyWPFApp.csproj">
+    <ProjectReference Include="..\RobotTools\RobotTools.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <TrustLevel>Full</TrustLevel>
       <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x86'">Properties\PublishProfiles\SelfContainedWin86.pubxml</PublishProfile>

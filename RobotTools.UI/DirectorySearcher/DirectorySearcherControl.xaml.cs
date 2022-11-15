@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -7,13 +10,14 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
 using RobotTools.Core.Kop;
+using RobotTools.UI.DirectorySearcher.Views;
 
 namespace RobotTools.UI.DirectorySearcher
 {
     /// <summary>
     /// Interaction logic for DirectorySearcherControl.xaml
     /// </summary>
-    public partial class DirectorySearcherControl : UserControl,INotifyPropertyChanged
+    public partial class DirectorySearcherControl : UserControl,INotifyPropertyChanged,IFilesDropped
     {
         public DirectorySearcherControl(object p)
         {
@@ -64,7 +68,7 @@ namespace RobotTools.UI.DirectorySearcher
         }
 
         private string _resultData;
-        private System.Action<object> _p;
+         
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -76,12 +80,23 @@ namespace RobotTools.UI.DirectorySearcher
                 _resultData = value;
                 RaisePropertyChanged(nameof(ResultData));
             }
+
         }
 
+        public ObservableCollection<TreeNode> Nodes { get; set; } = new ObservableCollection<TreeNode>();
         private void GetFiles(string path)
         {
             var files = new KopFiles(path);
             Files = files;
+
+
+            var nodes = Files.GroupBy(o => o.Name, o => o)
+                .Select(o => new TreeNode { Name = o.Key, KopFiles = o.ToList() })
+                .OrderBy(o=>o.Name);
+
+            Nodes.Clear();
+            foreach (var node in nodes)
+                Nodes.Add(node);
 
 
             var sb = new StringBuilder();
@@ -97,6 +112,14 @@ namespace RobotTools.UI.DirectorySearcher
             foreach (var file in files)
                 GetFiles(file);
 
+
+        }
+
+        public void OnFilesDropped(IEnumerable<string> files)
+        {
+            Files.Clear();
+            foreach (var file in files)
+                GetFiles(file);
 
         }
     }

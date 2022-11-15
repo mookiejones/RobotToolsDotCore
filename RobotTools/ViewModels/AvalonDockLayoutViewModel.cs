@@ -5,8 +5,7 @@ using AvalonDock;
 using AvalonDock.Layout.Serialization;
 
 using CommunityToolkit.Mvvm.DependencyInjection;
-
-using RobotTools.Command;
+using CommunityToolkit.Mvvm.Input;
 
 namespace RobotTools.ViewModels
 {
@@ -20,8 +19,8 @@ namespace RobotTools.ViewModels
     public class AvalonDockLayoutViewModel
   {
     #region fields
-    private RelayCommand mLoadLayoutCommand = null;
-    private RelayCommand mSaveLayoutCommand = null;
+    private RelayCommand<DockingManager> mLoadLayoutCommand = null;
+    private RelayCommand<string> mSaveLayoutCommand = null;
     #endregion fields
 
     #region command properties
@@ -40,7 +39,7 @@ namespace RobotTools.ViewModels
       {
         if (mLoadLayoutCommand == null)
         {
-          mLoadLayoutCommand = new RelayCommand((p) =>
+          mLoadLayoutCommand = new RelayCommand<DockingManager>((p) =>
           {
             DockingManager docManager = p as DockingManager;
 
@@ -72,7 +71,7 @@ namespace RobotTools.ViewModels
       {
         if (mSaveLayoutCommand == null)
         {
-          mSaveLayoutCommand = new RelayCommand((p) =>
+          mSaveLayoutCommand = new RelayCommand<string>((p) =>
           {
             string xmlLayout = p as string;
 
