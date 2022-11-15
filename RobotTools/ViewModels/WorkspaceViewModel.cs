@@ -30,19 +30,35 @@ namespace RobotTools.ViewModels
         #region Properties
         #region Files
         ObservableCollection<FileViewModel> _files = new ObservableCollection<FileViewModel>();
-        ReadOnlyObservableCollection<FileViewModel> _readonyFiles = null;
+        ReadOnlyObservableCollection<FileViewModel> _readOnlyFiles = null;
         public ReadOnlyObservableCollection<FileViewModel> Files
         {
             get
             {
-                if (_readonyFiles == null)
-                    _readonyFiles = new ReadOnlyObservableCollection<FileViewModel>(_files);
+                if (_readOnlyFiles == null)
+                    _readOnlyFiles = new ReadOnlyObservableCollection<FileViewModel>(_files);
 
-                return _readonyFiles;
+                return _readOnlyFiles;
             }
         }
         #endregion
 
+
+
+        #region ShowOptions
+        private bool _showOptions;
+        public bool ShowOptions
+        {
+            get => _showOptions;
+            set => SetProperty(ref _showOptions, value);
+        }
+
+        #endregion
+
+
+        #region ShowSettings
+
+        #endregion
 
         #region Tools
 
@@ -171,18 +187,39 @@ namespace RobotTools.ViewModels
                 }
             }
 
+            // Get Position of file
+            var index = Files.IndexOf(fileToClose);
+
             _files.Remove(fileToClose);
+
+            switch(index){
+                case 1:
+                ActiveDocument=Files.FirstOrDefault();
+                break;
+                default:
+                ActiveDocument=Files[index];
+                break;
+            }
+            OnPropertyChanged(nameof(Files));
+
+
+
         }
 
         internal void Save(FileViewModel fileToSave, bool saveAsFlag = false)
         {
+            _activeDocument=fileToSave;
+            bool canSave=true;
             if (fileToSave.FilePath == null || saveAsFlag)
             {
                 var dlg = new SaveFileDialog();
+                dlg.FileName=fileToSave.FileName;
                 if (dlg.ShowDialog().GetValueOrDefault())
                     fileToSave.FilePath = dlg.SafeFileName;
+                    else
+                    canSave=false;
             }
-
+if(canSave)
             File.WriteAllText(fileToSave.FilePath, fileToSave.Document.Text);
             ActiveDocument.IsDirty = false;
         }
@@ -448,12 +485,12 @@ namespace RobotTools.ViewModels
                 Process.Start(new ProcessStartInfo("http://Edi.codeplex.com"));
             }));
 
-           
+
         }
 
         public WorkspaceViewModel()
         {
-         
+
             _dialogCoordinator = DialogCoordinator.Instance;
         }
 
