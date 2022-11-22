@@ -5,15 +5,36 @@
                     xmlns:cmd="clr-namespace:RobotTools"
                     xmlns:converters="clr-namespace:RobotTools.Converter"
                     >
-
-    <DataTemplate x:Key="FileViewTemplate">
+  <DataTemplate x:Key="DocumentHeaderTemplate">
+    <StackPanel Orientation="Horizontal">
+      <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+      <!-- Show IsReadOnly Icon in document tab if that properties' present and true -->
+      <Image Source="pack://application:,,,/RobotTools;component/Images/App/DocTab/Lock-icon.png"
+                   Margin="3,0,0,0"
+                   VerticalAlignment="Center">
+        <Image.Visibility>
+          <PriorityBinding FallbackValue="Collapsed" >
+            <Binding Path="Content.IsReadOnly" Mode="OneWay" Converter="{converters:BoolToVisibility}" />
+          </PriorityBinding>
+        </Image.Visibility>
+        <Image.ToolTip>
+          <PriorityBinding FallbackValue="">
+            <Binding Path="Content.IsReadOnlyReason" Mode="OneWay" />
+          </PriorityBinding>
+        </Image.ToolTip>
+      </Image>
+    </StackPanel>
+  </DataTemplate>
+  
+  <DataTemplate x:Key="FileViewTemplate">
         <editor:AvalonEditor Document="{Binding Document, UpdateSourceTrigger=PropertyChanged}"
                                       SyntaxHighlighting="{Binding HighlightDef}"
                                       IsReadOnly="{Binding IsReadOnly}"
-									  IsModified="{Binding Path=IsDirty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      WordWrap="{Binding Path=WordWrap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      ShowLineNumbers="{Binding Path=ShowLineNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Options="{Binding TextOptions}"
+                                      Filename="{Binding FilePath}"
+									                    IsModified="{Binding Path=IsDirty, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      WordWrap="{Binding Path=WordWrap, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={x:Static editor:EditorOptions.Instance}}"
+                                      ShowLineNumbers="{Binding Path=ShowLineNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,Source={x:Static editor:EditorOptions.Instance}}"
+                                      Options="{Binding Source={x:Static editor:EditorOptions.Instance}}"
                                       >
             <editor:AvalonEditor.ContextMenu>
                 <ContextMenu>

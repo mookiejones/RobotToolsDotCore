@@ -3,26 +3,7 @@
     <BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
 
-    <DataTemplate x:Key="DocumentHeaderTemplate">
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Title}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-            <!-- Show IsReadOnly Icon in document tab if that properties' present and true -->
-            <Image Source="pack://application:,,,/RobotTools;component/Images/App/DocTab/Lock-icon.png"
-                   Margin="3,0,0,0"
-                   VerticalAlignment="Center">
-                <Image.Visibility>
-                    <PriorityBinding FallbackValue="Collapsed" >
-                        <Binding Path="Content.IsReadOnly" Mode="OneWay" Converter="{StaticResource BoolToVisibilityConverter}" />
-                    </PriorityBinding>
-                </Image.Visibility>
-                <Image.ToolTip>
-                    <PriorityBinding FallbackValue="">
-                        <Binding Path="Content.IsReadOnlyReason" Mode="OneWay" />
-                    </PriorityBinding>
-                </Image.ToolTip>
-            </Image>
-        </StackPanel>
-    </DataTemplate>
+  
 
     <Style TargetType="{x:Type LayoutAnchorableItem}" x:Key="ToolStyle">
         <Setter Property="Title" Value="{Binding Model.Title}"/>

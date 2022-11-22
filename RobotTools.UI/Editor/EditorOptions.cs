@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Media;
 using System.Xml;
-using System.Xml.Serialization;
+
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
@@ -69,15 +69,7 @@ namespace RobotTools.UI.Editor
             set { _instance = value; }
         }
 
-        public override bool ShowSpaces
-        {
-            get { return base.ShowSpaces; }
-            set
-            {
-                base.ShowSpaces = value;
-                OnPropertyChanged(nameof(ShowSpaces));
-            }
-        }
+     
 
         public Color SelectedTextBackground
         {
@@ -308,7 +300,7 @@ namespace RobotTools.UI.Editor
 
         public bool ShowLineNumbers
         {
-            get { return _showlinenumbers; }
+            get { return  _showlinenumbers; }
             set
             {
                 _showlinenumbers = value;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -10,14 +11,14 @@ using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using ICSharpCode.AvalonEdit.Document;
-
 using MahApps.Metro.Controls.Dialogs;
 
 using Microsoft.Win32;
 
 using RobotTools.Controls.MRU;
 using RobotTools.Core.Utilities;
+using RobotTools.Services;
+using RobotTools.UI.Editor;
 using RobotTools.ViewModels.Base;
 
 namespace RobotTools.ViewModels
@@ -27,22 +28,32 @@ namespace RobotTools.ViewModels
 
         private IDialogCoordinator _dialogCoordinator;
 
-        #region Properties
-        #region Files
-        ObservableCollection<FileViewModel> _files = new ObservableCollection<FileViewModel>();
-        ReadOnlyObservableCollection<FileViewModel> _readOnlyFiles = null;
-        public ReadOnlyObservableCollection<FileViewModel> Files
-        {
-            get
-            {
-                if (_readOnlyFiles == null)
-                    _readOnlyFiles = new ReadOnlyObservableCollection<FileViewModel>(_files);
-
-                return _readOnlyFiles;
-            }
-        }
+        #region Members
+        private IFileService _fileService;
         #endregion
 
+        #region Properties
+        #region Files
+
+        
+        public ObservableCollection<FileViewModel> Files { get; set; }= new ObservableCollection<FileViewModel>();
+        #endregion
+
+
+
+        #region Options
+        
+        public EditorOptions Options
+        {
+            get => EditorOptions.Instance;
+            set
+            {
+                EditorOptions.Instance = value;
+                OnPropertyChanged(nameof(Options));
+            }
+        }
+
+        #endregion
 
 
         #region ShowOptions
@@ -119,24 +130,9 @@ namespace RobotTools.ViewModels
         /// <summary>
         /// Expose command to load/save AvalonDock layout on application startup and shut-down.
         /// </summary>
-        public AvalonDockLayoutViewModel ADLayout
-        {
-            get
-            {
-                if (mAVLayout == null)
-                    mAVLayout = new AvalonDockLayoutViewModel();
+        public AvalonDockLayoutViewModel ADLayout=>mAVLayout??= new AvalonDockLayoutViewModel();
 
-                return mAVLayout;
-            }
-        }
-
-        public static string LayoutFileName
-        {
-            get
-            {
-                return "Layout.config";
-            }
-        }
+        public static string LayoutFileName=>"Layout.config";
         #endregion ADLayout
 
         #region Application Properties
@@ -188,11 +184,14 @@ namespace RobotTools.ViewModels
             }
 
             // Get Position of file
-            var index = Files.IndexOf(fileToClose);
-
-            _files.Remove(fileToClose);
+            var fileToRemove = Files.FirstOrDefault(o=>o.FileName== fileToClose.FileName);
+            var index = Files.IndexOf(fileToRemove);
+            Files.RemoveAt(index);
+            //Files.RemoveAt(index);
+//            Files.Remove(fileToRemove);
 
             switch(index){
+                case -1:
                 case 1:
                 ActiveDocument=Files.FirstOrDefault();
                 break;
@@ -229,78 +228,8 @@ if(canSave)
         #endregion
 
         #region Commands
-        #region OpenCommand
-        RelayCommand _openCommand = null;
-        public ICommand OpenCommand
-        {
-            get
-            {
-                if (_openCommand == null)
-                {
-                    _openCommand = new RelayCommand(OnOpen,CanOpen);
-                }
-
-                return _openCommand;
-            }
-        }
-
-        private bool CanOpen( )
-        {
-            return true;
-        }
-
-        private void OnOpen( )
-        {
-            var dlg = new OpenFileDialog();
-            if (dlg.ShowDialog().GetValueOrDefault())
-            {
-                var fileViewModel = Open(dlg.FileName);
-                ActiveDocument = fileViewModel;
-            }
-        }
-
-        public FileViewModel Open(string filepath)
-        {
-            var fileViewModel = _files.FirstOrDefault(fm => fm.FilePath == filepath);
-            if (fileViewModel != null)
-                return fileViewModel;
-
-            fileViewModel = new FileViewModel(filepath);
-            _files.Add(fileViewModel);
-            RecentFiles.AddNewEntryIntoMRU(filepath);
-            return fileViewModel;
-        }
-
-        #endregion
-
-        #region NewCommand
-        RelayCommand _newCommand = null;
-        public ICommand NewCommand
-        {
-            get
-            {
-                if (_newCommand == null)
-                {
-                    _newCommand = new RelayCommand( OnNew,CanNew);
-                }
-
-                return _newCommand;
-            }
-        }
-
-        private bool CanNew( )
-        {
-            return true;
-        }
-
-        private void OnNew( )
-        {
-            _files.Add(new FileViewModel() { Document = new TextDocument() });
-            ActiveDocument = _files.Last();
-        }
-
-        #endregion
-
+   
+      
         #region ToggleEditorOptionCommand
         RelayCommand<object> _toggleEditorOptionCommand = null;
         public ICommand ToggleEditorOptionCommand
@@ -488,11 +417,34 @@ if(canSave)
 
         }
 
+
+        private void OpenFiles()
+        {
+            foreach (var file in _fileService.Files)
+            {
+                var fileModel = _fileService.Open(file);
+                Files.Add(fileModel);
+                RecentFiles.AddNewEntryIntoMRU(file);
+                ActiveDocument = fileModel;
+            }
+        }
+
+
+
+        public WorkspaceViewModel(IFileService fileService, IDialogCoordinator dialogCoordinator)
+        {
+            _fileService = fileService;
+            _dialogCoordinator = dialogCoordinator;
+
+            OpenFiles();
+        }
+
+        /// <summary>
+        /// Empty Constructor for Design View
+        /// </summary>
         public WorkspaceViewModel()
         {
 
-            _dialogCoordinator = DialogCoordinator.Instance;
         }
-
     }
 }

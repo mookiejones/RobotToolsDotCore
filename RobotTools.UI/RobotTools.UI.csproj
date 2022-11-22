@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Release;LocalMachine</Configurations>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LocalMachine|AnyCPU'">
@@ -11,6 +12,50 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Editor\Images\resources-comment.png" />
+    <None Remove="Editor\Images\resources-copy.png" />
+    <None Remove="Editor\Images\resources-cut.png" />
+    <None Remove="Editor\Images\resources-decreaseindent.png" />
+    <None Remove="Editor\Images\resources-document.png" />
+    <None Remove="Editor\Images\resources-editdelete.png" />
+    <None Remove="Editor\Images\resources-editor.png" />
+    <None Remove="Editor\Images\resources-error.png" />
+    <None Remove="Editor\Images\resources-exit.png" />
+    <None Remove="Editor\Images\resources-expandfolds.png" />
+    <None Remove="Editor\Images\resources-folder.png" />
+    <None Remove="Editor\Images\resources-foldingdisabled.png" />
+    <None Remove="Editor\Images\resources-foldingenabled.png" />
+    <None Remove="Editor\Images\resources-increaseindent.png" />
+    <None Remove="Editor\Images\resources-info.png" />
+    <None Remove="Editor\Images\resources-lineendings.png" />
+    <None Remove="Editor\Images\resources-line_numbers.png" />
+    <None Remove="Editor\Images\resources-newfile.png" />
+    <None Remove="Editor\Images\resources-new_edit_find_replace.png" />
+    <None Remove="Editor\Images\resources-objectbrowser.png" />
+    <None Remove="Editor\Images\resources-paste.png" />
+    <None Remove="Editor\Images\resources-print.png" />
+    <None Remove="Editor\Images\resources-print_preview.png" />
+    <None Remove="Editor\Images\resources-property-blue.png" />
+    <None Remove="Editor\Images\resources-redo.png" />
+    <None Remove="Editor\Images\resources-refresh_yellow.png" />
+    <None Remove="Editor\Images\resources-save.png" />
+    <None Remove="Editor\Images\resources-save_all.png" />
+    <None Remove="Editor\Images\resources-search.png" />
+    <None Remove="Editor\Images\resources-select_all.png" />
+    <None Remove="Editor\Images\resources-showspaces.png" />
+    <None Remove="Editor\Images\resources-splash.png" />
+    <None Remove="Editor\Images\resources-spsfile.png" />
+    <None Remove="Editor\Images\resources-srcfile.png" />
+    <None Remove="Editor\Images\resources-stock_notes.png" />
+    <None Remove="Editor\Images\resources-vxenum_icon.png" />
+    <None Remove="Editor\Images\resources-vxevent_icon.png" />
+    <None Remove="Editor\Images\resources-vxfield_icon.png" />
+    <None Remove="Editor\Images\resources-vxmethod_icon.png" />
+    <None Remove="Editor\Images\resources-vxmodule_icon.png" />
+    <None Remove="Editor\Images\resources-vxproperty_icon.png" />
+    <None Remove="Editor\Images\resources-vxstruct_icon.png" />
+    <None Remove="Editor\Images\resources-vxvaluetype_icon.png" />
+    <None Remove="Editor\Images\resources-vxxyz_icon.png" />
     <None Remove="Editor\SyntaxHighlighting\ABBHighlight.xshd" />
     <None Remove="Editor\SyntaxHighlighting\FANUCHighlight.xshd" />
     <None Remove="Editor\SyntaxHighlighting\KAWASAKIHighlight.xshd" />
@@ -18,6 +63,87 @@
     <None Remove="Editor\SyntaxHighlighting\NONEHighlight.xshd" />
     <None Remove="Editor\SyntaxHighlighting\RobotbaseHighlight.xshd" />
     <None Remove="Editor\SyntaxHighlighting\VBAHighlight.xshd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DirectorySearcher\DirectorySearcherControl.xaml.cs" />
+    <Compile Include="DirectorySearcher\DirectorySearcherViewModel.cs" />
+    <Compile Include="DirectorySearcher\DropFilesBehaviorExtension.cs" />
+    <Compile Include="DirectorySearcher\IFilesDropped.cs" />
+    <Compile Include="DirectorySearcher\Views\DataGridDirectorySearcher.xaml.cs" />
+    <Compile Include="DirectorySearcher\Views\ResultsView.xaml.cs" />
+    <Compile Include="DirectorySearcher\Views\TreeNode.cs" />
+    <Compile Include="DirectorySearcher\Views\TreeViewDirectorySearcher.xaml.cs" />
+    <Compile Include="Editor\AvalonEditor.Bookmark.cs" />
+    <Compile Include="Editor\AvalonEditor.Bracket.cs" />
+    <Compile Include="Editor\AvalonEditor.CodeCompletion.cs" />
+    <Compile Include="Editor\AvalonEditor.cs" />
+    <Compile Include="Editor\AvalonEditor.Folding.cs" />
+    <Compile Include="Editor\AvalonEditor.Partials.cs" />
+    <Compile Include="Editor\AvalonEditor.SyntaxHighlighting.cs" />
+    <Compile Include="Editor\AvalonEditorExtensions.cs" />
+    <Compile Include="Editor\BackgroundRenderer.cs" />
+    <Compile Include="Editor\Bookmarks\BookmarkBase.cs" />
+    <Compile Include="Editor\Bookmarks\BookmarkImage.cs" />
+    <Compile Include="Editor\Bookmarks\ClassMemberBookmark.cs" />
+    <Compile Include="Editor\Bookmarks\IBookmark.cs" />
+    <Compile Include="Editor\Bookmarks\IBookmarkMargin.cs" />
+    <Compile Include="Editor\Bookmarks\IImage.cs" />
+    <Compile Include="Editor\Bracket\AvalonEditBracketSearcher.cs" />
+    <Compile Include="Editor\Bracket\BracketHighlightRenderer.cs" />
+    <Compile Include="Editor\Bracket\BracketSearchResult.cs" />
+    <Compile Include="Editor\Bracket\IBracketSearcher.cs" />
+    <Compile Include="Editor\Completion\CompletionContext.cs" />
+    <Compile Include="Editor\Completion\CompletionContextInfo.cs" />
+    <Compile Include="Editor\Completion\CompletionData.cs" />
+    <Compile Include="Editor\Completion\CompletionItemListKeyResult.cs" />
+    <Compile Include="Editor\Completion\CompletionType.cs" />
+    <Compile Include="Editor\Completion\ICompletionDataProvider.cs" />
+    <Compile Include="Editor\Completion\ICompletionItem.cs" />
+    <Compile Include="Editor\Completion\ICompletionItemList.cs" />
+    <Compile Include="Editor\Completion\ICompletionListWindow.cs" />
+    <Compile Include="Editor\Completion\ICompletionWindow.cs" />
+    <Compile Include="Editor\Completion\SnippetCompletionDataProvider.cs" />
+    <Compile Include="Editor\EditorOptions.cs" />
+    <Compile Include="Editor\Folding\FoldingStrategy.cs" />
+    <Compile Include="Editor\Folding\KrlRegularExpressions.cs" />
+    <Compile Include="Editor\Folding\KukaFoldingStrategy.cs" />
+    <Compile Include="Editor\Global.cs" />
+    <Compile Include="Editor\IconBar\IconBarManager.cs" />
+    <Compile Include="Editor\IEditor.cs" />
+    <Compile Include="Editor\IEditorDocumentLine.cs" />
+    <Compile Include="Editor\IInsightItem.cs" />
+    <Compile Include="Editor\IInsightWindow.cs" />
+    <Compile Include="Editor\ITextBuffer.cs" />
+    <Compile Include="Editor\ITextBufferVersion.cs" />
+    <Compile Include="Editor\ITextEditor.cs" />
+    <Compile Include="Editor\ITextEditorCaret.cs" />
+    <Compile Include="Editor\ITextEditorOptions.cs" />
+    <Compile Include="Editor\Languages\FileLanguage.cs" />
+    <Compile Include="Editor\Languages\KukaLanguage.cs" />
+    <Compile Include="Editor\Languages\LanguageBase.cs" />
+    <Compile Include="Editor\Languages\LanguageClass.cs" />
+    <Compile Include="Editor\Languages\LanguageFold.cs" />
+    <Compile Include="Editor\Languages\Robot\IVariable.cs" />
+    <Compile Include="Editor\Languages\Robot\KrlRegularExpressions.cs" />
+    <Compile Include="Editor\Languages\Robot\PositionBase.cs" />
+    <Compile Include="Editor\Languages\Robot\PositionValue.cs" />
+    <Compile Include="Editor\Languages\Robot\Variable.cs" />
+    <Compile Include="Editor\Location.cs" />
+    <Compile Include="Editor\Snippets\Declaration.cs" />
+    <Compile Include="Editor\Snippets\Literal.cs" />
+    <Compile Include="Editor\Snippets\SnippetCollection.cs" />
+    <Compile Include="Editor\Snippets\SnippetCompletionData.cs" />
+    <Compile Include="Editor\Snippets\SnippetHeader.cs" />
+    <Compile Include="Editor\Snippets\SnippetInfo.cs" />
+    <Compile Include="Editor\Snippets\SnippetManager.cs" />
+    <Compile Include="Editor\Snippets\SnippetParser.cs" />
+    <Compile Include="Editor\Snippets\SnippetTooltip.xaml.cs" />
+    <Compile Include="Editor\Snippets\SnippetType.cs" />
+    <Compile Include="Editor\Snippets\StringHelper.cs" />
+    <Compile Include="Extension\DropFilesHelper.cs" />
+    <Compile Include="Extension\IFilesDropped.cs" />
+    <Compile Include="Utilities\ImageHelper.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +174,7 @@
     <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +192,57 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Editor\Languages\Robot\Kuka\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Editor\Images\resources-comment.png" />
+    <Resource Include="Editor\Images\resources-copy.png" />
+    <Resource Include="Editor\Images\resources-cut.png" />
+    <Resource Include="Editor\Images\resources-decreaseindent.png" />
+    <Resource Include="Editor\Images\resources-document.png" />
+    <Resource Include="Editor\Images\resources-editdelete.png" />
+    <Resource Include="Editor\Images\resources-editor.png" />
+    <Resource Include="Editor\Images\resources-error.png" />
+    <Resource Include="Editor\Images\resources-exit.png" />
+    <Resource Include="Editor\Images\resources-expandfolds.png" />
+    <Resource Include="Editor\Images\resources-folder.png" />
+    <Resource Include="Editor\Images\resources-foldingdisabled.png" />
+    <Resource Include="Editor\Images\resources-foldingenabled.png" />
+    <Resource Include="Editor\Images\resources-increaseindent.png" />
+    <Resource Include="Editor\Images\resources-info.png" />
+    <Resource Include="Editor\Images\resources-lineendings.png" />
+    <Resource Include="Editor\Images\resources-line_numbers.png" />
+    <Resource Include="Editor\Images\resources-newfile.png" />
+    <Resource Include="Editor\Images\resources-new_edit_find_replace.png" />
+    <Resource Include="Editor\Images\resources-objectbrowser.png" />
+    <Resource Include="Editor\Images\resources-paste.png" />
+    <Resource Include="Editor\Images\resources-print.png" />
+    <Resource Include="Editor\Images\resources-print_preview.png" />
+    <Resource Include="Editor\Images\resources-property-blue.png" />
+    <Resource Include="Editor\Images\resources-redo.png" />
+    <Resource Include="Editor\Images\resources-refresh_yellow.png" />
+    <Resource Include="Editor\Images\resources-save.png" />
+    <Resource Include="Editor\Images\resources-save_all.png" />
+    <Resource Include="Editor\Images\resources-search.png" />
+    <Resource Include="Editor\Images\resources-select_all.png" />
+    <Resource Include="Editor\Images\resources-showspaces.png" />
+    <Resource Include="Editor\Images\resources-splash.png" />
+    <Resource Include="Editor\Images\resources-spsfile.png" />
+    <Resource Include="Editor\Images\resources-srcfile.png" />
+    <Resource Include="Editor\Images\resources-stock_notes.png" />
+    <Resource Include="Editor\Images\resources-vxenum_icon.png" />
+    <Resource Include="Editor\Images\resources-vxevent_icon.png" />
+    <Resource Include="Editor\Images\resources-vxfield_icon.png" />
+    <Resource Include="Editor\Images\resources-vxmethod_icon.png" />
+    <Resource Include="Editor\Images\resources-vxmodule_icon.png" />
+    <Resource Include="Editor\Images\resources-vxproperty_icon.png" />
+    <Resource Include="Editor\Images\resources-vxstruct_icon.png" />
+    <Resource Include="Editor\Images\resources-vxvaluetype_icon.png" />
+    <Resource Include="Editor\Images\resources-vxxyz_icon.png" />
   </ItemGroup>
 
 </Project>

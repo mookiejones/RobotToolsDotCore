@@ -2,9 +2,9 @@
 using System.Windows;
 
 using CommunityToolkit.Mvvm.DependencyInjection;
-
+using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
-
+using RobotTools.Services;
 using RobotTools.ViewModels;
 
 namespace RobotTools
@@ -37,6 +37,8 @@ namespace RobotTools
         {
             var services = new ServiceCollection();
             // Services
+            services.AddSingleton<IFileService, FileService>();
+            services.AddSingleton<IDialogCoordinator>(DialogCoordinator.Instance);
             //services.AddSingleton<ISettingsService, SettingsService>();
             //services.AddSingleton<IClipboardService, ClipboardService>();
             //services.AddSingleton<IShareService, ShareService>();

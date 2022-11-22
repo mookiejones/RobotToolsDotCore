@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Prefer32Bit>true</Prefer32Bit>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <UseWPF>true</UseWPF>
+    <SignAssembly>false</SignAssembly>
+    <Configurations>Debug;Release;LocalMachine</Configurations>
+    <ApplicationManifest>App.manifest</ApplicationManifest>
+    <UserSecretsId>b7fca353-2b56-4214-bea9-d2103dd33725</UserSecretsId>
+  </PropertyGroup> 
+  <ItemGroup>
+    <Resource Include="Resources\*.jpg" />
+    <Resource Include="Resources\*.png" />
+    <Resource Include="ScreenGrabFromGoogle.gif" />
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BluwolfIcons">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+    <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.5" />
+    <PackageReference Include="VirtualizingWrapPanel" />
+    <PackageReference Include="ShowMeTheXAML" />
+    <PackageReference Include="ShowMeTheXAML.AvalonEdit" />
+    <PackageReference Include="ShowMeTheXAML.MSBuild" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+</Project>

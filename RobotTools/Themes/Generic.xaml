@@ -7,7 +7,8 @@
      
         <ResourceDictionary Source="pack://application:,,,/RobotTools;component/Themes/Controls.FileTemplates.xaml" />
         <ResourceDictionary Source="pack://application:,,,/RobotTools;component/Themes/Controls.DockingManagerTemplates.xaml" />
-    </ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="pack://application:,,,/RobotTools;component/Themes/DockingTheme.xaml" />
+  </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="WindowStyle" TargetType="mah:MetroWindow"  >
         <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />

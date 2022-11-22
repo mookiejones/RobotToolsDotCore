@@ -1,11 +1,4 @@
-﻿
-using System.IO;
-using System.Linq;
-
-using NUnit.Framework;
-
-using RobotTools.Core.Kop;
-#if LOCAL_MACHINE
+﻿#if LOCAL_MACHINE
 
 namespace RobotTools.Tests.Kop
 {

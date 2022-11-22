@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-using NUnit.Framework;
-
-using RobotTools.Core.Kop;
-using RobotTools.Core.Utilities;
-#if LOCAL_MACHINE
+﻿#if LOCAL_MACHINE
 namespace RobotTools.Tests.Kop
 {
     [TestFixture]

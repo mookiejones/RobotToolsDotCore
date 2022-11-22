@@ -6,9 +6,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:AVBehav="clr-namespace:RobotTools.View.Behavior"
+                  xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:conv="clr-namespace:RobotTools.Converter"
         xmlns:pane="clr-namespace:RobotTools.View.Pane"
         xmlns:vm="clr-namespace:RobotTools.ViewModels"
+                  xmlns:ex="clr-namespace:RobotTools.UI.Extension;assembly=RobotTools.UI"
          d:DesignHeight="450"
          d:DesignWidth="800"
         FontFamily="{DynamicResource MahApps.Fonts.Family.Window.Title}"
@@ -16,7 +18,10 @@
                       Style="{StaticResource WindowStyle}"
                       WindowTransitionsEnabled="False"
                    SnapsToDevicePixels="True"
-                   xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro" xmlns:view="clr-namespace:RobotTools.View"
+
+                 AllowDrop="True"
+                  ex:DropFilesHelper.IsEnabled="True"
+                   xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro" xmlns:view="clr-namespace:RobotTools.View" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:mru="clr-namespace:RobotTools.Controls.MRU"
                   Dialog:DialogParticipation.Register="{Binding}"
       d:DataContext="{d:DesignInstance Type=vm:WorkspaceViewModel,IsDesignTimeCreatable=True}"
                 Title="Robot Tools"
@@ -32,8 +37,7 @@
                  Drop="DropFiles"
     -->
     <mah:MetroWindow.Resources>
-    <conv:ActiveDocumentConverter x:Key="ActiveDocumentConverter"/>
-
+   
   </mah:MetroWindow.Resources>
 
     <mah:MetroWindow.RightWindowCommands>
@@ -44,7 +48,7 @@
     <mah:MetroWindow.Flyouts>
         <mah:FlyoutsControl>
             <mah:Flyout IsOpen="{Binding ElementName=Settings,Path=IsChecked}" Position="Right" Header="Options">
-                <view:OptionsView/>
+                <view:OptionsView DataContext="{Binding Options}"/>
             </mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
@@ -58,87 +62,308 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" Margin="10,2,0,0" >
+            <Menu.Resources>
+                <Style x:Key="{x:Type Image}" TargetType="{x:Type Image}">
+                    <Setter Property="Height" Value="16" />
+                    <Setter Property="Width" Value="16" />
+                </Style>
+                <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}"
+                       BasedOn="{StaticResource {x:Type MenuItem}}">
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="10" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Menu.Resources>
+            <MenuItem Header="_File">
+        <MenuItem Header="_New" Command="{Binding NewFileCommand}"
+                  Icon="{materialDesign:PackIcon Kind=File}"
 
-    <Menu Grid.Row="0">
-      <MenuItem Header="_File">
-        <MenuItem Header="New" Command="{Binding NewCommand}" InputGestureText="Ctrl+N"/>
-        <MenuItem Header="Open" Command="{Binding OpenCommand}" InputGestureText="CTRL+O"/>
-        <Separator/>
-        <MenuItem Header="Save" Command="{Binding ActiveDocument.SaveCommand}" CommandParameter="{Binding ActiveDocument}"
-          InputGestureText="Ctrl+S"
-        />
-        <MenuItem Header="Save As..." Command="{Binding ActiveDocument.SaveAsCommand}" CommandParameter="{Binding ActiveDocument}"/>
-        <Separator/>
-        <MenuItem Header="Close" Command="{Binding ActiveDocument.CloseCommand}" CommandParameter="{Binding ActiveDocument}"/>
-                <Separator/>
-                <MenuItem ItemsSource="{Binding RecentFiles.MruList.ListOfMRUEntries}" Grid.Row="0" Header="Recent Files"
-                          Visibility="{Binding Path=RecentFiles.MruList.ListOfMRUEntries, Mode=OneWay, Converter={conv:ZeroToVisibilityConverter}}">
-                    <MenuItem.ItemContainerStyle>
-                        <Style TargetType="MenuItem">
-                            <Setter Property="Header" Value="{Binding DisplayPathFileName, Mode=OneWay}" />
-                            <Setter Property="Command" Value="{Binding OpenCommand}" />
-                            <Setter Property="CommandParameter" Value="{Binding PathFileName, Mode=OneWay}" />
-                        </Style>
-                    </MenuItem.ItemContainerStyle>
+                          />
+
+        <MenuItem Header="_Open" DataContext="{Binding OpenFileCommand, Mode=OneWay}"
+                  Icon="{materialDesign:PackIcon Kind=FolderOpen}"
+                          Command="{Binding Mode=OneWay}"/>
+
+        <MenuItem Header="_Save" Command="{Binding ActiveDocument.SaveCommand, Mode=OneWay}"
+                  Icon="{materialDesign:PackIcon Kind=ContentSave}"/>
+
+        <MenuItem Header="Save _As" Command="{Binding ActiveDocument.SaveAsCommand, Mode=OneWay}"
+                  Icon="{materialDesign:PackIcon Kind=ContentSaveAdd}"/>
+                <Separator />
+                <MenuItem Header="Reload" Command="{Binding ActiveEditor.TextBox.ReloadCommand, Mode=OneWay}"
+
+                          Icon="{materialDesign:PackIcon Kind=Reload}"/>
+                <Separator />
+        <MenuItem Header="_Import" Command="{Binding ImportCommand}" Icon="{materialDesign:PackIcon Kind=Import}"/>
+        <MenuItem Header="Print" Command="ApplicationCommands.Print" Icon="{materialDesign:PackIcon Kind=Printer}"/>
+        <MenuItem Header="Print P_review" Command="ApplicationCommands.PrintPreview"
+                          Icon="{materialDesign:PackIcon Kind=PrintPreview}"/>
+        <MenuItem Header="_Close" Command="{Binding CloseCommand}"
+                          Icon="{materialDesign:PackIcon Kind=Close}"/>
+        <MenuItem Header="Recent _Files">
+                    <mru:RecentFileList />
+                </MenuItem>
+                <MenuItem Header="E_xit" Command="{Binding ExitCommand}"
+                          Icon="{materialDesign:PackIcon Kind=ExitRun}"/>
+            </MenuItem>
+      <!--
+            <MenuItem Header="_Edit">
+        <MenuItem Header="Undo" Command="{Binding ActiveEditor.TextBox.UndoCommand, Mode=OneWay}"
+                          Icon="{materialDesign:PackIcon Kind=Undo}"/>
+
+
+        <MenuItem Header="Redo" Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}"
+                          Icon="{materialDesign:PackIcon Kind=Redo}"
+                  />
+        
+                <Separator />
+          <MenuItem Header="Cut" Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}"
+                          Icon="{materialDesign:PackIcon Kind=ContentCut}"
+
+                    />
+          <MenuItem Header="Copy" Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}"
+                                              Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+          <MenuItem Header="Paste" Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}"
+                          Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+          <MenuItem Header="_Delete" Command="ApplicationCommands.Delete" ToolTip="Deletes the current line."
+                          CommandTarget="{Binding ActiveEditor.TextBox}"
+                                                    Icon="{materialDesign:PackIcon Kind=Delete}"
+                    />
+                <MenuItem Header="Delete _Line" Command="ae:AvalonEditCommands.DeleteLine"
+                          
+                          ToolTip="Deletes the current line." CommandTarget="{Binding ActiveEditor.TextBox}" />
+          <MenuItem Header="Select _All" Command="ApplicationCommands.SelectAll"
+                          Icon="{materialDesign:PackIcon Kind=SelectAll}"
+                          ToolTip="Select All of Document." CommandTarget="{Binding ActiveEditor.TextBox}"/>
+                <Separator />
+          <MenuItem Header="Comment Selection" CommandTarget="{Binding ActiveEditor.TextBox}"
+                    Icon="{materialDesign:PackIcon Kind=Comment}"/>
+           
+                <Separator />
+                <MenuItem x:Name="Formatting" Header="Formatting">
+                    <MenuItem Header="View Whitespace" IsCheckable="True"
+                              IsChecked="{Binding ShowSpaces, Source={x:Static classes:EditorOptions.Instance}}" />
+                    <MenuItem Header="Wordwrap"
+                                                            Icon="{materialDesign:PackIcon Kind=FormatTextWrappingWrap}"
+
+                              IsChecked="{Binding WrapWords, Source={x:Static classes:EditorOptions.Instance}}" />
+                    <Separator />
+                    <MenuItem Header="Toggle Comment"
+                        Icon="{materialDesign:PackIcon Kind=CommentTick}"
+                              />
+                    <Separator />
+            <MenuItem Header="Increase Line Indent"                               Icon="{materialDesign:PackIcon Kind=FormatIndentIncrease}"
+/>
+                    <MenuItem Header="Decrease Line Indent"
+                              Icon="{materialDesign:PackIcon Kind=FormatIndentDecrease}"/>
+                    <MenuItem Header="Remove Leading Whitespace"
+                              Command="ae:AvalonEditCommands.RemoveLeadingWhitespace"
+                              
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Remove Trailing Whitespace"
+                              Command="ae:AvalonEditCommands.RemoveTrailingWhitespace"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="To Uppercase" Command="ae:AvalonEditCommands.ConvertToUppercase"
+                              Icon="{materialDesign:PackIcon Kind=FormatLetterCaseUpper}"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="To Lowercase" Command="ae:AvalonEditCommands.ConvertToLowercase"
+                              Icon="{materialDesign:PackIcon Kind=FormatLowercase}"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Capitalize" Command="ae:AvalonEditCommands.ConvertToTitleCase"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Invert Case" Command="ae:AvalonEditCommands.InvertCase"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <Separator />
+                    <MenuItem Header="Tabs to Spaces" Command="ae:AvalonEditCommands.ConvertTabsToSpaces"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Spaces to Tabs" Command="ae:AvalonEditCommands.ConvertSpacesToTabs"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Leading tabs to spaces"
+                              Command="ae:AvalonEditCommands.ConvertLeadingTabsToSpaces"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Leading spaces to tabs"
+                              Command="ae:AvalonEditCommands.ConvertLeadingSpacesToTabs"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Indent Selection" Command="ae:AvalonEditCommands.IndentSelection"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Find in Files" Command="{Binding ShowFindReplaceCommand}"
+                    Icon="{materialDesign:PackIcon Kind=Find}"
+                          />
+                <MenuItem Header="Replace in Files" Command="{Binding ShowFindReplaceCommand}"
+                          Icon="{materialDesign:PackIcon Kind=FileReplace}"/>
+                <Separator />
+          <MenuItem Header="Find and Replace" Icon="{materialDesign:PackIcon Kind=FindReplace}">
+                    <MenuItem Header="Find" Command="ApplicationCommands.Find"
+                               Icon="{materialDesign:PackIcon Kind=Find}"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Find Next" Command="ae:SearchCommands.FindNext"
+                               Icon="{materialDesign:PackIcon Kind=SkipNext}"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Find Previous" Command="ae:SearchCommands.FindPrevious"
+                               Icon="{materialDesign:PackIcon Kind=SkipPrevious}"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                    <MenuItem Header="Cancel Search" Command="ae:SearchCommands.CloseSearchPanel"
+                               Icon="{materialDesign:PackIcon Kind=Cancel}"
+                              CommandTarget="{Binding ActiveEditor.TextBox}" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Go To..." CommandTarget="{Binding ActiveEditor.TextBox}"
+                          />
+          <MenuItem Header="Folding"  >
+                    <MenuItem Header="_Open All Folds"
+                              Command="{Binding ActiveEditor.TextBox.OpenAllFoldsCommand, Mode=OneWay}" />
+                    <MenuItem Header="_Close All Folds"
+                              Command="{Binding ActiveEditor.TextBox.CloseAllFoldsCommand, Mode=OneWay}" />
+                    <MenuItem Header="Toggle Current Fold" Command="{Binding ActiveEditor.TextBox.ToggleFoldsCommand}" />
+                    <MenuItem Header="Toggle All Folds" Command="{Binding ActiveEditor.TextBox.ToggleAllFoldsCommand}" />
                 </MenuItem>
             </MenuItem>
-      <MenuItem Header="_Tools">
-        <MenuItem Header="Properties" IsChecked="{Binding FileStats.IsVisible, Mode=TwoWay}" IsCheckable="True"/>
-                <Separator/>
-                <MenuItem Header="Directory Searcher" Command="{Binding ShowDirectorySearcherCommand,Mode=OneWay}"/>
+      
+            <MenuItem Header="View">
+                <MenuItem Header="Appearance">
+                    <MenuItem Header="Accents">
+                        <MenuItem.Resources>
+                            <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}"
+                                   BasedOn="{StaticResource {x:Type MenuItem}}">
+                                <Setter Property="Command" Value="{Binding ChangeAccentCommand}" />
+                                <Setter Property="CommandParameter"
+                                        Value="{Binding Header, RelativeSource={RelativeSource Self}}" />
+                            </Style>
+                        </MenuItem.Resources>
+                        <MenuItem Header="Red" />
+                        <MenuItem Header="Green" />
+                        <MenuItem Header="Blue" />
+                        <MenuItem Header="Orange" />
+                        <MenuItem Header="Purple" />
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="View Whitespace" IsCheckable="True"
+                          IsChecked="{Binding ShowSpaces, BindsDirectlyToSource=True, Source={x:Static classes:EditorOptions.Instance}}" />
+                <MenuItem Header="View EOL" IsCheckable="True"
+                          IsChecked="{Binding ShowEndOfLine, Source={x:Static classes:EditorOptions.Instance}}" />
+                <MenuItem Header="View Tabs" IsCheckable="True"
+                          IsChecked="{Binding ShowTabs, Source={x:Static classes:EditorOptions.Instance}}" />
+                <MenuItem Header="Wordwrap" IsCheckable="True"
+                          IsChecked="{Binding WrapWords, Source={x:Static classes:EditorOptions.Instance}}" />
+                <MenuItem Header="Line Numbers" IsCheckable="True"
+                          IsChecked="{Binding ShowLineNumbers, BindsDirectlyToSource=True, Source={x:Static classes:EditorOptions.Instance}}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/resources-line_numbers.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-    </Menu>
-    <!--AnchorablesSource="{Binding Tools}" DocumentsSource="{Binding Files}"-->
+            <MenuItem Header="View _as">
+                <MenuItem Header="ABB" CommandParameter="ABB" Command="{Binding ChangeViewAsCommand}" />
+                <MenuItem Header="KUKA" CommandParameter="KUKA" Command="{Binding ChangeViewAsCommand}" />
+                <MenuItem Header="Fanuc" CommandParameter="Fanuc" Command="{Binding ChangeViewAsCommand}" />
+                <MenuItem Header="Nachi" CommandParameter="Nachi" Command="{Binding ChangeViewAsCommand}" />
+                <MenuItem Header="Kawasaki" CommandParameter="Kawasaki" Command="{Binding ChangeViewAsCommand}" />
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem Header="Angle Converter" CommandParameter="Angle Converter"
+                          Command="{Binding AddToolCommand}" />
+            </MenuItem>
+            <MenuItem Header="Window">
+                <MenuItem Header="Windows">
+                    <MenuItem Header="Functions" CommandParameter="Functions" Command="{Binding AddToolCommand}" />
+                    <MenuItem Header="Object Browser" CommandParameter="Object Browser"
+                              Command="{Binding AddToolCommand}" />
+                    <MenuItem Header="Explorer" CommandParameter="Explorer" Command="{Binding AddToolCommand}" />
+                    <MenuItem Header="Angle Converter" CommandParameter="Angle Converter"
+                              Command="{Binding AddToolCommand}" />
+                    <MenuItem Header="Notes" CommandParameter="Notes" Command="{Binding AddToolCommand}" />
+                    <MenuItem Header="Output Window" CommandParameter="Output Window"
+                              Command="{Binding AddToolCommand}" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Robot" ItemsSource="{Binding ActiveEditor.FileLanguage}">
+                <MenuItem.ItemTemplateSelector>
+                    <selectors:MenuTemplateSelector>
+                        <selectors:MenuTemplateSelector.ABBTemplate>
+                            <DataTemplate />
+                        </selectors:MenuTemplateSelector.ABBTemplate>
+                    </selectors:MenuTemplateSelector>
+                </MenuItem.ItemTemplateSelector>
+                <MenuItem Header="Archive Viewer" CommandParameter="ArchiveInfo" Command="{Binding AddToolCommand}" />
+                <MenuItem Header="Shift Program" CommandParameter="Shift" Command="{Binding AddToolCommand}" />
+                <MenuItem Header="KUKA">
+                    <MenuItem Header="test">
+                        <MenuItem.ItemTemplate>
+                            <HierarchicalDataTemplate ItemsSource="{Binding ActiveEditor.FileLanguage.MenuItems}" />
+                        </MenuItem.ItemTemplate>
+                    </MenuItem>
+                    <MenuItem Header="CleanDat" CommandParameter="CleanDat" Command="{Binding AddToolCommand}" />
+                    <MenuItem Header="Rename Positions" Command="{Binding AddToolCommand}" />
+                    <MenuItem Header="ReverseOrder" />
+                    <MenuItem Header="Mirror" />
+                    <MenuItem Header="Adjust Status/Turn" />
+                    <MenuItem Header="Sort DataList" />
+                    <MenuItem Header="View I/O List" />
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_View Help" />
+                <MenuItem Header="Report a _Bug" />
+                <MenuItem Header="_About" Command="{Binding ShowAboutCommand}" />
+            </MenuItem>
+          -->
+        </Menu>
+        <!--AnchorablesSource="{Binding Tools}" DocumentsSource="{Binding Files}"-->
 
     <ToolBarTray Grid.Row="1" SnapsToDevicePixels="True" >
       <ToolBar  VerticalAlignment="Stretch" ToolBarTray.IsLocked="True"
                 SnapsToDevicePixels="True">
-
+       
         <Button Command="Copy" SnapsToDevicePixels="True"
-                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Copy32.png" Height="32" SnapsToDevicePixels="True" />
-        </Button>
-        <Button Command="Cut" SnapsToDevicePixels="True"
-                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Cut32.png" Height="32" SnapsToDevicePixels="True" />
-        </Button>
-        <Button Command="Paste" SnapsToDevicePixels="True"
-                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Paste32.png" Height="32" SnapsToDevicePixels="True" />
-        </Button>
-        <Button Command="Delete" SnapsToDevicePixels="True"
-                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Delete32.png" Height="32"/>
-        </Button>
-        <Separator Margin="3"/>
+                Content="{materialDesign:PackIcon Kind=ContentCopy}"
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
 
-        <Button Command="Undo" SnapsToDevicePixels="True"
-              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Undo32.png" Height="32"/>
-        </Button>
-        <Button Command="Redo" SnapsToDevicePixels="True"
-              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}">
-          <Image Source="pack://application:,,,/RobotTools;component/Images/App/Edit_Redo32.png" Height="32"/>
-        </Button>
+          <Button Command="Cut" SnapsToDevicePixels="True"
+                  Content="{materialDesign:PackIcon Kind=ContentCut}"
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
 
-        <Separator Margin="3" />
+          <Button Command="Paste" SnapsToDevicePixels="True"
+                  Content="{materialDesign:PackIcon Kind=ContentPaste}"
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
 
-        <ToggleButton IsChecked="{Binding ActiveDocument.WordWrap, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+          <Button Command="Delete" SnapsToDevicePixels="True"
+                  Content="{materialDesign:PackIcon Kind=Delete}"
+                ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+          <Separator Margin="3"/>
+
+          <Button Command="Undo" SnapsToDevicePixels="True"
+                                  Content="{materialDesign:PackIcon Kind=Undo}"
+
+              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+          <Button Command="Redo" SnapsToDevicePixels="True"
+                                    Content="{materialDesign:PackIcon Kind=Redo}"
+
+              ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Command.Text}"/>
+
+
+          <Separator Margin="3" />
+
+          <ToggleButton IsChecked="{Binding ActiveDocument.WordWrap, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.WordWrap}"
                       ToolTip="Click this button to switch word wrap on or off"
-                      >
-                    <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowWordWrap32.png" Height="32"/>
-                </ToggleButton>
+                                        Content="{materialDesign:PackIcon Kind=Wrap}"
+                      />
 
-        <ToggleButton IsChecked="{Binding ActiveDocument.ShowLineNumbers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+
+          <!--<ToggleButton IsChecked="{Binding ActiveDocument.ShowLineNumbers, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       Command="{Binding ToggleEditorOptionCommand}"
                       CommandParameter="{x:Static vm:ToggleEditorOption.ShowLineNumber}"
                       ToolTip="Click this button to switch display of line numbers on or off">
           <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowLineNumbers32.png" Height="32"/>
-        </ToggleButton>
+        </ToggleButton>-->
 
-        <ToggleButton IsChecked="{Binding ActiveDocument.TextOptions.ShowEndOfLine, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+        <!--<ToggleButton IsChecked="{Binding ActiveDocument.TextOptions.ShowEndOfLine, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
               Command="{Binding ToggleEditorOptionCommand}"
               CommandParameter="{x:Static vm:ToggleEditorOption.ShowEndOfLine}"
               ToolTip="Highlighted end of line in text (toggle on/off)">
@@ -155,7 +380,7 @@
               CommandParameter="{x:Static vm:ToggleEditorOption.ShowTabs}"
               ToolTip="Highlight tab characters in text (toggle on/off)">
           <Image Source="pack://application:,,,/RobotTools;component/Images/App/ShowTab32.png" Height="32"/>
-        </ToggleButton>
+        </ToggleButton>-->
       </ToolBar>
 
 
@@ -163,8 +388,7 @@
 
       <DockingManager AnchorablesSource="{Binding Tools}"
                                  DocumentsSource="{Binding Files}"
-                                 ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}"
-
+                                 ActiveContent="{Binding ActiveDocument, Mode=TwoWay, Converter={conv:ActiveDocumentConverter}}"
                                  AVBehav:AvalonDockLayoutSerializer.LoadLayoutCommand="{Binding ADLayout.LoadLayoutCommand}"
                                  AVBehav:AvalonDockLayoutSerializer.SaveLayoutCommand="{Binding ADLayout.SaveLayoutCommand}"
                                  DocumentHeaderTemplate="{StaticResource DocumentHeaderTemplate}"

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows.Input;
 
 using AvalonDock;
@@ -19,72 +20,52 @@ namespace RobotTools.ViewModels
     public class AvalonDockLayoutViewModel
   {
     #region fields
-    private RelayCommand<DockingManager> mLoadLayoutCommand = null;
-    private RelayCommand<string> mSaveLayoutCommand = null;
-    #endregion fields
+        #endregion fields
 
-    #region command properties
-    /// <summary>
-    /// Implement a command to load the layout of an AvalonDock-DockingManager instance.
-    /// This layout defines the position and shape of each document and tool window
-    /// displayed in the application.
-    ///
-    /// Parameter:
-    /// The command expects a reference to a <seealso cref="DockingManager"/> instance to
-    /// work correctly. Not supplying that reference results in not loading a layout (silent return).
-    /// </summary>
-    public ICommand LoadLayoutCommand
-    {
-      get
-      {
-        if (mLoadLayoutCommand == null)
+
+        #region command properties
+        /// <summary>
+        /// Implement a command to load the layout of an AvalonDock-DockingManager instance.
+        /// This layout defines the position and shape of each document and tool window
+        /// displayed in the application.
+        ///
+        /// Parameter:
+        /// The command expects a reference to a <seealso cref="DockingManager"/> instance to
+        /// work correctly. Not supplying that reference results in not loading a layout (silent return).
+        /// </summary>
+        private RelayCommand<DockingManager> _loadLayoutCommand = null;
+        public ICommand LoadLayoutCommand => _loadLayoutCommand ?? (_loadLayoutCommand = new RelayCommand<DockingManager>(ExecuteLoadLayoutCommand));
+    
+        private void ExecuteLoadLayoutCommand(DockingManager dockingManager)
         {
-          mLoadLayoutCommand = new RelayCommand<DockingManager>((p) =>
-          {
-            DockingManager docManager = p as DockingManager;
 
-            if (docManager == null)
-              return;
+            if (dockingManager == null)
+                return;
 
-            LoadDockingManagerLayout(docManager);
-          });
+            LoadDockingManagerLayout(dockingManager);
         }
 
-        return mLoadLayoutCommand;
-      }
-    }
 
-    /// <summary>
-    /// Implements a command to save the layout of an AvalonDock-DockingManager instance.
-    /// This layout defines the position and shape of each document and tool window
-    /// displayed in the application.
-    ///
-    /// Parameter:
-    /// The command expects a reference to a <seealso cref="string"/> instance to
-    /// work correctly. The string is supposed to contain the XML layout persisted
-    /// from the DockingManager instance. Not supplying that reference to the string
-    /// results in not saving a layout (silent return).
-    /// </summary>
-    public ICommand SaveLayoutCommand
-    {
-      get
-      {
-        if (mSaveLayoutCommand == null)
-        {
-          mSaveLayoutCommand = new RelayCommand<string>((p) =>
-          {
-            string xmlLayout = p as string;
 
-            if (xmlLayout == null)
-              return;
+        /// <summary>
+        /// Implements a command to save the layout of an AvalonDock-DockingManager instance.
+        /// This layout defines the position and shape of each document and tool window
+        /// displayed in the application.
+        ///
+        /// Parameter:
+        /// The command expects a reference to a <seealso cref="string"/> instance to
+        /// work correctly. The string is supposed to contain the XML layout persisted
+        /// from the DockingManager instance. Not supplying that reference to the string
+        /// results in not saving a layout (silent return).
+        /// </summary>
+        private RelayCommand<string> _saveLayoutCommand = null;
+        public ICommand SaveLayoutCommand => _saveLayoutCommand ?? (_saveLayoutCommand = new RelayCommand<string>(ExecuteSaveLayoutCommand));
 
+        private void ExecuteSaveLayoutCommand(string xmlLayout) {
+            if (xmlLayout == null) return;
             SaveDockingManagerLayout(xmlLayout);
-          });
         }
 
-        return mSaveLayoutCommand;
-      }
-    }
     #endregion command properties
 
     #region methods

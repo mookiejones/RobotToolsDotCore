@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RobotTools.ViewModels.Base
+﻿namespace RobotTools.ViewModels.Base
 {
     class ToolViewModel : PaneViewModel
     {
