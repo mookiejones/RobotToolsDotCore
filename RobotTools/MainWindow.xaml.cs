@@ -1,6 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.DependencyInjection;
-
+using RobotTools.UI.Editor;
 using RobotTools.ViewModels;
 
 namespace RobotTools
@@ -19,5 +19,7 @@ namespace RobotTools
 
            dataContext.InitCommandBinding(this);
         }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e) => EditorCommands.Register(this);
     }
 }

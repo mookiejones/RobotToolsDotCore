@@ -10,6 +10,7 @@
         xmlns:conv="clr-namespace:RobotTools.Converter"
         xmlns:pane="clr-namespace:RobotTools.View.Pane"
         xmlns:vm="clr-namespace:RobotTools.ViewModels"
+        xmlns:avalon="clr-namespace:RobotTools.UI.Editor;assembly=RobotTools.UI"
                   xmlns:ex="clr-namespace:RobotTools.UI.Extension;assembly=RobotTools.UI"
          d:DesignHeight="450"
          d:DesignWidth="800"
@@ -24,7 +25,7 @@
                    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro" xmlns:view="clr-namespace:RobotTools.View" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:mru="clr-namespace:RobotTools.Controls.MRU"
                   Dialog:DialogParticipation.Register="{Binding}"
       d:DataContext="{d:DesignInstance Type=vm:WorkspaceViewModel,IsDesignTimeCreatable=True}"
-                Title="Robot Tools"
+                Title="Robot Tools" Loaded="WindowLoaded"
                   >
     <!--<mah:MetroWindow.Title>
         <Binding Mode="OneWay" StringFormat="RobotTools:\= \{0\}"   Path="ActiveDocument.Title"/>
@@ -86,8 +87,18 @@
         <MenuItem Header="_Open" DataContext="{Binding OpenFileCommand, Mode=OneWay}"
                   Icon="{materialDesign:PackIcon Kind=FolderOpen}"
                           Command="{Binding Mode=OneWay}"/>
+        <MenuItem Header="_Sav2'e"
+                  CommandParameter="{Binding ActiveDocument}"
 
-        <MenuItem Header="_Save" Command="{Binding ActiveDocument.SaveCommand, Mode=OneWay}"
+                   
+                  Command="{x:Static avalon:EditorCommands.SaveCommand}"
+                  Icon="{materialDesign:PackIcon Kind=ContentSave}"/>
+
+        <MenuItem Header="_Save"
+                  CommandParameter="{Binding ActiveDocument}"
+
+                   
+                  Command="{Binding ActiveDocument.SaveCommand, Mode=OneWay}"
                   Icon="{materialDesign:PackIcon Kind=ContentSave}"/>
 
         <MenuItem Header="Save _As" Command="{Binding ActiveDocument.SaveAsCommand, Mode=OneWay}"

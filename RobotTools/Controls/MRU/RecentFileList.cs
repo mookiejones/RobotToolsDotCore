@@ -36,12 +36,12 @@ namespace RobotTools.Controls.MRU
 
         private IPersist Persister { get; set; }
 
-        public void UseRegistryPersister() { Persister = new RegistryPersister(); }
-        public void UseRegistryPersister(string key) { Persister = new RegistryPersister(key); }
+        public void UseRegistryPersister() => Persister = new RegistryPersister();
+        public void UseRegistryPersister(string key) => Persister = new RegistryPersister(key);
 
-        public void UseXmlPersister() { Persister = new XmlPersister(); }
-        public void UseXmlPersister(string filepath) { Persister = new XmlPersister(filepath); }
-        public void UseXmlPersister(Stream stream) { Persister = new XmlPersister(stream); }
+        public void UseXmlPersister() => Persister = new XmlPersister();
+        public void UseXmlPersister(string filepath) => Persister = new XmlPersister(filepath);
+        public void UseXmlPersister(Stream stream) => Persister = new XmlPersister(stream);
 
         private int MaxNumberOfFiles { get; set; }
         private int MaxPathLength { get; set; }
@@ -95,13 +95,10 @@ namespace RobotTools.Controls.MRU
         }
 
         public List<string> RecentFiles { get { return Persister.RecentFiles(MaxNumberOfFiles); } }
-        public void RemoveFile(string filepath) { Persister.RemoveFile(filepath, MaxNumberOfFiles); }
-        public void InsertFile(string filepath) { Persister.InsertFile(filepath, MaxNumberOfFiles); }
+        public void RemoveFile(string filepath) => Persister.RemoveFile(filepath, MaxNumberOfFiles);
+        public void InsertFile(string filepath) => Persister.InsertFile(filepath, MaxNumberOfFiles);
 
-        void FileMenuSubmenuOpened(object sender, RoutedEventArgs e)
-        {
-            SetMenuItems();
-        }
+        void FileMenuSubmenuOpened(object sender, RoutedEventArgs e) => SetMenuItems();
 
         void SetMenuItems()
         {
@@ -273,10 +270,7 @@ namespace RobotTools.Controls.MRU
             return pathname;
         }
 
-        void LoadRecentFiles()
-        {
-            _recentFiles = LoadRecentFilesCore();
-        }
+        void LoadRecentFiles() => _recentFiles = LoadRecentFilesCore();
 
         List<RecentFile> LoadRecentFilesCore()
         {
@@ -403,7 +397,7 @@ namespace RobotTools.Controls.MRU
                 RegistryKey = key;
             }
 
-            static string Key(int i) { return i.ToString("00"); }
+            static string Key(int i) => i.ToString("00");
 
             public List<string> RecentFiles(int max)
             {
@@ -513,20 +507,11 @@ again:
                 Stream = stream;
             }
 
-            public List<string> RecentFiles(int max)
-            {
-                return Load(max);
-            }
+            public List<string> RecentFiles(int max) => Load(max);
 
-            public void InsertFile(string filepath, int max)
-            {
-                Update(filepath, true, max);
-            }
+            public void InsertFile(string filepath, int max) => Update(filepath, true, max);
 
-            public void RemoveFile(string filepath, int max)
-            {
-                Update(filepath, false, max);
-            }
+            public void RemoveFile(string filepath, int max) => Update(filepath, false, max);
 
             void Update(string filepath, bool insert, int max)
             {
@@ -581,10 +566,7 @@ again:
                 }
             }
 
-            SmartStream OpenStream(FileMode mode)
-            {
-                return !String.IsNullOrEmpty(Filepath) ? new SmartStream(Filepath, mode) : new SmartStream(Stream);
-            }
+            SmartStream OpenStream(FileMode mode) => !String.IsNullOrEmpty(Filepath) ? new SmartStream(Filepath, mode) : new SmartStream(Stream);
 
             List<string> Load(int max)
             {

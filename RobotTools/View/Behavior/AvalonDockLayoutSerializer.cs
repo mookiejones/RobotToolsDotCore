@@ -53,37 +53,31 @@ namespace RobotTools.View.Behavior
         typeof(ICommand),
         typeof(AvalonDockLayoutSerializer),
         new PropertyMetadata(null, OnSaveLayoutCommandChanged));
-    #endregion fields
+        #endregion fields
 
-    #region methods
-    #region Load Layout
-    /// <summary>
-    /// Standard get method of <seealso cref="LoadLayoutCommandProperty"/> dependency property.
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
-    public static ICommand GetLoadLayoutCommand(DependencyObject obj)
-    {
-      return (ICommand)obj.GetValue(LoadLayoutCommandProperty);
-    }
+        #region methods
+        #region Load Layout
+        /// <summary>
+        /// Standard get method of <seealso cref="LoadLayoutCommandProperty"/> dependency property.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static ICommand GetLoadLayoutCommand(DependencyObject obj) => (ICommand)obj.GetValue(LoadLayoutCommandProperty);
 
-    /// <summary>
-    /// Standard set method of <seealso cref="LoadLayoutCommandProperty"/> dependency property.
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <param name="value"></param>
-    public static void SetLoadLayoutCommand(DependencyObject obj, ICommand value)
-    {
-      obj.SetValue(LoadLayoutCommandProperty, value);
-    }
+        /// <summary>
+        /// Standard set method of <seealso cref="LoadLayoutCommandProperty"/> dependency property.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="value"></param>
+        public static void SetLoadLayoutCommand(DependencyObject obj, ICommand value) => obj.SetValue(LoadLayoutCommandProperty, value);
 
-    /// <summary>
-    /// This method is executed if a <seealso cref="LoadLayoutCommandProperty"/> dependency property
-    /// is about to change its value (eg: The framewark assigns bindings).
-    /// </summary>
-    /// <param name="d"></param>
-    /// <param name="e"></param>
-    private static void OnLoadLayoutCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// This method is executed if a <seealso cref="LoadLayoutCommandProperty"/> dependency property
+        /// is about to change its value (eg: The framewark assigns bindings).
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void OnLoadLayoutCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
       FrameworkElement framworkElement = d as FrameworkElement;	  // Remove the handler if it exist to avoid memory leaks
       framworkElement.Loaded -= OnFrameworkElement_Loaded;
@@ -128,36 +122,30 @@ namespace RobotTools.View.Behavior
         loadLayoutCommand.Execute(frameworkElement);
       }
     }
-    #endregion Load Layout
+        #endregion Load Layout
 
-    #region Save Layout
-    /// <summary>
-    /// Standard get method of <seealso cref="SaveLayoutCommandProperty"/> dependency property.
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
-    public static ICommand GetSaveLayoutCommand(DependencyObject obj)
-    {
-      return (ICommand)obj.GetValue(SaveLayoutCommandProperty);
-    }
+        #region Save Layout
+        /// <summary>
+        /// Standard get method of <seealso cref="SaveLayoutCommandProperty"/> dependency property.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static ICommand GetSaveLayoutCommand(DependencyObject obj) => (ICommand)obj.GetValue(SaveLayoutCommandProperty);
 
-    /// <summary>
-    /// Standard get method of <seealso cref="SaveLayoutCommandProperty"/> dependency property.
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <param name="value"></param>
-    public static void SetSaveLayoutCommand(DependencyObject obj, ICommand value)
-    {
-      obj.SetValue(SaveLayoutCommandProperty, value);
-    }
+        /// <summary>
+        /// Standard get method of <seealso cref="SaveLayoutCommandProperty"/> dependency property.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="value"></param>
+        public static void SetSaveLayoutCommand(DependencyObject obj, ICommand value) => obj.SetValue(SaveLayoutCommandProperty, value);
 
-    /// <summary>
-    /// This method is executed if a <seealso cref="SaveLayoutCommandProperty"/> dependency property
-    /// is about to change its value (eg: The framewark assigns bindings).
-    /// </summary>
-    /// <param name="d"></param>
-    /// <param name="e"></param>
-    private static void OnSaveLayoutCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        /// <summary>
+        /// This method is executed if a <seealso cref="SaveLayoutCommandProperty"/> dependency property
+        /// is about to change its value (eg: The framewark assigns bindings).
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void OnSaveLayoutCommandChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
       FrameworkElement framworkElement = d as FrameworkElement;	  // Remove the handler if it exist to avoid memory leaks
       framworkElement.Unloaded -= OnFrameworkElement_Saveed;

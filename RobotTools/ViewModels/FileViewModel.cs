@@ -14,7 +14,7 @@ using RobotTools.UI.Editor;
 
 namespace RobotTools.ViewModels
 {
-    class FileViewModel : PaneViewModel
+    partial class FileViewModel : PaneViewModel
   {
 
         private WorkspaceViewModel Workspace => Ioc.Default.GetRequiredService<WorkspaceViewModel>();
@@ -285,86 +285,27 @@ namespace RobotTools.ViewModels
         }
       }
     }
-    #endregion EditorOptions
+        #endregion EditorOptions
 
-    #region SaveCommand
-    RelayCommand<FileViewModel> _saveCommand = null;
-    public ICommand SaveCommand
-    {
-      get
-      {
-        if (_saveCommand == null)
-        {
-          _saveCommand = new RelayCommand<FileViewModel>(OnSave, CanSave);
-        }
+        [RelayCommand(CanExecute =nameof(CanSave))]
+    private void Save(FileViewModel parameter)=> Workspace.Save(parameter, false);
+        
 
-        return _saveCommand;
-      }
+    private static bool CanSave(FileViewModel parameter)=>parameter != null && parameter.IsDirty;
+        
+
+    
+
+     
+
+        private static bool CanSaveAs(FileViewModel parameter) => parameter != null && parameter.IsDirty;
+
+        [RelayCommand(CanExecute = nameof(CanSaveAs))]
+        private void SaveAs(FileViewModel parameter) => Workspace.Save(parameter, true);
+
+
+        [RelayCommand]
+        private void Close(FileViewModel viewModel) => Workspace.Close(viewModel);
+
     }
-
-    private bool CanSave(FileViewModel parameter)
-    {
-      return parameter !=null && IsDirty;
-    }
-
-    private void OnSave(FileViewModel parameter)
-    {
-            Workspace.Save(this, false);
-    }
-
-    #endregion
-
-    #region SaveAsCommand
-    RelayCommand<FileViewModel> _saveAsCommand = null;
-    public ICommand SaveAsCommand
-    {
-      get
-      {
-        if (_saveAsCommand == null)
-        {
-          _saveAsCommand = new RelayCommand<FileViewModel>(OnSaveAs,CanSaveAs);
-        }
-
-        return _saveAsCommand;
-      }
-    }
-
-    private bool CanSaveAs(FileViewModel parameter)
-    {
-      return parameter !=null && IsDirty;
-    }
-
-    private void OnSaveAs(FileViewModel parameter)
-    {
-            Workspace.Save(this, true);
-    }
-
-    #endregion
-
-    #region CloseCommand
-    RelayCommand _closeCommand = null;
-    public ICommand CloseCommand
-    {
-      get
-      {
-        if (_closeCommand == null)
-        {
-          _closeCommand = new RelayCommand(OnClose, CanClose);
-        }
-
-        return _closeCommand;
-      }
-    }
-
-    private bool CanClose()
-    {
-      return true;
-    }
-
-    private void OnClose()
-    {
-            Workspace.Close(this);
-    }
-    #endregion
-  }
 }

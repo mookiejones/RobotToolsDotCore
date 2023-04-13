@@ -1,6 +1,8 @@
-﻿namespace RobotTools.ViewModels.Base
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace RobotTools.ViewModels.Base
 {
-    class ToolViewModel : PaneViewModel
+    partial class ToolViewModel : PaneViewModel
     {
         public ToolViewModel(string name)
         {
@@ -14,24 +16,9 @@
             private set;
         }
 
+        [ObservableProperty]
+        private bool isVisible = true;
 
-        #region IsVisible
-
-        private bool _isVisible = true;
-        public bool IsVisible
-        {
-            get { return _isVisible; }
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    OnPropertyChanged("IsVisible");
-                }
-            }
-        }
-
-        #endregion
 
 
     }

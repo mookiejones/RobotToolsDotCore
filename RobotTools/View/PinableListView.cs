@@ -12,19 +12,10 @@ namespace RobotTools.View
                       new FrameworkPropertyMetadata(typeof(PinableListView)));
         }
 
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new PinableListViewItem();
-        }
+        protected override DependencyObject GetContainerForItemOverride() => new PinableListViewItem();
 
-        protected override bool IsItemItsOwnContainerOverride(object item)
-        {
-            return item is PinableListViewItem;
-        }
+        protected override bool IsItemItsOwnContainerOverride(object item) => item is PinableListViewItem;
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
+        public override void OnApplyTemplate() => base.OnApplyTemplate();
     }
 }

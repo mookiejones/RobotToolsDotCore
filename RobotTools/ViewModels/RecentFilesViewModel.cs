@@ -1,12 +1,12 @@
 ﻿using System.Windows.Media;
-
+using CommunityToolkit.Mvvm.ComponentModel;
 using RobotTools.Controls.MRU;
 
 namespace RobotTools.ViewModels
 {
-    class RecentFilesViewModel : Base.ToolViewModel
+    partial class RecentFilesViewModel : Base.ToolViewModel
     {
-        private MRUListVM mMruList;
+       
         #region fields
         static ImageSourceConverter ISC = new ImageSourceConverter();
         #endregion fields
@@ -18,30 +18,17 @@ namespace RobotTools.ViewModels
             ////Workspace.This.ActiveDocumentChanged += new EventHandler(OnActiveDocumentChanged);
             ContentId = ToolContentId;
 
-            mMruList = new MRUListVM();
+            mruList = new MRUListVM();
             //IconSource= ISC.ConvertFromInvariantString(@"pack://application:,,,/RobotTools;component/Controls/MRU/images/NoPin16.png") as ImageSource;
 
             //new Uri("pack://application:,,,/RobotTools;component/ViewModels/MRU/Images/NoPin16.png", UriKind.RelativeOrAbsolute);
         }
 
-       
 
-        public MRUListVM MruList
-        {
-            get
-            {
-                return mMruList;
-            }
 
-            private set
-            {
-                if (mMruList != value)
-                {
-                    mMruList = value;
-                    NotifyPropertyChanged(() => MruList);
-                }
-            }
-        }
+        [ObservableProperty]
+        private MRUListVM mruList;
+        
 
         public void AddNewEntryIntoMRU(string filePath)
         {
@@ -50,8 +37,8 @@ namespace RobotTools.ViewModels
                 MRUEntryVM e = new MRUEntryVM() { IsPinned = false, PathFileName = filePath };
 
                 MruList.AddMRUEntry(e);
+                OnPropertyChanged(nameof(MruList));
 
-                NotifyPropertyChanged(() => MruList);
             }
         }
     }

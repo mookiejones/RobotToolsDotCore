@@ -26,20 +26,14 @@ namespace RobotTools.View
         ///
         /// The obj.
         ///
-        public static bool GetStretch(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(StretchProperty);
-        }
+        public static bool GetStretch(DependencyObject obj) => (bool)obj.GetValue(StretchProperty);
 
         ///
         /// Sets the stretch.
         ///
         /// The obj.
         /// if set to true [value].
-        public static void SetStretch(DependencyObject obj, bool value)
-        {
-            obj.SetValue(StretchProperty, value);
-        }
+        public static void SetStretch(DependencyObject obj, bool value) => obj.SetValue(StretchProperty, value);
 
         ///
         /// Called when [coerce stretch].

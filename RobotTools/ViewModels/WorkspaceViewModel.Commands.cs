@@ -31,10 +31,7 @@ namespace RobotTools.ViewModels
             }
         }
 
-        private bool CanNew()
-        {
-            return true;
-        }
+        private bool CanNew() => true;
 
         private void OnNew()
         {
@@ -59,10 +56,7 @@ namespace RobotTools.ViewModels
             }
         }
 
-        private bool CanOpen()
-        {
-            return true;
-        }
+        private bool CanOpen() => true;
 
         private void OnOpen()
         {
@@ -98,20 +92,11 @@ namespace RobotTools.ViewModels
         private RelayCommand _newFileCommand;
         public RelayCommand NewFileCommand => _newFileCommand ?? (_newFileCommand = new RelayCommand(ExecuteNewFile));
 
-        private void ExecuteNewFile()
-        {
-            throw new NotImplementedException();
-        }
+        private void ExecuteNewFile() => throw new NotImplementedException();
 
-        public void OnFileDrop(string[] filepaths)
-        {
-            throw new NotImplementedException();
-        }
+        public void OnFileDrop(string[] filepaths) => throw new NotImplementedException();
 
-        public void OnFilesDropped(string[] files)
-        {
-            throw new NotImplementedException();
-        }
+        public void OnFilesDropped(string[] files) => throw new NotImplementedException();
         #endregion
 
 

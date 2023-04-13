@@ -18,10 +18,7 @@ namespace RobotTools.View
         #endregion constructor
 
         #region methods
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
+        public override void OnApplyTemplate() => base.OnApplyTemplate();
         #endregion methods
     }
 }
