@@ -1,0 +1,33 @@
+<Project>
+  <PropertyGroup>
+    <Copyright>Copyright © 2023</Copyright>
+    <Company>Mulholland Software/James Willock</Company>
+
+    <LangVersion>11.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <!--
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    -->
+    <Nullable>enable</Nullable>
+    <TargetFrameworks>net7.0-windows</TargetFrameworks>
+
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System"/>
+    <Using Include="System.Collections.Generic"/>
+    <Using Include="System.IO"/>
+    <Using Include="System.Linq"/>
+    <Using Include="System.Text"/>
+    <Using Include="System.Threading.Tasks"/>
+    <Using Include="System.Windows"/>
+    <Using Include="System.Windows.Input"/>
+    <Using Include="System.Windows.Markup"/>
+  </ItemGroup>
+</Project>

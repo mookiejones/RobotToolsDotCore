@@ -19,10 +19,17 @@ namespace RobotTools.Services
 
         public FileService()
         {
+            
 #if DEBUG
-            var files = System.IO.Directory.EnumerateFiles(@"C:\Robots\starlord","*.src",SearchOption.AllDirectories)
-                .Take(3);
-           foreach(var file in files)
+
+            var files = System.IO.Directory.EnumerateFiles(@"C:\Temp\R1", "*.src", SearchOption.AllDirectories);
+
+            if (!files.Any())
+                return;
+
+
+                var items = files.Take(3);
+           foreach(var file in items)
             {
                 Files.Add(file);
             }
