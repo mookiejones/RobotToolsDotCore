@@ -1,15 +1,13 @@
 <Project>
   <PropertyGroup>
-    <Copyright>Copyright © 2023</Copyright>
+    <Copyright>Copyright Â© 2023</Copyright>
     <Company>Mookie Jones</Company>
 
     <LangVersion>preview</LangVersion>
     <ErrorReport>prompt</ErrorReport>
-    <!--
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+<!--    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>-->
     <DelaySign>false</DelaySign>
-    -->
 
     <Nullable>enable</Nullable>
 
