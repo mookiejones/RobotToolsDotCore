@@ -5,6 +5,7 @@
 
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Release;LocalMachine</Configurations>
+    <UserSecretsId>f4d192bd-8fb0-4020-9c74-0173f15196e4</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LocalMachine|AnyCPU'">
     <DefineConstants>TRACE;LOCAL_MACHINE</DefineConstants>
@@ -28,6 +29,7 @@
     <PackageReference Include="Dirkster.AvalonDock.Themes.Expression" Version="4.72.0" />
     <PackageReference Include="Dirkster.AvalonDock.Themes.Metro" Version="4.72.0" />
     <PackageReference Include="MaterialDesignThemes.MahApps" Version="0.2.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
