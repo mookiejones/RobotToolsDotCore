@@ -67,6 +67,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="AngleConverter\AngleConverterView.xaml.cs" />
+    <Compile Include="AngleConverter\AngleConverterViewModel.cs" />
+    <Compile Include="AngleConverter\AngleToolTipConverter.cs" />
+    <Compile Include="AngleConverter\ValueBox.xaml.cs" />
     <Compile Include="DirectorySearcher\DirectorySearcherControl.xaml.cs" />
     <Compile Include="DirectorySearcher\DirectorySearcherViewModel.cs" />
     <Compile Include="DirectorySearcher\DropFilesBehaviorExtension.cs" />
@@ -146,6 +150,9 @@
     <Compile Include="Extension\DropFilesHelper.cs" />
     <Compile Include="Extension\IFilesDropped.cs" />
     <Compile Include="Utilities\ImageHelper.cs" />
+    <Compile Include="ViewModels\Base\ToolViewModel.cs" />
+    <Compile Include="ViewModels\IPaneViewModel.cs" />
+    <Compile Include="ViewModels\PaneViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

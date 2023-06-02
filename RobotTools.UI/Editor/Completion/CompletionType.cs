@@ -1,10 +1,9 @@
-﻿namespace RobotTools.UI.Editor.Completion
+﻿namespace RobotTools.UI.Editor.Completion;
+
+public enum CompletionType
 {
-    public enum CompletionType
-    {
-        Default,
-        ExplicitRequest,
-        CompletionKey,
-        ScopeChange
-    }
+    Default,
+    ExplicitRequest,
+    CompletionKey,
+    ScopeChange
 }

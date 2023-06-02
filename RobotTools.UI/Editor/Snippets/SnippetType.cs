@@ -1,11 +1,10 @@
-﻿namespace RobotTools.UI.Editor.Snippets
+﻿namespace RobotTools.UI.Editor.Snippets;
+
+public partial class SnippetHeader
 {
-    public partial class SnippetHeader
+    public enum SnippetType
     {
-        public enum SnippetType
-        {
-            Expansion,
-            SurroundsWith
-        }
+        Expansion,
+        SurroundsWith
     }
 }

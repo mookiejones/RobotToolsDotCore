@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RobotTools.Controls.Menu
+namespace RobotTools.Controls.Menu;
+
+class MenuImage
 {
-    class MenuImage
-    {
-    }
 }

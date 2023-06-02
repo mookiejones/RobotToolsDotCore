@@ -1,41 +1,40 @@
 ﻿using System.Windows.Input;
-namespace RobotTools.UI.Editor.Bookmarks
+namespace RobotTools.UI.Editor.Bookmarks;
+
+public sealed class ClassMemberBookmark : IBookmark
 {
-    public sealed class ClassMemberBookmark : IBookmark
+    public ClassMemberBookmark(int lineNumber, IImage image)
     {
-        public ClassMemberBookmark(int lineNumber, IImage image)
-        {
-            Image = image;
-            LineNumber = lineNumber;
-        }
+        Image = image;
+        LineNumber = lineNumber;
+    }
 
-        public int LineNumber { get; private set; }
-        public IImage Image { get; private set; }
+    public int LineNumber { get; private set; }
+    public IImage Image { get; private set; }
 
-        public int ZOrder
-        {
-            get { return -10; }
-        }
+    public int ZOrder
+    {
+        get { return -10; }
+    }
 
-        public bool CanDragDrop
-        {
-            get { return false; }
-        }
+    public bool CanDragDrop
+    {
+        get { return false; }
+    }
 
-        public void MouseDown(MouseButtonEventArgs e)
+    public void MouseDown(MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.Left)
         {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                e.Handled = true;
-            }
+            e.Handled = true;
         }
+    }
 
-        public void MouseUp(MouseButtonEventArgs e)
-        {
-        }
+    public void MouseUp(MouseButtonEventArgs e)
+    {
+    }
 
-        public void Drop(int lineNumber)
-        {
-        }
+    public void Drop(int lineNumber)
+    {
     }
 }

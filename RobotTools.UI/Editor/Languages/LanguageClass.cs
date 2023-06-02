@@ -1,6 +1,5 @@
-﻿namespace RobotTools.UI.Editor.Languages
+﻿namespace RobotTools.UI.Editor.Languages;
+
+public class LanguageClass
 {
-    public class LanguageClass
-    {
-    }
 }

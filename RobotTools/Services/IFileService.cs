@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using RobotTools.ViewModels;
 
-namespace RobotTools.Services
+namespace RobotTools.Services;
+
+internal interface IFileService
 {
-    internal interface IFileService
-    {
-        List<string> Files { get; set; }
-        FileViewModel Open(string filePath);
-    }
+    List<string> Files { get; set; }
+    FileViewModel Open(string filePath);
 }

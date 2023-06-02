@@ -2,44 +2,43 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using RobotTools.Controls.MRU;
 
-namespace RobotTools.ViewModels
+namespace RobotTools.ViewModels;
+
+partial class RecentFilesViewModel : UI.ViewModels.Base.ToolViewModel
 {
-    partial class RecentFilesViewModel : Base.ToolViewModel
+   
+    #region fields
+    static ImageSourceConverter ISC = new ImageSourceConverter();
+    #endregion fields
+    public const string ToolContentId = "RecentFilesTool";
+
+    public RecentFilesViewModel()
+      : base("Recent Files")
     {
-       
-        #region fields
-        static ImageSourceConverter ISC = new ImageSourceConverter();
-        #endregion fields
-        public const string ToolContentId = "RecentFilesTool";
+        ////Workspace.This.ActiveDocumentChanged += new EventHandler(OnActiveDocumentChanged);
+        ContentId = ToolContentId;
 
-        public RecentFilesViewModel()
-          : base("Recent Files")
+        mruList = new MRUListVM();
+        //IconSource= ISC.ConvertFromInvariantString(@"pack://application:,,,/RobotTools;component/Controls/MRU/images/NoPin16.png") as ImageSource;
+
+        //new Uri("pack://application:,,,/RobotTools;component/ViewModels/MRU/Images/NoPin16.png", UriKind.RelativeOrAbsolute);
+    }
+
+
+
+    [ObservableProperty]
+    private MRUListVM mruList;
+    
+
+    public void AddNewEntryIntoMRU(string filePath)
+    {
+        if (MruList.FindMRUEntry(filePath) == null)
         {
-            ////Workspace.This.ActiveDocumentChanged += new EventHandler(OnActiveDocumentChanged);
-            ContentId = ToolContentId;
+            var e = new MRUEntryVM() { IsPinned = false, PathFileName = filePath };
 
-            mruList = new MRUListVM();
-            //IconSource= ISC.ConvertFromInvariantString(@"pack://application:,,,/RobotTools;component/Controls/MRU/images/NoPin16.png") as ImageSource;
+            MruList.AddMRUEntry(e);
+            OnPropertyChanged(nameof(MruList));
 
-            //new Uri("pack://application:,,,/RobotTools;component/ViewModels/MRU/Images/NoPin16.png", UriKind.RelativeOrAbsolute);
-        }
-
-
-
-        [ObservableProperty]
-        private MRUListVM mruList;
-        
-
-        public void AddNewEntryIntoMRU(string filePath)
-        {
-            if (MruList.FindMRUEntry(filePath) == null)
-            {
-                MRUEntryVM e = new MRUEntryVM() { IsPinned = false, PathFileName = filePath };
-
-                MruList.AddMRUEntry(e);
-                OnPropertyChanged(nameof(MruList));
-
-            }
         }
     }
 }

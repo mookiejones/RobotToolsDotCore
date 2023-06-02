@@ -4,178 +4,177 @@ using System.Windows.Controls;
 
 using RobotTools.Core.Utilities;
 
-namespace RobotTools.View
+namespace RobotTools.View;
+
+/// <summary>
+/// This PathTrimmingTextBlock textblock attaches itself to the events of a parent container and
+/// displays a trimmed path text when the size of the parent (container) is changed.
+/// 
+/// http://www.codeproject.com/Tips/467054/WPF-PathTrimmingTextBlock
+/// </summary>
+public class PathTrimmingTextBlock : TextBlock
 {
+    #region fields
+    private FrameworkElement mContainer;
+
     /// <summary>
-    /// This PathTrimmingTextBlock textblock attaches itself to the events of a parent container and
-    /// displays a trimmed path text when the size of the parent (container) is changed.
-    /// 
-    /// http://www.codeproject.com/Tips/467054/WPF-PathTrimmingTextBlock
+    /// Path dependency property that stores the trimmed path
     /// </summary>
-    public class PathTrimmingTextBlock : TextBlock
+    private static readonly DependencyProperty PathProperty =
+        DependencyProperty.Register("Path", typeof(string), typeof(PathTrimmingTextBlock), new UIPropertyMetadata(""));
+    #endregion fields
+
+    #region constructor
+    /// <summary>
+    /// Class Constructor
+    /// </summary>
+    public PathTrimmingTextBlock()
     {
-        #region fields
-        private FrameworkElement mContainer;
+        mContainer = null;
 
-        /// <summary>
-        /// Path dependency property that stores the trimmed path
-        /// </summary>
-        private static readonly DependencyProperty PathProperty =
-            DependencyProperty.Register("Path", typeof(string), typeof(PathTrimmingTextBlock), new UIPropertyMetadata(""));
-        #endregion fields
+        Loaded += new RoutedEventHandler(PathTrimmingTextBlock_Loaded);
+        Unloaded += new RoutedEventHandler(PathTrimmingTextBlock_Unloaded);
+    }
+    #endregion constructor
 
-        #region constructor
-        /// <summary>
-        /// Class Constructor
-        /// </summary>
-        public PathTrimmingTextBlock()
+    #region properties
+    /// <summary>
+    /// Path dependency property that stores the trimmed path
+    /// </summary>
+    public string Path
+    {
+        get => (string)GetValue(PathProperty);
+        set => SetValue(PathProperty, value);
+    }
+    #endregion properties
+
+    #region methods
+    /// <summary>
+    /// Textblock is constructed and start its live - lets attach to the
+    /// size changed event handler of the containing parent.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    void PathTrimmingTextBlock_Loaded(object sender, RoutedEventArgs e)
+    {
+        var p = Parent as FrameworkElement;
+
+        if (p != null)
         {
-            mContainer = null;
-
-            Loaded += new RoutedEventHandler(PathTrimmingTextBlock_Loaded);
-            Unloaded += new RoutedEventHandler(PathTrimmingTextBlock_Unloaded);
+            mContainer = p;
         }
-        #endregion constructor
-
-        #region properties
-        /// <summary>
-        /// Path dependency property that stores the trimmed path
-        /// </summary>
-        public string Path
+        else
         {
-            get { return (string)GetValue(PathProperty); }
-            set { SetValue(PathProperty, value); }
-        }
-        #endregion properties
+            var dp = Parent as DependencyObject;
 
-        #region methods
-        /// <summary>
-        /// Textblock is constructed and start its live - lets attach to the
-        /// size changed event handler of the containing parent.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void PathTrimmingTextBlock_Loaded(object sender, RoutedEventArgs e)
-        {
-            FrameworkElement p = Parent as FrameworkElement;
-
-            if (p != null)
+            if (dp != null)
             {
+                for (DependencyObject parent = LogicalTreeHelper.GetParent(dp as DependencyObject);
+                     parent != null;
+                     parent = LogicalTreeHelper.GetParent(parent as DependencyObject))
+                {
+                    p = parent as FrameworkElement;
+
+                    if (p != null)
+                        break;
+                }
+
                 mContainer = p;
             }
-            else
-            {
-                DependencyObject dp = Parent as DependencyObject;
-
-                if (dp != null)
-                {
-                    for (DependencyObject parent = LogicalTreeHelper.GetParent(dp as DependencyObject);
-                         parent != null;
-                         parent = LogicalTreeHelper.GetParent(parent as DependencyObject))
-                    {
-                        p = parent as FrameworkElement;
-
-                        if (p != null)
-                            break;
-                    }
-
-                    mContainer = p;
-                }
-            }
-
-            if (mContainer != null)
-            {
-                mContainer.SizeChanged += new SizeChangedEventHandler(container_SizeChanged);
-
-                Text = GetTrimmedPath(mContainer.ActualWidth);
-            }
-            //// else
-            ////  throw new InvalidOperationException("PathTrimmingTextBlock must have a container such as a Grid.");
         }
 
-        /// <summary>
-        /// Remove custom event handlers and clean-up on unload.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void PathTrimmingTextBlock_Unloaded(object sender, RoutedEventArgs e)
+        if (mContainer != null)
         {
-            if (mContainer != null)
-                mContainer.SizeChanged -= container_SizeChanged;
+            mContainer.SizeChanged += new SizeChangedEventHandler(container_SizeChanged);
+
+            Text = GetTrimmedPath(mContainer.ActualWidth);
         }
-
-        /// <summary>
-        /// Trim the containing text (path) accordingly whenever the parent container chnages its size.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        void container_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (mContainer != null)
-                Text = GetTrimmedPath(mContainer.ActualWidth);
-        }
-
-        /// <summary>
-        /// Compute the text to display (with ellipsis) that fits the ActualWidth of the container
-        /// </summary>
-        /// <param name="width"></param>
-        /// <returns></returns>
-        string GetTrimmedPath(double width)
-        {
-            string filename = string.Empty;
-            string directory = string.Empty;
-
-            try
-            {
-                filename = System.IO.Path.GetFileName(Path);
-                directory = System.IO.Path.GetDirectoryName(Path);
-            }
-            catch (Exception)
-            {
-                directory = Path;
-                filename = string.Empty;
-            }
-
-            bool widthOK = false;
-            bool changedWidth = false;
-
-            TextBlock block = new TextBlock();
-            block.Style = Style;
-            block.FontWeight = FontWeight;
-            block.FontStyle = FontStyle;
-            block.FontStretch = FontStretch;
-            block.FontSize = FontSize;
-            block.FontFamily = FontFamily;
-
-            do
-            {
-                block.Text = "{0}...{1}".FormatWith(directory, filename);
-                block.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-
-                widthOK = block.DesiredSize.Width < width;
-                //widthOK = formatted.Width < width;
-
-                if (!widthOK)
-                {
-                    if (directory.Length == 0)
-                        return "...\\" + filename;
-
-                    changedWidth = true;
-                    directory = directory.Substring(0, directory.Length - 1);
-                }
-
-            } while (!widthOK);
-
-            if (!changedWidth)
-            {
-                return Path;
-            }
-
-            if (block != null)   // Optimize for speed
-                return block.Text;
-
-            return "{0}...{1}".FormatWith(directory, filename);
-        }
-        #endregion constructor
+        //// else
+        ////  throw new InvalidOperationException("PathTrimmingTextBlock must have a container such as a Grid.");
     }
+
+    /// <summary>
+    /// Remove custom event handlers and clean-up on unload.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    void PathTrimmingTextBlock_Unloaded(object sender, RoutedEventArgs e)
+    {
+        if (mContainer != null)
+            mContainer.SizeChanged -= container_SizeChanged;
+    }
+
+    /// <summary>
+    /// Trim the containing text (path) accordingly whenever the parent container chnages its size.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    void container_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (mContainer != null)
+            Text = GetTrimmedPath(mContainer.ActualWidth);
+    }
+
+    /// <summary>
+    /// Compute the text to display (with ellipsis) that fits the ActualWidth of the container
+    /// </summary>
+    /// <param name="width"></param>
+    /// <returns></returns>
+    string GetTrimmedPath(double width)
+    {
+        string filename = string.Empty;
+        string directory = string.Empty;
+
+        try
+        {
+            filename = System.IO.Path.GetFileName(Path);
+            directory = System.IO.Path.GetDirectoryName(Path);
+        }
+        catch (Exception)
+        {
+            directory = Path;
+            filename = string.Empty;
+        }
+
+        bool widthOK = false;
+        bool changedWidth = false;
+
+        var block = new TextBlock();
+        block.Style = Style;
+        block.FontWeight = FontWeight;
+        block.FontStyle = FontStyle;
+        block.FontStretch = FontStretch;
+        block.FontSize = FontSize;
+        block.FontFamily = FontFamily;
+
+        do
+        {
+            block.Text = "{0}...{1}".FormatWith(directory, filename);
+            block.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+            widthOK = block.DesiredSize.Width < width;
+            //widthOK = formatted.Width < width;
+
+            if (!widthOK)
+            {
+                if (directory.Length == 0)
+                    return "...\\" + filename;
+
+                changedWidth = true;
+                directory = directory.Substring(0, directory.Length - 1);
+            }
+
+        } while (!widthOK);
+
+        if (!changedWidth)
+        {
+            return Path;
+        }
+
+        if (block != null)   // Optimize for speed
+            return block.Text;
+
+        return "{0}...{1}".FormatWith(directory, filename);
+    }
+    #endregion constructor
 }

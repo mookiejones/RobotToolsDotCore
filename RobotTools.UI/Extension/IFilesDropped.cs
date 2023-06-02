@@ -1,7 +1,6 @@
-﻿namespace RobotTools.UI.Extension
+﻿namespace RobotTools.UI.Extension;
+
+public interface IFilesDropped
 {
-    public interface IFilesDropped
-    {
-        void OnFilesDropped(string[] files);
-    }
+    void OnFilesDropped(string[] files);
 }

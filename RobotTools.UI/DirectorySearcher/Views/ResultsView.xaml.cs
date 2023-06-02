@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotTools.UI.DirectorySearcher.Views
+namespace RobotTools.UI.DirectorySearcher.Views;
+
+/// <summary>
+/// Interaction logic for ResultsView.xaml
+/// </summary>
+public partial class ResultsView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for ResultsView.xaml
-    /// </summary>
-    public partial class ResultsView : UserControl
+    public ResultsView()
     {
-        public ResultsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

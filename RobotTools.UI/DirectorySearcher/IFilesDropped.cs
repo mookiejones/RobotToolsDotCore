@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
-namespace RobotTools.UI.DirectorySearcher
+namespace RobotTools.UI.DirectorySearcher;
+
+public interface IFilesDropped
 {
-    public interface IFilesDropped
-    {
-        void OnFilesDropped(IEnumerable<string> files);
-    }
+    void OnFilesDropped(IEnumerable<string> files);
 }

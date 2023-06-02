@@ -2,26 +2,21 @@
 
 using Ionic.Zip;
 
-namespace RobotTools.Core.Utilities
+namespace RobotTools.Core.Utilities;
+
+internal static class ZipFileEx
 {
-    internal static class ZipFileEx
+    public static string GetText(this ZipEntry entry)
     {
-        public static string GetText(this ZipEntry entry)
-        {
-            using (var ms = new MemoryStream())
-            {
+        using var ms = new MemoryStream();
 
-                // Extract the file
-                entry.Extract(ms);
+        // Extract the file
+        entry.Extract(ms);
 
-                ms.Position = 0;
+        ms.Position = 0;
 
-                using (var streamReader = new StreamReader(ms))
-                {
-                    var result = streamReader.ReadToEnd();
-                    return result;
-                }
-            }
-        }
+        using var streamReader = new StreamReader(ms);
+        var result = streamReader.ReadToEnd();
+        return result;
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace RobotTools.UI.DirectorySearcher.Views
+namespace RobotTools.UI.DirectorySearcher.Views;
+
+/// <summary>
+/// Interaction logic for DataGridDirectorySearcher.xaml
+/// </summary>
+public partial class DataGridDirectorySearcher : UserControl
 {
-    /// <summary>
-    /// Interaction logic for DataGridDirectorySearcher.xaml
-    /// </summary>
-    public partial class DataGridDirectorySearcher : UserControl
+    public DataGridDirectorySearcher()
     {
-        public DataGridDirectorySearcher()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

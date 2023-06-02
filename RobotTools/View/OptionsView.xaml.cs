@@ -4,17 +4,16 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using RobotTools.UI.Editor;
 using RobotTools.ViewModels;
 
-namespace RobotTools.View
+namespace RobotTools.View;
+
+/// <summary>
+/// Interaction logic for OptionsView.xaml
+/// </summary>
+public partial class OptionsView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for OptionsView.xaml
-    /// </summary>
-    public partial class OptionsView : UserControl
+    public OptionsView()
     {
-        public OptionsView()
-        {
-            InitializeComponent();
-            
-        }
+        InitializeComponent();
+        
     }
 }

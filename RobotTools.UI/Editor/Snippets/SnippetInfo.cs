@@ -1,45 +1,44 @@
 ﻿using ICSharpCode.AvalonEdit.Snippets;
-namespace RobotTools.UI.Editor.Snippets
+namespace RobotTools.UI.Editor.Snippets;
+
+public class SnippetInfo
 {
-    public class SnippetInfo
+    public string Version
     {
-        public string Version
+        get;
+        set;
+    }
+    public string Path
+    {
+        get;
+        private set;
+    }
+    public string Filename
+    {
+        get
         {
-            get;
-            set;
-        }
-        public string Path
-        {
-            get;
-            private set;
-        }
-        public string Filename
-        {
-            get
+            if (string.IsNullOrEmpty(Path))
             {
-                if (string.IsNullOrEmpty(Path))
-                {
-                    return string.Empty;
-                }
-                return System.IO.Path.GetFileName(Path);
+                return string.Empty;
             }
+            return System.IO.Path.GetFileName(Path);
         }
-        public SnippetHeader Header
-        {
-            get;
-            set;
-        }
-        public Snippet Snippet
-        {
-            get;
-            set;
-        }
-        public SnippetInfo()
-        {
-        }
-        internal SnippetInfo(string path)
-        {
-            Path = path;
-        }
+    }
+    public SnippetHeader Header
+    {
+        get;
+        set;
+    }
+    public Snippet Snippet
+    {
+        get;
+        set;
+    }
+    public SnippetInfo()
+    {
+    }
+    internal SnippetInfo(string path)
+    {
+        Path = path;
     }
 }

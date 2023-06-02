@@ -1,45 +1,44 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace RobotTools.View
+namespace RobotTools.View;
+
+public class PinableListViewItem : ListViewItem
 {
-    public class PinableListViewItem : ListViewItem
+    private static readonly DependencyProperty IsMouseOverListViewItemProperty =
+        DependencyProperty.Register("IsMouseOverListViewItem",
+                                    typeof(bool),
+                                    typeof(PinableListViewItem),
+                                    new FrameworkPropertyMetadata(IsMouseOverListViewItemChanged));
+
+    public bool IsMouseOverListViewItem
     {
-        private static readonly DependencyProperty IsMouseOverListViewItemProperty =
-            DependencyProperty.Register("IsMouseOverListViewItem",
-                                        typeof(bool),
-                                        typeof(PinableListViewItem),
-                                        new FrameworkPropertyMetadata(IsMouseOverListViewItemChanged));
+        get => (bool)GetValue(IsMouseOverListViewItemProperty);
 
-        public bool IsMouseOverListViewItem
+        set => SetValue(IsMouseOverListViewItemProperty, value);
+    }
+
+    protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
+    {
+        base.OnMouseEnter(e);
+
+        IsMouseOverListViewItem = true;
+    }
+
+    protected override void OnMouseLeave(System.Windows.Input.MouseEventArgs e)
+    {
+        base.OnMouseEnter(e);
+
+        IsMouseOverListViewItem = false;
+    }
+
+    private static void IsMouseOverListViewItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var item = d as PinableListViewItem;
+
+        if (item != null)
         {
-            get { return (bool)GetValue(IsMouseOverListViewItemProperty); }
-
-            set { SetValue(IsMouseOverListViewItemProperty, value); }
-        }
-
-        protected override void OnMouseEnter(System.Windows.Input.MouseEventArgs e)
-        {
-            base.OnMouseEnter(e);
-
-            IsMouseOverListViewItem = true;
-        }
-
-        protected override void OnMouseLeave(System.Windows.Input.MouseEventArgs e)
-        {
-            base.OnMouseEnter(e);
-
-            IsMouseOverListViewItem = false;
-        }
-
-        private static void IsMouseOverListViewItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            PinableListViewItem item = d as PinableListViewItem;
-
-            if (item != null)
-            {
-                item.IsMouseOverListViewItem = (bool)e.NewValue;
-            }
+            item.IsMouseOverListViewItem = (bool)e.NewValue;
         }
     }
 }

@@ -1,48 +1,47 @@
 ﻿using System.Collections.Generic;
-namespace RobotTools.UI.Editor.Snippets
+namespace RobotTools.UI.Editor.Snippets;
+
+public class Declaration
 {
-    public class Declaration
+    private static Dictionary<string, Declaration> _defaults;
+    public static Dictionary<string, Declaration> Defaults
     {
-        private static Dictionary<string, Declaration> _defaults;
-        public static Dictionary<string, Declaration> Defaults
+        get
         {
-            get
+            if (_defaults == null)
             {
-                if (_defaults == null)
+                _defaults = new Dictionary<string, Declaration>
                 {
-                    _defaults = new Dictionary<string, Declaration>
                     {
+                        "$end$", new Declaration
                         {
-                            "$end$", new Declaration
-                            {
-                                Id = "$end$"
-                            }
-                        },
-                        {
-                            "$selection$", new Declaration
-                            {
-                                Id = "$selection$"
-                            }
+                            Id = "$end$"
                         }
-                    };
-                }
-                return _defaults;
+                    },
+                    {
+                        "$selection$", new Declaration
+                        {
+                            Id = "$selection$"
+                        }
+                    }
+                };
             }
+            return _defaults;
         }
-        public string Default
-        {
-            get;
-            set;
-        }
-        public string Id
-        {
-            get;
-            set;
-        }
-        public object ToolTip
-        {
-            get;
-            set;
-        }
+    }
+    public string Default
+    {
+        get;
+        set;
+    }
+    public string Id
+    {
+        get;
+        set;
+    }
+    public object ToolTip
+    {
+        get;
+        set;
     }
 }
