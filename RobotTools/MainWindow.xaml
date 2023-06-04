@@ -84,8 +84,8 @@
               <MenuItem Header="Reload" Command="{Binding ActiveEditor.TextBox.ReloadCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=Reload}"/>
               <Separator />
               <MenuItem Header="_Import" Command="{Binding ImportCommand}" Icon="{materialDesign:PackIcon Kind=Import}"/>
-              <MenuItem Header="Print" Command="ApplicationCommands.Print" Icon="{materialDesign:PackIcon Kind=Printer}"/>
-              <MenuItem Header="Print P_review" Command="ApplicationCommands.PrintPreview" Icon="{materialDesign:PackIcon Kind=PrintPreview}"/>
+              <MenuItem Header="Print" Command="Print" Icon="{materialDesign:PackIcon Kind=Printer}"/>
+              <MenuItem Header="Print P_review" Command="PrintPreview" Icon="{materialDesign:PackIcon Kind=PrintPreview}"/>
               <MenuItem Header="_Close" Command="{Binding CloseCommand}" Icon="{materialDesign:PackIcon Kind=Close}"/>
               <MenuItem Header="Recent _Files">
                           <mru:RecentFileList />
@@ -94,15 +94,15 @@
             </MenuItem>
 
           <MenuItem Header="_Edit">
-            <MenuItem Header="Undo" Command="{Binding ActiveEditor.TextBox.UndoCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=Undo}"/>
-            <MenuItem Header="Redo" Command="{Binding ActiveEditor.TextBox.RedoCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=Redo}" />
+            <MenuItem Header="Undo" Command="Undo" Icon="{materialDesign:PackIcon Kind=Undo}"/>
+            <MenuItem Header="Redo" Command="Redo" Icon="{materialDesign:PackIcon Kind=Redo}" />
             <Separator />
-            <MenuItem Header="Cut" Command="{Binding ActiveEditor.TextBox.CutCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=ContentCut}"/>
-            <MenuItem Header="Copy" Command="{Binding ActiveEditor.TextBox.CopyCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
-            <MenuItem Header="Paste" Command="{Binding ActiveEditor.TextBox.PasteCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
-            <MenuItem Header="_Delete" Command="ApplicationCommands.Delete" ToolTip="Deletes the current line." CommandTarget="{Binding ActiveEditor.TextBox}" Icon="{materialDesign:PackIcon Kind=Delete}" />
+            <MenuItem Header="Cut" Command="Cut" Icon="{materialDesign:PackIcon Kind=ContentCut}"/>
+            <MenuItem Header="Copy" Command="Copy" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+            <MenuItem Header="Paste" Command="Paste" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+            <MenuItem Header="_Delete" Command="Delete" ToolTip="Deletes the current line." CommandTarget="{Binding ActiveEditor.TextBox}" Icon="{materialDesign:PackIcon Kind=Delete}" />
             <MenuItem Header="Delete _Line" Command="ae:AvalonEditCommands.DeleteLine" ToolTip="Deletes the current line." CommandTarget="{Binding ActiveEditor.TextBox}" />
-            <MenuItem Header="Select _All" Command="ApplicationCommands.SelectAll" Icon="{materialDesign:PackIcon Kind=SelectAll}" ToolTip="Select All of Document." CommandTarget="{Binding ActiveEditor.TextBox}"/>
+            <MenuItem Header="Select _All" Command="SelectAll" Icon="{materialDesign:PackIcon Kind=SelectAll}" ToolTip="Select All of Document." CommandTarget="{Binding ActiveEditor.TextBox}"/>
             <Separator />
             <MenuItem Header="Comment Selection" CommandTarget="{Binding ActiveEditor.TextBox}" Icon="{materialDesign:PackIcon Kind=Comment}"/>
 
