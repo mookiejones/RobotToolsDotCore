@@ -81,7 +81,8 @@
 
               <MenuItem Header="Save _As" Command="{Binding ActiveDocument.SaveAsCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=ContentSaveAdd}"/>
               <Separator />
-              <MenuItem Header="Reload" Command="{Binding ActiveEditor.TextBox.ReloadCommand, Mode=OneWay}" Icon="{materialDesign:PackIcon Kind=Reload}"/>
+              <MenuItem Header="Reload" Command="{Binding ActiveEditor.TextBox.ReloadCommand, Mode=OneWay}" CommandParameter="{Binding ActiveDocument}"  Icon="{materialDesign:PackIcon Kind=Reload}"/>
+              <MenuItem Header="Reload2"  Icon="{materialDesign:PackIcon Kind=Reload}" CommandParameter="{Binding ActiveDocument}"  Command="{x:Static avalon:EditorCommands.ReloadCommand}"/>
               <Separator />
               <MenuItem Header="_Import" Command="{Binding ImportCommand}" Icon="{materialDesign:PackIcon Kind=Import}"/>
               <MenuItem Header="Print" Command="Print" Icon="{materialDesign:PackIcon Kind=Printer}"/>

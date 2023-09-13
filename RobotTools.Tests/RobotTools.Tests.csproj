@@ -6,7 +6,7 @@
     <TargetFrameworks>net7.0-windows</TargetFrameworks>
     <IsPackable>false</IsPackable>
 
-    <Configurations>Debug;Release;LocalMachine</Configurations>
+    <Configurations>Debug;Release;LocalMachine;Designer</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LocalMachine|AnyCPU'">

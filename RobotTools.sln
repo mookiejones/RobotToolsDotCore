@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
+# Blend for Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotTools", "RobotTools\RobotTools.csproj", "{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}"
@@ -22,6 +22,9 @@ Global
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Designer|Any CPU = Designer|Any CPU
+		Designer|x64 = Designer|x64
+		Designer|x86 = Designer|x86
 		LocalMachine|Any CPU = LocalMachine|Any CPU
 		LocalMachine|x64 = LocalMachine|x64
 		LocalMachine|x86 = LocalMachine|x86
@@ -36,6 +39,12 @@ Global
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Debug|x64.Build.0 = Debug|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Debug|x86.Build.0 = Debug|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Designer|Any CPU.ActiveCfg = Designer|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Designer|Any CPU.Build.0 = Designer|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Designer|x64.ActiveCfg = Designer|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Designer|x64.Build.0 = Designer|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Designer|x86.ActiveCfg = Designer|Any CPU
+		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.Designer|x86.Build.0 = Designer|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{CA92DA0E-DBA9-4C93-8C39-288C7914FA81}.LocalMachine|x64.ActiveCfg = LocalMachine|Any CPU
@@ -54,6 +63,12 @@ Global
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Debug|x64.Build.0 = Debug|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Debug|x86.Build.0 = Debug|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Designer|Any CPU.ActiveCfg = Designer|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Designer|Any CPU.Build.0 = Designer|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Designer|x64.ActiveCfg = Designer|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Designer|x64.Build.0 = Designer|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Designer|x86.ActiveCfg = Designer|Any CPU
+		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.Designer|x86.Build.0 = Designer|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{EB2A0F36-D009-48BF-98A5-26BC79A5C6F9}.LocalMachine|x64.ActiveCfg = LocalMachine|Any CPU
@@ -72,6 +87,12 @@ Global
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Debug|x64.Build.0 = Debug|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Debug|x86.Build.0 = Debug|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Designer|Any CPU.ActiveCfg = Designer|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Designer|Any CPU.Build.0 = Designer|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Designer|x64.ActiveCfg = Designer|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Designer|x64.Build.0 = Designer|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Designer|x86.ActiveCfg = Designer|Any CPU
+		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.Designer|x86.Build.0 = Designer|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{66DB5BFB-8737-49EC-B242-F0E778E4FC57}.LocalMachine|x64.ActiveCfg = LocalMachine|Any CPU
@@ -90,6 +111,12 @@ Global
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Debug|x64.Build.0 = Debug|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.Debug|x86.Build.0 = Debug|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.Designer|Any CPU.ActiveCfg = Designer|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.Designer|Any CPU.Build.0 = Designer|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.Designer|x64.ActiveCfg = Designer|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.Designer|x64.Build.0 = Designer|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.Designer|x86.ActiveCfg = Designer|Any CPU
+		{24DEC126-CDE8-4921-B040-98101711BFD1}.Designer|x86.Build.0 = Designer|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.LocalMachine|Any CPU.ActiveCfg = LocalMachine|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.LocalMachine|Any CPU.Build.0 = LocalMachine|Any CPU
 		{24DEC126-CDE8-4921-B040-98101711BFD1}.LocalMachine|x64.ActiveCfg = LocalMachine|Any CPU

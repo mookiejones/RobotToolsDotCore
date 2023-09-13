@@ -4,10 +4,13 @@
 
     <TargetFrameworks>net7.0-windows</TargetFrameworks> 
     <UseWPF>true</UseWPF> 
-    <Configurations>Debug;Release;LocalMachine</Configurations>
+    <Configurations>Debug;Release;LocalMachine;Designer</Configurations>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Designer|AnyCPU'">
+    <DefineConstants>TRACE;LOCAL_MACHINE</DefineConstants>
+    <TargetFrameworks>v4.8</TargetFrameworks>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LocalMachine|AnyCPU'">
     <DefineConstants>TRACE;LOCAL_MACHINE</DefineConstants>
   </PropertyGroup>
@@ -85,6 +88,7 @@
     <Compile Include="Editor\AvalonEditor.cs" />
     <Compile Include="Editor\AvalonEditor.Folding.cs" />
     <Compile Include="Editor\AvalonEditor.Partials.cs" />
+    <Compile Include="Editor\AvalonEditor.StaticCommands.cs" />
     <Compile Include="Editor\AvalonEditor.SyntaxHighlighting.cs" />
     <Compile Include="Editor\AvalonEditorExtensions.cs" />
     <Compile Include="Editor\BackgroundRenderer.cs" />

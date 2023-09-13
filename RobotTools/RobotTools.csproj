@@ -4,8 +4,12 @@
     <TargetFrameworks>net7.0-windows</TargetFrameworks>
 
     <UseWPF>true</UseWPF>
-    <Configurations>Debug;Release;LocalMachine</Configurations>
+    <Configurations>Debug;Release;LocalMachine;Designer</Configurations>
     <UserSecretsId>f4d192bd-8fb0-4020-9c74-0173f15196e4</UserSecretsId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Designer|AnyCPU'">
+    <DefineConstants>TRACE;LOCAL_MACHINE</DefineConstants>
+    <TargetFrameworks>v4.8</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LocalMachine|AnyCPU'">
     <DefineConstants>TRACE;LOCAL_MACHINE</DefineConstants>
